@@ -2,28 +2,47 @@
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>ANÁLISE MEGAMENTE</title>
 
 <style>
 
+/* =========================================================
+   ANÁLISE MEGAMENTE
+   SISTEMA FUTURÍSTICO DE LEITURA E SIMULAÇÃO
+========================================================= */
+
 :root{
+
     --bg:#020611;
     --bg2:#071225;
+
     --card:rgba(7,16,32,.94);
+    --card2:rgba(10,24,46,.96);
 
     --verde:#00ff9d;
     --verde2:#00c97b;
+
     --azul:#00b7ff;
+
     --roxo:#8b5cf6;
+
     --amarelo:#ffd166;
+
     --vermelho:#ff4d6d;
-    --branco:#f1f5f9;
-    --cinza:#94a3b8;
+
+    --texto:#f1f5f9;
+    --texto2:#94a3b8;
 
     --linha:rgba(0,255,157,.16);
+
 }
 
 *{
@@ -35,7 +54,9 @@ html{
 }
 
 body{
+
     margin:0;
+
     min-height:100vh;
 
     font-family:
@@ -43,24 +64,28 @@ body{
         Helvetica,
         sans-serif;
 
-    color:var(--branco);
+    color:var(--texto);
 
     background:
+
         radial-gradient(
             circle at 10% 10%,
             rgba(0,255,157,.14),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 90% 10%,
             rgba(0,183,255,.15),
             transparent 30%
         ),
+
         radial-gradient(
             circle at 50% 100%,
             rgba(139,92,246,.14),
             transparent 35%
         ),
+
         linear-gradient(
             135deg,
             #01030a,
@@ -69,12 +94,17 @@ body{
         );
 
     overflow-x:hidden;
+
 }
 
+/* GRADE */
+
 body::before{
+
     content:"";
 
     position:fixed;
+
     inset:0;
 
     pointer-events:none;
@@ -82,10 +112,12 @@ body::before{
     opacity:.12;
 
     background-image:
+
         linear-gradient(
             rgba(0,255,157,.18) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             rgba(0,255,157,.18) 1px,
@@ -100,9 +132,13 @@ body::before{
             black,
             transparent 90%
         );
+
 }
 
+/* BRILHO */
+
 body::after{
+
     content:"";
 
     position:fixed;
@@ -113,38 +149,59 @@ body::after{
     left:50%;
     top:45%;
 
-    transform:translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     pointer-events:none;
 
     background:
+
         radial-gradient(
             circle,
             rgba(0,255,157,.045),
             transparent 65%
         );
+
 }
 
+/* =========================================================
+   CONTAINER
+========================================================= */
+
 .container{
+
     max-width:1250px;
+
     margin:auto;
+
     padding:20px;
 
     position:relative;
+
     z-index:1;
+
 }
 
+/* =========================================================
+   CARDS
+========================================================= */
+
 .card{
+
     position:relative;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(9,20,39,.97),
             rgba(4,12,25,.97)
         );
 
-    border:1px solid rgba(0,255,157,.16);
+    border:
+
+        1px solid
+        rgba(0,255,157,.16);
 
     border-radius:18px;
 
@@ -153,15 +210,21 @@ body::after{
     margin-bottom:20px;
 
     box-shadow:
-        0 15px 45px rgba(0,0,0,.35),
-        inset 0 0 35px rgba(0,255,157,.025);
+
+        0 15px 45px
+        rgba(0,0,0,.35),
+
+        inset 0 0 35px
+        rgba(0,255,157,.025);
 
     backdrop-filter:blur(12px);
 
     overflow:hidden;
+
 }
 
 .card::before{
+
     content:"";
 
     position:absolute;
@@ -173,6 +236,7 @@ body::after{
     height:1px;
 
     background:
+
         linear-gradient(
             90deg,
             transparent,
@@ -181,21 +245,27 @@ body::after{
         );
 
     opacity:.65;
+
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
+
     text-align:center;
 
     padding:42px 20px;
 
     background:
+
         radial-gradient(
             circle at center,
             rgba(0,255,157,.11),
             transparent 60%
         ),
+
         linear-gradient(
             145deg,
             rgba(8,25,42,.98),
@@ -206,10 +276,14 @@ body::after{
         rgba(0,255,157,.27);
 
     box-shadow:
-        0 0 50px rgba(0,255,157,.07);
+
+        0 0 50px
+        rgba(0,255,157,.07);
+
 }
 
 .logo{
+
     font-size:48px;
 
     font-weight:900;
@@ -219,30 +293,46 @@ body::after{
     color:var(--verde);
 
     text-shadow:
-        0 0 8px rgba(0,255,157,.9),
-        0 0 25px rgba(0,255,157,.55),
-        0 0 55px rgba(0,255,157,.20);
+
+        0 0 8px
+        rgba(0,255,157,.9),
+
+        0 0 25px
+        rgba(0,255,157,.55),
+
+        0 0 55px
+        rgba(0,255,157,.20);
+
 }
 
 .logo span{
+
     color:var(--azul);
 
     text-shadow:
-        0 0 10px rgba(0,183,255,.8),
-        0 0 30px rgba(0,183,255,.35);
+
+        0 0 10px
+        rgba(0,183,255,.8),
+
+        0 0 30px
+        rgba(0,183,255,.35);
+
 }
 
 .subtitulo{
+
     margin-top:12px;
 
-    color:var(--cinza);
+    color:var(--texto2);
 
     letter-spacing:3px;
 
     font-size:13px;
+
 }
 
 .status-online{
+
     display:inline-flex;
 
     align-items:center;
@@ -267,9 +357,11 @@ body::after{
     font-size:12px;
 
     font-weight:bold;
+
 }
 
 .status-dot{
+
     width:8px;
     height:8px;
 
@@ -278,25 +370,37 @@ body::after{
     background:var(--verde);
 
     box-shadow:
-        0 0 10px var(--verde);
+        0 0 10px
+        var(--verde);
 
     animation:pulse 1.5s infinite;
+
 }
 
 @keyframes pulse{
 
     0%,100%{
+
         opacity:1;
         transform:scale(1);
+
     }
 
     50%{
+
         opacity:.45;
         transform:scale(.75);
+
     }
+
 }
 
+/* =========================================================
+   TITULOS
+========================================================= */
+
 h2{
+
     margin-top:0;
 
     color:var(--verde);
@@ -304,20 +408,29 @@ h2{
     font-size:19px;
 
     letter-spacing:.5px;
+
 }
 
 h3{
-    color:var(--branco);
+
+    color:var(--texto);
+
 }
 
 .small{
+
     font-size:12px;
-    color:var(--cinza);
+
+    color:var(--texto2);
+
 }
 
-/* INPUTS */
+/* =========================================================
+   INPUTS
+========================================================= */
 
 .grid7{
+
     display:grid;
 
     grid-template-columns:
@@ -326,27 +439,33 @@ h3{
     gap:10px;
 
     margin-top:18px;
+
 }
 
 .giro{
+
     text-align:center;
+
 }
 
 .giro label{
+
     display:block;
 
     margin-bottom:7px;
 
-    color:var(--cinza);
+    color:var(--texto2);
 
     font-size:11px;
 
     font-weight:bold;
 
     letter-spacing:1px;
+
 }
 
 input{
+
     width:100%;
 
     padding:14px 8px;
@@ -367,21 +486,28 @@ input{
     font-size:18px;
 
     font-weight:bold;
+
 }
 
 input:focus{
+
     outline:none;
 
     border-color:var(--verde);
 
     box-shadow:
+
         0 0 15px
         rgba(0,255,157,.18);
+
 }
 
-/* BOTÕES */
+/* =========================================================
+   BOTÕES
+========================================================= */
 
 .actions{
+
     display:flex;
 
     gap:10px;
@@ -389,9 +515,11 @@ input:focus{
     flex-wrap:wrap;
 
     margin-top:18px;
+
 }
 
 button{
+
     border:none;
 
     border-radius:10px;
@@ -403,18 +531,24 @@ button{
     font-weight:bold;
 
     transition:.2s;
+
 }
 
 button:hover{
-    transform:translateY(-2px);
+
+    transform:
+        translateY(-2px);
+
 }
 
 .primary{
+
     flex:1;
 
     color:#00130b;
 
     background:
+
         linear-gradient(
             90deg,
             var(--verde),
@@ -422,16 +556,22 @@ button:hover{
         );
 
     box-shadow:
+
         0 0 20px
         rgba(0,255,157,.12);
+
 }
 
 .secondary{
+
     background:#1e293b;
+
     color:white;
+
 }
 
 .ghost{
+
     background:transparent;
 
     border:
@@ -439,9 +579,15 @@ button:hover{
         rgba(0,183,255,.3);
 
     color:var(--azul);
+
 }
 
+/* =========================================================
+   STATUS
+========================================================= */
+
 .status{
+
     margin-top:15px;
 
     padding:14px;
@@ -455,50 +601,72 @@ button:hover{
         1px solid
         rgba(255,255,255,.06);
 
-    color:var(--cinza);
+    color:var(--texto2);
+
 }
 
-/* GATILHO */
+/* =========================================================
+   GATILHO
+========================================================= */
 
 .trigger{
+
     border:
         2px solid
         rgba(255,209,102,.45);
 
     background:
+
         radial-gradient(
             circle at right,
             rgba(255,209,102,.08),
             transparent 50%
         ),
+
         rgba(25,20,5,.75);
 
     transition:.3s;
+
 }
 
 .trigger.active{
+
     border-color:var(--verde);
 
     box-shadow:
-        0 0 35px rgba(0,255,157,.16),
-        inset 0 0 30px rgba(0,255,157,.05);
+
+        0 0 35px
+        rgba(0,255,157,.16),
+
+        inset 0 0 30px
+        rgba(0,255,157,.05);
+
 }
 
 .trigger.strong{
+
     border-color:var(--azul);
 
     box-shadow:
-        0 0 40px rgba(0,183,255,.16);
+
+        0 0 40px
+        rgba(0,183,255,.16);
+
 }
 
 .trigger.wait{
+
     border-color:
         rgba(255,255,255,.12);
+
 }
 
-/* BADGES */
+/* =========================================================
+   BADGES
+========================================================= */
 
 .badge{
+
     display:inline-block;
 
     padding:6px 10px;
@@ -510,55 +678,71 @@ button:hover{
     font-weight:900;
 
     margin:3px;
+
 }
 
 .green{
+
     background:
         rgba(52,211,153,.14);
 
     color:var(--verde);
+
 }
 
 .yellow{
+
     background:
         rgba(255,209,102,.13);
 
     color:var(--amarelo);
+
 }
 
 .red{
+
     background:
         rgba(255,77,109,.13);
 
     color:var(--vermelho);
+
 }
 
 .blue{
+
     background:
         rgba(0,183,255,.13);
 
     color:var(--azul);
+
 }
 
 .purple{
+
     background:
         rgba(139,92,246,.13);
 
     color:#b794ff;
+
 }
 
-/* METRICAS */
+/* =========================================================
+   METRICAS
+========================================================= */
 
 .metrics{
+
     display:grid;
 
     grid-template-columns:
         repeat(5,1fr);
 
     gap:12px;
+
 }
 
 .metric{
+
     padding:18px;
 
     border-radius:13px;
@@ -571,17 +755,21 @@ button:hover{
         rgba(255,255,255,.06);
 
     text-align:center;
+
 }
 
 .metric .label{
-    color:var(--cinza);
+
+    color:var(--texto2);
 
     font-size:11px;
 
     text-transform:uppercase;
+
 }
 
 .metric .value{
+
     display:block;
 
     margin-top:7px;
@@ -592,23 +780,25 @@ button:hover{
 
     color:white;
 
-    text-shadow:
-        0 0 12px
-        rgba(0,255,157,.15);
 }
 
-/* CANDIDATOS */
+/* =========================================================
+   CANDIDATOS
+========================================================= */
 
 .candidates{
+
     display:grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
     gap:14px;
+
 }
 
 .candidate{
+
     position:relative;
 
     padding:20px;
@@ -616,6 +806,7 @@ button:hover{
     border-radius:15px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(14,28,48,.9),
@@ -625,29 +816,36 @@ button:hover{
     border:
         1px solid
         rgba(0,255,157,.12);
+
 }
 
 .candidate.first{
+
     border:
         2px solid
         var(--verde);
 
     box-shadow:
+
         0 0 25px
         rgba(0,255,157,.08);
+
 }
 
 .position{
-    color:var(--cinza);
+
+    color:var(--texto2);
 
     font-size:12px;
 
     font-weight:bold;
 
     margin-bottom:8px;
+
 }
 
 .num{
+
     width:80px;
     height:80px;
 
@@ -668,6 +866,7 @@ button:hover{
     color:var(--verde);
 
     background:
+
         radial-gradient(
             circle,
             #16243a,
@@ -679,25 +878,33 @@ button:hover{
         var(--azul);
 
     box-shadow:
+
         0 0 22px
         rgba(0,183,255,.15);
+
 }
 
 .first .num{
+
     border-color:var(--verde);
 
     box-shadow:
+
         0 0 25px
         rgba(0,255,157,.18);
+
 }
 
 .score{
+
     font-weight:900;
 
     color:var(--verde);
+
 }
 
 .bar{
+
     height:9px;
 
     margin-top:14px;
@@ -707,12 +914,15 @@ button:hover{
     border-radius:99px;
 
     overflow:hidden;
+
 }
 
 .fill{
+
     height:100%;
 
     background:
+
         linear-gradient(
             90deg,
             var(--verde),
@@ -721,28 +931,33 @@ button:hover{
 
     border-radius:99px;
 
-    box-shadow:
-        0 0 12px
-        rgba(0,255,157,.25);
 }
 
-/* ANALISE */
+/* =========================================================
+   TABELAS
+========================================================= */
 
 .analysis{
+
     display:grid;
 
     grid-template-columns:
         1fr 1fr;
 
     gap:16px;
+
 }
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
+
 }
 
 th,td{
+
     padding:10px;
 
     border-bottom:
@@ -750,17 +965,23 @@ th,td{
         rgba(255,255,255,.06);
 
     text-align:left;
+
 }
 
 th{
-    color:var(--cinza);
+
+    color:var(--texto2);
 
     font-size:11px;
+
 }
 
-/* SETORES */
+/* =========================================================
+   SETORES
+========================================================= */
 
 .sector-grid{
+
     display:grid;
 
     grid-template-columns:
@@ -769,9 +990,11 @@ th{
     gap:12px;
 
     margin-top:15px;
+
 }
 
 .sector-card{
+
     text-align:center;
 
     padding:20px;
@@ -784,9 +1007,11 @@ th{
     border:
         1px solid
         rgba(255,255,255,.07);
+
 }
 
 .sector-number{
+
     font-size:35px;
 
     font-weight:900;
@@ -794,11 +1019,15 @@ th{
     color:var(--verde);
 
     margin:8px;
+
 }
 
-/* PROTEÇÃO */
+/* =========================================================
+   PROTEÇÃO
+========================================================= */
 
 .protection{
+
     margin-top:18px;
 
     padding:18px;
@@ -811,9 +1040,11 @@ th{
     border:
         1px solid
         rgba(0,255,157,.12);
+
 }
 
 .protection-numbers{
+
     display:flex;
 
     flex-wrap:wrap;
@@ -823,9 +1054,11 @@ th{
     gap:8px;
 
     margin-top:15px;
+
 }
 
 .protection-number{
+
     width:42px;
     height:42px;
 
@@ -846,28 +1079,26 @@ th{
     color:var(--verde);
 
     font-weight:bold;
+
 }
 
-/* HISTÓRICO */
-
-.history{
-    max-height:350px;
-
-    overflow:auto;
-}
-
-/* ESTATISTICAS */
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
 
 .stats-grid{
+
     display:grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
     gap:12px;
+
 }
 
 .stat-box{
+
     padding:18px;
 
     border-radius:13px;
@@ -880,9 +1111,11 @@ th{
         rgba(255,255,255,.06);
 
     text-align:center;
+
 }
 
 .stat-value{
+
     font-size:28px;
 
     font-weight:900;
@@ -890,11 +1123,15 @@ th{
     color:var(--verde);
 
     margin-top:6px;
+
 }
 
-/* AVISO */
+/* =========================================================
+   AVISO
+========================================================= */
 
 .warning{
+
     padding:18px;
 
     border-radius:13px;
@@ -911,11 +1148,15 @@ th{
     line-height:1.6;
 
     font-size:13px;
+
 }
 
-/* FOOTER */
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .footer{
+
     text-align:center;
 
     padding:25px;
@@ -925,33 +1166,45 @@ th{
     font-size:11px;
 
     letter-spacing:1px;
+
 }
 
-/* RESPONSIVO */
+/* =========================================================
+   RESPONSIVO
+========================================================= */
 
 @media(max-width:1000px){
 
     .metrics{
+
         grid-template-columns:
             repeat(3,1fr);
+
     }
 
     .sector-grid{
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
+
 }
 
 @media(max-width:900px){
 
     .grid7{
+
         grid-template-columns:
             repeat(4,1fr);
+
     }
 
     .candidates,
     .analysis{
+
         grid-template-columns:1fr;
+
     }
 
 }
@@ -959,70 +1212,102 @@ th{
 @media(max-width:600px){
 
     .container{
+
         padding:10px;
+
     }
 
     .grid7,
     .metrics,
     .sector-grid,
     .stats-grid{
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .logo{
+
         font-size:29px;
+
         letter-spacing:2px;
+
     }
 
     .actions{
+
         flex-direction:column;
+
     }
 
     .primary{
+
         width:100%;
+
     }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<!-- CABEÇALHO -->
+
+<!-- =====================================================
+     CABEÇALHO
+===================================================== -->
 
 <div class="card header">
 
     <div class="logo">
-        🧠 ANÁLISE <span>MEGAMENTE</span>
+
+        🧠 ANÁLISE
+        <span>MEGAMENTE</span>
+
     </div>
 
     <div class="subtitulo">
+
         INTELIGÊNCIA DE LEITURA • RACE • SIMULAÇÃO
+
     </div>
 
     <div class="status-online">
+
         <div class="status-dot"></div>
+
         SISTEMA ONLINE
+
     </div>
 
 </div>
 
 
-<!-- ENTRADA -->
+<!-- =====================================================
+     ENTRADA
+===================================================== -->
 
 <div class="card">
 
 <h2>🎲 Registrar os 7 últimos giros</h2>
 
 <p class="small">
-Informe os números de 0 a 36. A Megamente analisa
-frequência, recência, vizinhança, dúzia, coluna e setor.
+
+Informe os números de 0 a 36.
+A Megamente analisa frequência, recência,
+vizinhança, dúzia, coluna e setor.
+
 </p>
 
-<div class="grid7" id="spinInputs"></div>
+<div
+    class="grid7"
+    id="spinInputs">
+</div>
 
 <div class="actions">
 
@@ -1056,14 +1341,17 @@ frequência, recência, vizinhança, dúzia, coluna e setor.
     class="status"
     id="inputStatus">
 
-Preencha os 7 giros para liberar o gatilho completo.
+Preencha os 7 giros para liberar
+o gatilho completo.
 
 </div>
 
 </div>
 
 
-<!-- GATILHO -->
+<!-- =====================================================
+     GATILHO
+===================================================== -->
 
 <div
     class="card trigger wait"
@@ -1080,7 +1368,9 @@ Aguardando dados suficientes.
 </div>
 
 
-<!-- RESUMO -->
+<!-- =====================================================
+     RESUMO
+===================================================== -->
 
 <div class="card">
 
@@ -1089,36 +1379,97 @@ Aguardando dados suficientes.
 <div class="metrics">
 
 <div class="metric">
-<div class="label">Melhor Dúzia</div>
-<div class="value" id="bestDozen">—</div>
+
+<div class="label">
+Melhor Dúzia
 </div>
+
+<div
+    class="value"
+    id="bestDozen">
+
+—
+
+</div>
+
+</div>
+
 
 <div class="metric">
-<div class="label">Melhor Coluna</div>
-<div class="value" id="bestColumn">—</div>
+
+<div class="label">
+Melhor Coluna
 </div>
+
+<div
+    class="value"
+    id="bestColumn">
+
+—
+
+</div>
+
+</div>
+
 
 <div class="metric">
-<div class="label">Força</div>
-<div class="value" id="triggerScore">—</div>
+
+<div class="label">
+Força
 </div>
+
+<div
+    class="value"
+    id="triggerScore">
+
+—
+
+</div>
+
+</div>
+
 
 <div class="metric">
-<div class="label">Candidatos</div>
-<div class="value" id="candidateCount">—</div>
+
+<div class="label">
+Candidatos
 </div>
+
+<div
+    class="value"
+    id="candidateCount">
+
+—
+
+</div>
+
+</div>
+
 
 <div class="metric">
-<div class="label">Nível</div>
-<div class="value" id="triggerLevel">—</div>
+
+<div class="label">
+Nível
+</div>
+
+<div
+    class="value"
+    id="triggerLevel">
+
+—
+
 </div>
 
 </div>
 
 </div>
 
+</div>
 
-<!-- CANDIDATOS -->
+
+<!-- =====================================================
+     CANDIDATOS
+===================================================== -->
 
 <div class="card">
 
@@ -1129,21 +1480,26 @@ Aguardando dados suficientes.
     id="candidates">
 
 <div class="small">
+
 A análise aparecerá aqui.
-</div>
 
 </div>
 
 </div>
 
+</div>
 
-<!-- DÚZIAS E COLUNAS -->
+
+<!-- =====================================================
+     DÚZIAS E COLUNAS
+===================================================== -->
 
 <div class="card">
 
 <h2>📌 Dúzias e Colunas</h2>
 
 <div class="analysis">
+
 
 <div>
 
@@ -1152,14 +1508,20 @@ A análise aparecerá aqui.
 <table>
 
 <thead>
+
 <tr>
+
 <th>Entrada</th>
 <th>Força</th>
 <th>Leitura</th>
+
 </tr>
+
 </thead>
 
-<tbody id="dozenTable"></tbody>
+<tbody
+    id="dozenTable">
+</tbody>
 
 </table>
 
@@ -1173,14 +1535,20 @@ A análise aparecerá aqui.
 <table>
 
 <thead>
+
 <tr>
+
 <th>Entrada</th>
 <th>Força</th>
 <th>Leitura</th>
+
 </tr>
+
 </thead>
 
-<tbody id="columnTable"></tbody>
+<tbody
+    id="columnTable">
+</tbody>
 
 </table>
 
@@ -1191,24 +1559,31 @@ A análise aparecerá aqui.
 </div>
 
 
-<!-- SETORES -->
+<!-- =====================================================
+     SETORES
+===================================================== -->
 
 <div class="card">
 
 <h2>🛞 Setores + Proteção</h2>
 
-<div id="sectorBox"></div>
+<div
+    id="sectorBox">
+</div>
 
 </div>
 
 
-<!-- ESTATÍSTICAS -->
+<!-- =====================================================
+     ESTATÍSTICAS
+===================================================== -->
 
 <div class="card">
 
 <h2>📈 Desempenho da Megamente</h2>
 
 <div class="stats-grid">
+
 
 <div class="stat-box">
 
@@ -1260,12 +1635,15 @@ TAXA DE ACERTO
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- HISTÓRICO -->
+
+<!-- =====================================================
+     HISTÓRICO
+===================================================== -->
 
 <div class="card">
 
@@ -1278,16 +1656,20 @@ TAXA DE ACERTO
 <thead>
 
 <tr>
+
 <th>Hora</th>
 <th>Resultado</th>
 <th>Gatilho</th>
 <th>Força</th>
 <th>Resultado</th>
+
 </tr>
 
 </thead>
 
-<tbody id="history"></tbody>
+<tbody
+    id="history">
+</tbody>
 
 </table>
 
@@ -1296,7 +1678,9 @@ TAXA DE ACERTO
 </div>
 
 
-<!-- AVISO -->
+<!-- =====================================================
+     AVISO
+===================================================== -->
 
 <div class="card">
 
@@ -1306,25 +1690,25 @@ TAXA DE ACERTO
 
 <br><br>
 
-A <strong>ANÁLISE MEGAMENTE</strong> é uma ferramenta
-de análise e simulação.
+A <strong>ANÁLISE MEGAMENTE</strong> é uma
+ferramenta de análise e simulação.
 
 <br><br>
 
-A pontuação apresentada representa apenas uma
-<strong>força interna de confluência</strong> das regras
-utilizadas pelo sistema.
+A pontuação apresentada representa apenas
+uma <strong>força interna de confluência</strong>
+das regras utilizadas pelo sistema.
 
 <br><br>
 
-Ela não representa uma probabilidade matemática real
-do próximo resultado.
+Ela não representa uma probabilidade
+matemática real do próximo resultado.
 
 <br><br>
 
-Os resultados da roleta são independentes e os giros
-anteriores não alteram matematicamente a chance do
-próximo número.
+Os resultados da roleta são independentes
+e os giros anteriores não alteram
+matematicamente a chance do próximo número.
 
 </div>
 
@@ -1342,3 +1726,2294 @@ RACE • INTELIGÊNCIA DE LEITURA • SIMULAÇÃO
 </div>
 
 </div>
+
+
+<script>
+
+/* =========================================================
+   RODA EUROPEIA
+========================================================= */
+
+const wheel = [
+
+    0,32,15,19,4,21,2,25,17,
+    34,6,27,13,36,11,30,8,23,
+    10,5,24,16,33,1,20,14,31,
+    9,22,18,29,7,28,12,35,3,26
+
+];
+
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+let lastAnalysis = null;
+
+let history = [];
+
+
+/* =========================================================
+   CARREGAR HISTÓRICO
+========================================================= */
+
+function loadHistory(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "megamente_history"
+            );
+
+        if(saved){
+
+            history =
+                JSON.parse(saved);
+
+        }
+
+    }catch(e){
+
+        history = [];
+
+    }
+
+    renderHistory();
+
+}
+
+
+/* =========================================================
+   SALVAR HISTÓRICO
+========================================================= */
+
+function saveHistory(){
+
+    try{
+
+        localStorage.setItem(
+            "megamente_history",
+            JSON.stringify(history)
+        );
+
+    }catch(e){
+
+        console.log(
+            "Não foi possível salvar histórico."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CRIAR INPUTS
+========================================================= */
+
+function createInputs(){
+
+    const box =
+        document.getElementById(
+            "spinInputs"
+        );
+
+    box.innerHTML = "";
+
+
+    for(
+        let i=1;
+        i<=7;
+        i++
+    ){
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "giro";
+
+
+        const label =
+            document.createElement(
+                "label"
+            );
+
+        label.innerText =
+            "GIRO " + i;
+
+
+        const input =
+            document.createElement(
+                "input"
+            );
+
+        input.className =
+            "spin";
+
+        input.id =
+            "s" + i;
+
+        input.type =
+            "number";
+
+        input.min=0;
+
+        input.max=36;
+
+        input.placeholder=i;
+
+
+        input.addEventListener(
+            "input",
+            function(){
+
+                validarInput(input);
+
+                if(
+                    getSpins().length >= 3
+                ){
+
+                    analisar(false);
+
+                }
+
+            }
+        );
+
+
+        input.addEventListener(
+            "keydown",
+            function(e){
+
+                if(
+                    e.key === "Enter"
+                ){
+
+                    const next =
+                        document.getElementById(
+                            "s" + (i+1)
+                        );
+
+                    if(next){
+
+                        next.focus();
+
+                    }else{
+
+                        analisar();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        wrapper.appendChild(label);
+
+        wrapper.appendChild(input);
+
+        box.appendChild(wrapper);
+
+    }
+
+}
+
+
+/* =========================================================
+   VALIDAR INPUT
+========================================================= */
+
+function validarInput(input){
+
+    if(input.value === "")
+        return;
+
+    const n =
+        Number(input.value);
+
+    if(
+        n < 0 ||
+        n > 36
+    ){
+
+        input.value = "";
+
+        input.style.borderColor =
+            "var(--vermelho)";
+
+        setTimeout(
+            ()=>{
+                input.style.borderColor="";
+            },
+            1000
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PEGAR GIROS
+========================================================= */
+
+function getSpins(){
+
+    return Array.from(
+        {length:7},
+        (_,i)=>{
+
+            const value =
+                document.getElementById(
+                    "s"+(i+1)
+                ).value;
+
+            return value === ""
+                ? null
+                : Number(value);
+
+        }
+
+    ).filter(
+        v =>
+            Number.isInteger(v) &&
+            v>=0 &&
+            v<=36
+    );
+
+}
+
+
+/* =========================================================
+   DÚZIA
+========================================================= */
+
+function dozen(n){
+
+    if(n===0)
+        return 0;
+
+    return Math.ceil(n/12);
+
+}
+
+
+/* =========================================================
+   COLUNA
+========================================================= */
+
+function column(n){
+
+    if(n===0)
+        return 0;
+
+    return ((n-1)%3)+1;
+
+}
+
+
+/* =========================================================
+   SETOR DA RODA
+========================================================= */
+
+function sector(n){
+
+    if(n===0)
+        return "ZERO";
+
+
+    const idx =
+        wheel.indexOf(n);
+
+
+    if(
+        idx>=0 &&
+        idx<=8
+    ){
+
+        return "VOISINS DU ZÉRO";
+
+    }
+
+
+    if(
+        idx>=9 &&
+        idx<=17
+    ){
+
+        return "TIERS DU CYLINDRE";
+
+    }
+
+
+    if(
+        idx>=18 &&
+        idx<=26
+    ){
+
+        return "ORPHELINS";
+
+    }
+
+
+    return "ORPHELINS";
+
+}
+
+
+/* =========================================================
+   VIZINHOS
+========================================================= */
+
+function neighbors(
+    n,
+    count=3
+){
+
+    const idx =
+        wheel.indexOf(n);
+
+    if(idx<0)
+        return [];
+
+
+    const result=[];
+
+
+    for(
+        let d=-count;
+        d<=count;
+        d++
+    ){
+
+        if(d===0)
+            continue;
+
+
+        result.push(
+            wheel[
+                (
+                    idx+d+
+                    wheel.length
+                )
+                %
+                wheel.length
+            ]
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   DISTÂNCIA NA RODA
+========================================================= */
+
+function wheelDistance(a,b){
+
+    const ia =
+        wheel.indexOf(a);
+
+    const ib =
+        wheel.indexOf(b);
+
+
+    if(
+        ia<0 ||
+        ib<0
+    ){
+
+        return 99;
+
+    }
+
+
+    const d =
+        Math.abs(ia-ib);
+
+
+    return Math.min(
+        d,
+        wheel.length-d
+    );
+
+}
+
+
+/* =========================================================
+   SCORE DE DÚZIA
+========================================================= */
+
+function frequencyScores(
+    spins,
+    type
+){
+
+    const scores =
+        [1,2,3].map(
+            k=>({
+                k:k,
+                score:0,
+                hits:0
+            })
+        );
+
+
+    spins.forEach(
+        (n,i)=>{
+
+            const peso =
+                1 +
+                i*.15;
+
+
+            const key =
+                type==="dozen"
+                ?
+                dozen(n)
+                :
+                column(n);
+
+
+            if(key){
+
+                scores[key-1].score += peso;
+
+                scores[key-1].hits++;
+
+            }
+
+        }
+    );
+
+
+    const total =
+        spins.length || 1;
+
+
+    return scores.map(
+        x=>({
+
+            ...x,
+
+            score:
+                Math.min(
+                    100,
+                    Math.round(
+                        35 +
+                        (
+                            x.score/
+                            total
+                        )*60
+                    )
+                )
+
+        })
+    );
+
+}
+
+
+/* =========================================================
+   ANÁLISE DE RECÊNCIA
+========================================================= */
+
+function recentNumberScore(
+    n,
+    spins
+){
+
+    let score=0;
+
+
+    spins.forEach(
+        (s,i)=>{
+
+            const peso =
+                1+
+                i*.18;
+
+
+            if(s===n){
+
+                score +=
+                    10*peso;
+
+            }
+
+
+            const distance =
+                wheelDistance(
+                    s,
+                    n
+                );
+
+
+            if(distance===1){
+
+                score +=
+                    7*peso;
+
+            }
+
+            else if(distance===2){
+
+                score +=
+                    5*peso;
+
+            }
+
+            else if(distance===3){
+
+                score +=
+                    3*peso;
+
+            }
+
+        }
+    );
+
+
+    return score;
+
+}
+
+
+/* =========================================================
+   SCORE DOS CANDIDATOS
+========================================================= */
+
+function candidateScores(
+    spins
+){
+
+    if(!spins.length)
+        return [];
+
+
+    const recente =
+        spins[
+            spins.length-1
+        ];
+
+
+    const freq={};
+
+
+    spins.forEach(
+        (n,i)=>{
+
+            freq[n] =
+                (
+                    freq[n] || 0
+                )
+                +
+                (
+                    1+
+                    i*.18
+                );
+
+        }
+    );
+
+
+    const pool =
+        new Set(
+            [
+                ...neighbors(
+                    recente,
+                    3
+                ),
+                recente,
+                0
+            ]
+        );
+
+
+    const arr=[];
+
+
+    for(
+        let n=0;
+        n<=36;
+        n++
+    ){
+
+        if(n===recente)
+            continue;
+
+
+        let score=15;
+
+
+        /* FREQUÊNCIA */
+
+        score +=
+            (
+                freq[n] || 0
+            )*7;
+
+
+        /* VIZINHANÇA DO ÚLTIMO */
+
+        if(
+            pool.has(n)
+        ){
+
+            score+=15;
+
+        }
+
+
+        /* DISTÂNCIA DO ÚLTIMO */
+
+        const dist =
+            wheelDistance(
+                recente,
+                n
+            );
+
+
+        if(dist===1){
+
+            score+=18;
+
+        }
+
+        else if(dist===2){
+
+            score+=12;
+
+        }
+
+        else if(dist===3){
+
+            score+=7;
+
+        }
+
+
+        /* MESMA DÚZIA */
+
+        if(
+            n!==0 &&
+            dozen(n)===
+            dozen(recente)
+        ){
+
+            score+=5;
+
+        }
+
+
+        /* MESMA COLUNA */
+
+        if(
+            n!==0 &&
+            column(n)===
+            column(recente)
+        ){
+
+            score+=4;
+
+        }
+
+
+        /* SETOR */
+
+        if(
+            sector(n)===
+            sector(recente)
+        ){
+
+            score+=5;
+
+        }
+
+
+        /* ZERO */
+
+        if(n===0){
+
+            score+=8;
+
+        }
+
+
+        arr.push({
+
+            n:n,
+
+            raw:score
+
+        });
+
+    }
+
+
+    const max =
+        Math.max(
+            ...arr.map(
+                x=>x.raw
+            )
+        );
+
+
+    const min =
+        Math.min(
+            ...arr.map(
+                x=>x.raw
+            )
+        );
+
+
+    return arr
+
+        .map(
+            x=>({
+
+                n:x.n,
+
+                score:
+                    Math.round(
+                        35+
+                        (
+                            (
+                                x.raw-min
+                            )/
+                            (
+                                max-min || 1
+                            )
+                        )*60
+                    )
+
+            })
+        )
+
+        .sort(
+            (a,b)=>
+                b.score-a.score
+        )
+
+        .slice(0,3);
+
+}
+
+
+/* =========================================================
+   CONFLUÊNCIA DO CANDIDATO
+========================================================= */
+
+function candidateConfluence(
+    candidate,
+    spins,
+    d,
+    c
+){
+
+    const n =
+        candidate.n;
+
+
+    let score=0;
+
+
+    /* DÚZIA */
+
+    if(
+        dozen(n)>0
+    ){
+
+        const ds =
+            d.find(
+                x =>
+                    x.k===
+                    dozen(n)
+            );
+
+        if(ds){
+
+            score +=
+                ds.score*.20;
+
+        }
+
+    }
+
+
+    /* COLUNA */
+
+    if(
+        column(n)>0
+    ){
+
+        const cs =
+            c.find(
+                x =>
+                    x.k===
+                    column(n)
+            );
+
+        if(cs){
+
+            score +=
+                cs.score*.20;
+
+        }
+
+    }
+
+
+    /* RECÊNCIA */
+
+    score +=
+        Math.min(
+            25,
+            recentNumberScore(
+                n,
+                spins
+            )*.35
+        );
+
+
+    /* ZERO */
+
+    if(n===0){
+
+        score+=8;
+
+    }
+
+
+    return Math.min(
+        100,
+        Math.round(
+            score
+        )
+    );
+
+}
+
+
+/* =========================================================
+   NÍVEL DO GATILHO
+========================================================= */
+
+function getTriggerLevel(
+    score,
+    spinsLength,
+    candidateGap
+){
+
+    if(
+        spinsLength<7
+    ){
+
+        return {
+            level:"AGUARDAR",
+            cls:"yellow",
+            active:false
+        };
+
+    }
+
+
+    if(
+        score>=82 &&
+        candidateGap>=8
+    ){
+
+        return {
+            level:"MUITO FORTE",
+            cls:"green",
+            active:true
+        };
+
+    }
+
+
+    if(
+        score>=72 &&
+        candidateGap>=5
+    ){
+
+        return {
+            level:"FORTE",
+            cls:"green",
+            active:true
+        };
+
+    }
+
+
+    if(
+        score>=64
+    ){
+
+        return {
+            level:"MODERADO",
+            cls:"yellow",
+            active:false
+        };
+
+    }
+
+
+    return {
+        level:"FRACO",
+        cls:"red",
+        active:false
+    };
+
+}
+
+
+/* =========================================================
+   RENDER TABELA
+========================================================= */
+
+function renderTable(
+    id,
+    data,
+    type
+){
+
+    const tbody =
+        document.getElementById(id);
+
+
+    tbody.innerHTML="";
+
+
+    [...data]
+
+        .sort(
+            (a,b)=>
+                b.score-a.score
+        )
+
+        .forEach(
+            x=>{
+
+                const tr =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const leitura =
+                    x.score>=75
+                    ?
+                    "FORTE"
+                    :
+                    x.score>=60
+                    ?
+                    "ATENÇÃO"
+                    :
+                    "FRACA";
+
+
+                const cls =
+                    x.score>=75
+                    ?
+                    "green"
+                    :
+                    x.score>=60
+                    ?
+                    "yellow"
+                    :
+                    "red";
+
+
+                tr.innerHTML=`
+
+                    <td>
+                        ${type}${x.k}
+                    </td>
+
+                    <td class="score">
+                        ${x.score}%
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${cls}">
+
+                            ${leitura}
+
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(tr);
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   ANALISAR
+========================================================= */
+
+function analisar(
+    showMessage=true
+){
+
+    const spins =
+        getSpins();
+
+
+    document.getElementById(
+        "inputStatus"
+    ).innerHTML =
+
+        spins.length<7
+
+        ?
+
+        `
+        Giros preenchidos:
+        <strong>
+        ${spins.length}/7
+        </strong>
+
+        — complete os 7 giros
+        para liberar o gatilho.
+        `
+
+        :
+
+        `
+        🟢
+
+        <strong>
+        7 giros registrados.
+        </strong>
+
+        — análise completa disponível.
+        `;
+
+
+    if(
+        spins.length<3
+    ){
+
+        return;
+
+    }
+
+
+    /* DÚZIAS */
+
+    const d =
+        frequencyScores(
+            spins,
+            "dozen"
+        );
+
+
+    /* COLUNAS */
+
+    const c =
+        frequencyScores(
+            spins,
+            "column"
+        );
+
+
+    renderTable(
+        "dozenTable",
+        d,
+        "Dúzia "
+    );
+
+
+    renderTable(
+        "columnTable",
+        c,
+        "Coluna "
+    );
+
+
+    /* CANDIDATOS */
+
+    let cand =
+        candidateScores(
+            spins
+        );
+
+
+    if(!cand.length)
+        return;
+
+
+    cand =
+        cand.map(
+            x=>({
+
+                ...x,
+
+                confluence:
+                    candidateConfluence(
+                        x,
+                        spins,
+                        d,
+                        c
+                    )
+
+            })
+        );
+
+
+    /* SCORE FINAL */
+
+    cand =
+        cand.map(
+            x=>({
+
+                ...x,
+
+                finalScore:
+                    Math.round(
+                        (
+                            x.score*.55+
+                            x.confluence*.45
+                        )
+                    )
+
+            })
+        );
+
+
+    cand.sort(
+        (a,b)=>
+            b.finalScore-
+            a.finalScore
+    );
+
+
+    const bestD =
+        [...d].sort(
+            (a,b)=>
+                b.score-a.score
+        )[0];
+
+
+    const bestC =
+        [...c].sort(
+            (a,b)=>
+                b.score-a.score
+        )[0];
+
+
+    const candidateGap =
+        cand.length>=2
+        ?
+        cand[0].finalScore-
+        cand[1].finalScore
+        :
+        0;
+
+
+    /* SCORE CENTRAL */
+
+    const combined =
+        Math.round(
+
+            bestD.score*.25+
+
+            bestC.score*.25+
+
+            cand[0].finalScore*.50
+
+        );
+
+
+    const triggerInfo =
+        getTriggerLevel(
+            combined,
+            spins.length,
+            candidateGap
+        );
+
+
+    const trigger =
+        triggerInfo.active;
+
+
+    lastAnalysis={
+
+        spins:[...spins],
+
+        d:[...d],
+
+        c:[...c],
+
+        cand:[...cand],
+
+        combined:combined,
+
+        trigger:trigger,
+
+        level:
+            triggerInfo.level,
+
+        bestD:bestD,
+
+        bestC:bestC
+
+    };
+
+
+    /* =====================================================
+       RESUMO
+    ===================================================== */
+
+    document.getElementById(
+        "bestDozen"
+    ).textContent =
+        bestD.k+"ª";
+
+
+    document.getElementById(
+        "bestColumn"
+    ).textContent =
+        bestC.k+"ª";
+
+
+    document.getElementById(
+        "triggerScore"
+    ).textContent =
+        combined+"%";
+
+
+    document.getElementById(
+        "candidateCount"
+    ).textContent =
+        cand.length;
+
+
+    document.getElementById(
+        "triggerLevel"
+    ).textContent =
+        triggerInfo.level;
+
+
+    /* =====================================================
+       CANDIDATOS
+    ===================================================== */
+
+    const candidateBox =
+        document.getElementById(
+            "candidates"
+        );
+
+
+    candidateBox.innerHTML="";
+
+
+    cand.forEach(
+        (x,i)=>{
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "candidate"+
+                (
+                    i===0
+                    ?
+                    " first"
+                    :
+                    ""
+                );
+
+
+            const nivel =
+                x.finalScore>=75
+                ?
+                "FORTE"
+                :
+                x.finalScore>=60
+                ?
+                "MODERADO"
+                :
+                "FRACO";
+
+
+            div.innerHTML=`
+
+                <div class="position">
+
+                    ${
+                        i===0
+                        ?
+                        "🥇 PRIMEIRA POSSIBILIDADE"
+                        :
+                        i===1
+                        ?
+                        "🥈 SEGUNDA POSSIBILIDADE"
+                        :
+                        "🥉 TERCEIRA POSSIBILIDADE"
+                    }
+
+                </div>
+
+
+                <div class="num">
+
+                    ${x.n}
+
+                </div>
+
+
+                <div class="small">
+
+                    Dúzia:
+
+                    <strong>
+                        ${dozen(x.n)||"0"}
+                    </strong>
+
+                </div>
+
+
+                <div class="small">
+
+                    Coluna:
+
+                    <strong>
+                        ${column(x.n)||"0"}
+                    </strong>
+
+                </div>
+
+
+                <div class="small">
+
+                    Setor:
+
+                    <strong>
+                        ${sector(x.n)}
+                    </strong>
+
+                </div>
+
+
+                <div class="small">
+
+                    Confluência:
+
+                    <strong>
+                        ${x.confluence}%
+                    </strong>
+
+                </div>
+
+
+                <div class="bar">
+
+                    <div
+                        class="fill"
+                        style="
+                            width:${x.finalScore}%
+                        "
+                    ></div>
+
+                </div>
+
+
+                <p class="score">
+
+                    Força:
+                    ${x.finalScore}%
+
+                </p>
+
+
+                <span class="badge ${
+                    x.finalScore>=75
+                    ?
+                    "green"
+                    :
+                    x.finalScore>=60
+                    ?
+                    "yellow"
+                    :
+                    "red"
+                }">
+
+                    ${nivel}
+
+                </span>
+
+
+                <div class="small">
+
+                    Vizinhos:
+
+                    ${neighbors(
+                        x.n,
+                        3
+                    ).join(" • ")}
+
+                </div>
+
+            `;
+
+
+            candidateBox.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       SETORES E PROTEÇÃO
+    ===================================================== */
+
+    const recente =
+        spins[
+            spins.length-1
+        ];
+
+
+    const principal =
+        cand[0]?.n ||
+        recente;
+
+
+    const protectionNumbers =
+        [
+            0,
+
+            ...neighbors(
+                principal,
+                3
+            )
+
+        ];
+
+
+    const uniqueProtection =
+        [
+            ...new Set(
+                protectionNumbers
+            )
+        ];
+
+
+    document.getElementById(
+        "sectorBox"
+    ).innerHTML=`
+
+        <div class="sector-grid">
+
+
+            <div class="sector-card">
+
+                <div class="small">
+
+                    ÚLTIMO RESULTADO
+
+                </div>
+
+                <div class="sector-number">
+
+                    ${recente}
+
+                </div>
+
+                <span class="badge blue">
+
+                    ${sector(recente)}
+
+                </span>
+
+            </div>
+
+
+            <div class="sector-card">
+
+                <div class="small">
+
+                    MELHOR DÚZIA
+
+                </div>
+
+                <div class="sector-number">
+
+                    ${bestD.k}ª
+
+                </div>
+
+                <span class="badge purple">
+
+                    ${bestD.score}%
+
+                </span>
+
+            </div>
+
+
+            <div class="sector-card">
+
+                <div class="small">
+
+                    MELHOR COLUNA
+
+                </div>
+
+                <div class="sector-number">
+
+                    ${bestC.k}ª
+
+                </div>
+
+                <span class="badge blue">
+
+                    ${bestC.score}%
+
+                </span>
+
+            </div>
+
+
+            <div class="sector-card">
+
+                <div class="small">
+
+                    SETOR PRINCIPAL
+
+                </div>
+
+                <div class="sector-number"
+                     style="font-size:18px">
+
+                    ${sector(principal)}
+
+                </div>
+
+                <span class="badge green">
+
+                    ${cand[0].finalScore}%
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="protection">
+
+            <strong>
+
+                🛡️ PROTEÇÃO MEGAMENTE
+
+            </strong>
+
+
+            <p class="small">
+
+                Candidato principal:
+
+                <strong>
+                    ${principal}
+                </strong>
+
+                com 3 vizinhos de cada lado
+                e proteção adicional no zero.
+
+            </p>
+
+
+            <div class="protection-numbers">
+
+                ${uniqueProtection.map(
+                    n=>`
+
+                    <div
+                        class="protection-number">
+
+                        ${n}
+
+                    </div>
+
+                    `
+                ).join("")}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       GATILHO
+    ===================================================== */
+
+    const card =
+        document.getElementById(
+            "triggerCard"
+        );
+
+
+    card.className =
+        "card trigger "+
+
+        (
+            trigger
+            ?
+            "active"
+            :
+            "wait"
+        );
+
+
+    if(
+        combined>=82
+    ){
+
+        card.classList.add(
+            "strong"
+        );
+
+    }
+
+
+    document.getElementById(
+        "triggerText"
+    ).innerHTML =
+
+        trigger
+
+        ?
+
+        `
+
+        <span class="badge green">
+
+            🟢 GATILHO ATIVO
+
+        </span>
+
+
+        <h3>
+
+            ENTRADA LIBERADA
+
+        </h3>
+
+
+        <p>
+
+            <strong>
+                NÍVEL:
+            </strong>
+
+            ${triggerInfo.level}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                DÚZIA:
+            </strong>
+
+            ${bestD.k}ª
+
+            &nbsp; + &nbsp;
+
+            <strong>
+                COLUNA:
+            </strong>
+
+            ${bestC.k}ª
+
+        </p>
+
+
+        <p>
+
+            🎯 Candidato principal:
+
+            <strong>
+                ${cand[0].n}
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            🛡️ Proteção:
+
+            <strong>
+
+                0 + 3 vizinhos
+
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            💪 Força:
+
+            <strong>
+                ${combined}%
+            </strong>
+
+        </p>
+
+        `
+
+        :
+
+        `
+
+        <span class="badge yellow">
+
+            ⚪ AGUARDAR
+
+        </span>
+
+
+        <h3>
+
+            Sem confluência suficiente
+
+        </h3>
+
+
+        <p>
+
+            Força atual:
+
+            <strong>
+                ${combined}%
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            Nível:
+
+            <strong>
+                ${triggerInfo.level}
+            </strong>
+
+        </p>
+
+
+        <p class="small">
+
+            O sistema exige 7 giros
+            e confluência mínima para
+            liberar o gatilho.
+
+        </p>
+
+        `;
+
+}
+
+
+/* =========================================================
+   REGISTRAR RESULTADO
+========================================================= */
+
+function registrarResultado(){
+
+    const raw =
+        prompt(
+            "Digite o resultado real do próximo giro (0 a 36):"
+        );
+
+
+    if(raw===null)
+        return;
+
+
+    const n =
+        Number(raw);
+
+
+    if(
+        !Number.isInteger(n) ||
+        n<0 ||
+        n>36
+    ){
+
+        alert(
+            "Resultado inválido. Use um número de 0 a 36."
+        );
+
+        return;
+
+    }
+
+
+    let hit=false;
+
+
+    let hitNumber=false;
+
+    let hitProtection=false;
+
+
+    if(lastAnalysis){
+
+        hitNumber =
+            lastAnalysis.cand.some(
+                x =>
+                    x.n===n
+            );
+
+
+        const principal =
+            lastAnalysis.cand[0]?.n;
+
+
+        const protectedNumbers =
+            [
+                0,
+
+                ...neighbors(
+                    principal,
+                    3
+                )
+
+            ];
+
+
+        hitProtection =
+            protectedNumbers.includes(
+                n
+            );
+
+
+        hit =
+            hitNumber ||
+            hitProtection;
+
+    }
+
+
+    history.unshift({
+
+        time:
+            new Date()
+            .toLocaleTimeString(
+                "pt-BR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            ),
+
+        n:n,
+
+        trigger:
+            lastAnalysis?.trigger
+            ?
+            "ATIVO"
+            :
+            "AGUARDAR",
+
+        score:
+            lastAnalysis?.combined ||
+            0,
+
+        hit:hit,
+
+        hitNumber:
+            hitNumber,
+
+        hitProtection:
+            hitProtection
+
+    });
+
+
+    /* MANTER ÚLTIMOS 100 */
+
+    if(
+        history.length>100
+    ){
+
+        history =
+            history.slice(
+                0,
+                100
+            );
+
+    }
+
+
+    saveHistory();
+
+    renderHistory();
+
+
+    /* =====================================================
+       JANELA MÓVEL
+    ===================================================== */
+
+    const inputs =
+        Array.from(
+            {length:7},
+            (_,i)=>
+                document.getElementById(
+                    "s"+(i+1)
+                )
+        );
+
+
+    for(
+        let i=0;
+        i<6;
+        i++
+    ){
+
+        inputs[i].value =
+            inputs[i+1].value;
+
+    }
+
+
+    inputs[6].value=n;
+
+
+    analisar();
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+function renderHistory(){
+
+    const box =
+        document.getElementById(
+            "history"
+        );
+
+
+    if(!history.length){
+
+        box.innerHTML=`
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="small">
+
+                    Nenhum resultado registrado.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+    else{
+
+        box.innerHTML =
+
+            history.map(
+                h=>`
+
+                <tr>
+
+                    <td>
+                        ${h.time}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ${h.n}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="badge ${
+                                h.trigger==="ATIVO"
+                                ?
+                                "green"
+                                :
+                                "yellow"
+                            }">
+
+                            ${h.trigger}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="badge blue">
+
+                            ${h.score}%
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="badge ${
+                                h.hit
+                                ?
+                                "green"
+                                :
+                                "red"
+                            }">
+
+                            ${
+                                h.hit
+                                ?
+                                (
+                                    h.hitNumber
+                                    ?
+                                    "ACERTO"
+                                    :
+                                    "PROTEÇÃO"
+                                )
+                                :
+                                "ERRO"
+                            }
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                `
+            )
+
+            .join("");
+
+    }
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+function updateStats(){
+
+    const total =
+        history.length;
+
+
+    const hits =
+        history.filter(
+            h=>h.hit
+        ).length;
+
+
+    const rate =
+        total
+        ?
+        Math.round(
+            (
+                hits/
+                total
+            )*100
+        )
+        :
+        0;
+
+
+    document.getElementById(
+        "totalHistory"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "totalHits"
+    ).textContent =
+        hits;
+
+
+    document.getElementById(
+        "hitRate"
+    ).textContent =
+        rate+"%";
+
+}
+
+
+/* =========================================================
+   LIMPAR
+========================================================= */
+
+function limpar(){
+
+    for(
+        let i=1;
+        i<=7;
+        i++
+    ){
+
+        document.getElementById(
+            "s"+i
+        ).value="";
+
+    }
+
+
+    lastAnalysis=null;
+
+
+    document.getElementById(
+        "inputStatus"
+    ).textContent=
+
+        "Preencha os 7 giros para liberar a análise.";
+
+
+    document.getElementById(
+        "triggerText"
+    ).textContent=
+
+        "Aguardando dados suficientes.";
+
+
+    document.getElementById(
+        "triggerCard"
+    ).className=
+
+        "card trigger wait";
+
+
+    [
+
+        "bestDozen",
+        "bestColumn",
+        "triggerScore",
+        "candidateCount",
+        "triggerLevel"
+
+    ].forEach(
+        id=>{
+
+            document.getElementById(
+                id
+            ).textContent="—";
+
+        }
+    );
+
+
+    document.getElementById(
+        "candidates"
+    ).innerHTML=
+
+        `
+
+        <div class="small">
+
+            A análise aparecerá aqui.
+
+        </div>
+
+        `;
+
+
+    document.getElementById(
+        "dozenTable"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "columnTable"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "sectorBox"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "s1"
+    ).focus();
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+createInputs();
+
+loadHistory();
+
+</script>
+
+</body>
+
+</html>
