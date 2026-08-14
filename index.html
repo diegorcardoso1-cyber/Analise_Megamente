@@ -9,16 +9,10 @@
 
 <style>
 
-/* =========================================================
-   ANÁLISE MEGAMENTE
-   IDENTIDADE VISUAL FUTURÍSTICA
-========================================================= */
-
 :root{
     --bg:#020611;
     --bg2:#071225;
-    --card:rgba(7,16,32,.92);
-    --card2:rgba(10,24,46,.95);
+    --card:rgba(7,16,32,.94);
 
     --verde:#00ff9d;
     --verde2:#00c97b;
@@ -26,9 +20,8 @@
     --roxo:#8b5cf6;
     --amarelo:#ffd166;
     --vermelho:#ff4d6d;
-
-    --texto:#f1f5f9;
-    --texto2:#94a3b8;
+    --branco:#f1f5f9;
+    --cinza:#94a3b8;
 
     --linha:rgba(0,255,157,.16);
 }
@@ -50,27 +43,24 @@ body{
         Helvetica,
         sans-serif;
 
-    color:var(--texto);
+    color:var(--branco);
 
     background:
         radial-gradient(
             circle at 10% 10%,
-            rgba(0,255,157,.13),
+            rgba(0,255,157,.14),
             transparent 28%
         ),
-
         radial-gradient(
             circle at 90% 10%,
-            rgba(0,183,255,.14),
+            rgba(0,183,255,.15),
             transparent 30%
         ),
-
         radial-gradient(
             circle at 50% 100%,
             rgba(139,92,246,.14),
             transparent 35%
         ),
-
         linear-gradient(
             135deg,
             #01030a,
@@ -81,30 +71,24 @@ body{
     overflow-x:hidden;
 }
 
-/* GRADE FUTURÍSTICA */
-
 body::before{
-
     content:"";
 
     position:fixed;
-
     inset:0;
 
     pointer-events:none;
 
-    opacity:.13;
+    opacity:.12;
 
     background-image:
-
         linear-gradient(
-            rgba(0,255,157,.20) 1px,
+            rgba(0,255,157,.18) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
-            rgba(0,255,157,.20) 1px,
+            rgba(0,255,157,.18) 1px,
             transparent 1px
         );
 
@@ -116,19 +100,15 @@ body::before{
             black,
             transparent 90%
         );
-
 }
 
-/* BRILHO CENTRAL */
-
 body::after{
-
     content:"";
 
     position:fixed;
 
-    width:700px;
-    height:700px;
+    width:800px;
+    height:800px;
 
     left:50%;
     top:45%;
@@ -140,48 +120,31 @@ body::after{
     background:
         radial-gradient(
             circle,
-            rgba(0,255,157,.035),
+            rgba(0,255,157,.045),
             transparent 65%
         );
-
 }
 
-/* =========================================================
-   CONTAINER
-========================================================= */
-
 .container{
-
     max-width:1250px;
-
     margin:auto;
-
     padding:20px;
 
     position:relative;
-
     z-index:1;
 }
 
-/* =========================================================
-   CARDS
-========================================================= */
-
 .card{
-
     position:relative;
 
     background:
         linear-gradient(
             145deg,
-            rgba(9,20,39,.96),
-            rgba(4,12,25,.96)
+            rgba(9,20,39,.97),
+            rgba(4,12,25,.97)
         );
 
-    border:
-
-        1px solid
-        rgba(0,255,157,.16);
+    border:1px solid rgba(0,255,157,.16);
 
     border-radius:18px;
 
@@ -190,12 +153,8 @@ body::after{
     margin-bottom:20px;
 
     box-shadow:
-
-        0 15px 45px
-        rgba(0,0,0,.35),
-
-        inset 0 0 35px
-        rgba(0,255,157,.025);
+        0 15px 45px rgba(0,0,0,.35),
+        inset 0 0 35px rgba(0,255,157,.025);
 
     backdrop-filter:blur(12px);
 
@@ -203,7 +162,6 @@ body::after{
 }
 
 .card::before{
-
     content:"";
 
     position:absolute;
@@ -222,27 +180,22 @@ body::after{
             transparent
         );
 
-    opacity:.55;
+    opacity:.65;
 }
 
-/* =========================================================
-   CABEÇALHO
-========================================================= */
+/* HEADER */
 
 .header{
-
     text-align:center;
 
     padding:42px 20px;
 
     background:
-
         radial-gradient(
             circle at center,
-            rgba(0,255,157,.10),
+            rgba(0,255,157,.11),
             transparent 60%
         ),
-
         linear-gradient(
             145deg,
             rgba(8,25,42,.98),
@@ -250,16 +203,13 @@ body::after{
         );
 
     border-color:
-        rgba(0,255,157,.25);
+        rgba(0,255,157,.27);
 
     box-shadow:
-
-        0 0 50px
-        rgba(0,255,157,.06);
+        0 0 50px rgba(0,255,157,.07);
 }
 
 .logo{
-
     font-size:48px;
 
     font-weight:900;
@@ -269,35 +219,23 @@ body::after{
     color:var(--verde);
 
     text-shadow:
-
-        0 0 8px
-        rgba(0,255,157,.9),
-
-        0 0 25px
-        rgba(0,255,157,.55),
-
-        0 0 55px
-        rgba(0,255,157,.20);
+        0 0 8px rgba(0,255,157,.9),
+        0 0 25px rgba(0,255,157,.55),
+        0 0 55px rgba(0,255,157,.20);
 }
 
 .logo span{
-
     color:var(--azul);
 
     text-shadow:
-
-        0 0 10px
-        rgba(0,183,255,.8),
-
-        0 0 30px
-        rgba(0,183,255,.35);
+        0 0 10px rgba(0,183,255,.8),
+        0 0 30px rgba(0,183,255,.35);
 }
 
 .subtitulo{
-
     margin-top:12px;
 
-    color:var(--texto2);
+    color:var(--cinza);
 
     letter-spacing:3px;
 
@@ -305,7 +243,6 @@ body::after{
 }
 
 .status-online{
-
     display:inline-flex;
 
     align-items:center;
@@ -333,7 +270,6 @@ body::after{
 }
 
 .status-dot{
-
     width:8px;
     height:8px;
 
@@ -342,17 +278,25 @@ body::after{
     background:var(--verde);
 
     box-shadow:
-        0 0 10px
-        var(--verde);
+        0 0 10px var(--verde);
 
+    animation:pulse 1.5s infinite;
 }
 
-/* =========================================================
-   TITULOS
-========================================================= */
+@keyframes pulse{
+
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:.45;
+        transform:scale(.75);
+    }
+}
 
 h2{
-
     margin-top:0;
 
     color:var(--verde);
@@ -363,16 +307,17 @@ h2{
 }
 
 h3{
-
-    color:var(--texto);
+    color:var(--branco);
 }
 
-/* =========================================================
-   ENTRADAS
-========================================================= */
+.small{
+    font-size:12px;
+    color:var(--cinza);
+}
+
+/* INPUTS */
 
 .grid7{
-
     display:grid;
 
     grid-template-columns:
@@ -384,17 +329,15 @@ h3{
 }
 
 .giro{
-
     text-align:center;
 }
 
 .giro label{
-
     display:block;
 
     margin-bottom:7px;
 
-    color:var(--texto2);
+    color:var(--cinza);
 
     font-size:11px;
 
@@ -404,7 +347,6 @@ h3{
 }
 
 input{
-
     width:100%;
 
     padding:14px 8px;
@@ -428,23 +370,18 @@ input{
 }
 
 input:focus{
-
     outline:none;
 
     border-color:var(--verde);
 
     box-shadow:
-
         0 0 15px
         rgba(0,255,157,.18);
 }
 
-/* =========================================================
-   BOTÕES
-========================================================= */
+/* BOTÕES */
 
 .actions{
-
     display:flex;
 
     gap:10px;
@@ -455,7 +392,6 @@ input:focus{
 }
 
 button{
-
     border:none;
 
     border-radius:10px;
@@ -467,18 +403,13 @@ button{
     font-weight:bold;
 
     transition:.2s;
-
 }
 
 button:hover{
-
-    transform:
-        translateY(-2px);
-
+    transform:translateY(-2px);
 }
 
 .primary{
-
     flex:1;
 
     color:#00130b;
@@ -496,16 +427,12 @@ button:hover{
 }
 
 .secondary{
-
     background:#1e293b;
-
     color:white;
 }
 
 .ghost{
-
-    background:
-        transparent;
+    background:transparent;
 
     border:
         1px solid
@@ -514,12 +441,7 @@ button:hover{
     color:var(--azul);
 }
 
-/* =========================================================
-   STATUS
-========================================================= */
-
 .status{
-
     margin-top:15px;
 
     padding:14px;
@@ -533,57 +455,50 @@ button:hover{
         1px solid
         rgba(255,255,255,.06);
 
-    color:var(--texto2);
+    color:var(--cinza);
 }
 
-/* =========================================================
-   GATILHO
-========================================================= */
+/* GATILHO */
 
 .trigger{
-
     border:
         2px solid
-        rgba(255,209,102,.65);
+        rgba(255,209,102,.45);
 
     background:
-
         radial-gradient(
             circle at right,
             rgba(255,209,102,.08),
             transparent 50%
         ),
-
         rgba(25,20,5,.75);
 
     transition:.3s;
 }
 
 .trigger.active{
-
     border-color:var(--verde);
 
     box-shadow:
+        0 0 35px rgba(0,255,157,.16),
+        inset 0 0 30px rgba(0,255,157,.05);
+}
 
-        0 0 30px
-        rgba(0,255,157,.13),
+.trigger.strong{
+    border-color:var(--azul);
 
-        inset 0 0 25px
-        rgba(0,255,157,.04);
+    box-shadow:
+        0 0 40px rgba(0,183,255,.16);
 }
 
 .trigger.wait{
-
     border-color:
         rgba(255,255,255,.12);
 }
 
-/* =========================================================
-   BADGES
-========================================================= */
+/* BADGES */
 
 .badge{
-
     display:inline-block;
 
     padding:6px 10px;
@@ -598,7 +513,6 @@ button:hover{
 }
 
 .green{
-
     background:
         rgba(52,211,153,.14);
 
@@ -606,7 +520,6 @@ button:hover{
 }
 
 .yellow{
-
     background:
         rgba(255,209,102,.13);
 
@@ -614,7 +527,6 @@ button:hover{
 }
 
 .red{
-
     background:
         rgba(255,77,109,.13);
 
@@ -622,7 +534,6 @@ button:hover{
 }
 
 .blue{
-
     background:
         rgba(0,183,255,.13);
 
@@ -630,29 +541,24 @@ button:hover{
 }
 
 .purple{
-
     background:
         rgba(139,92,246,.13);
 
     color:#b794ff;
 }
 
-/* =========================================================
-   METRICAS
-========================================================= */
+/* METRICAS */
 
 .metrics{
-
     display:grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+        repeat(5,1fr);
 
     gap:12px;
 }
 
 .metric{
-
     padding:18px;
 
     border-radius:13px;
@@ -668,8 +574,7 @@ button:hover{
 }
 
 .metric .label{
-
-    color:var(--texto2);
+    color:var(--cinza);
 
     font-size:11px;
 
@@ -677,12 +582,11 @@ button:hover{
 }
 
 .metric .value{
-
     display:block;
 
     margin-top:7px;
 
-    font-size:27px;
+    font-size:25px;
 
     font-weight:900;
 
@@ -693,12 +597,9 @@ button:hover{
         rgba(0,255,157,.15);
 }
 
-/* =========================================================
-   CANDIDATOS
-========================================================= */
+/* CANDIDATOS */
 
 .candidates{
-
     display:grid;
 
     grid-template-columns:
@@ -708,7 +609,6 @@ button:hover{
 }
 
 .candidate{
-
     position:relative;
 
     padding:20px;
@@ -728,7 +628,6 @@ button:hover{
 }
 
 .candidate.first{
-
     border:
         2px solid
         var(--verde);
@@ -739,8 +638,7 @@ button:hover{
 }
 
 .position{
-
-    color:var(--texto2);
+    color:var(--cinza);
 
     font-size:12px;
 
@@ -750,7 +648,6 @@ button:hover{
 }
 
 .num{
-
     width:80px;
     height:80px;
 
@@ -787,7 +684,6 @@ button:hover{
 }
 
 .first .num{
-
     border-color:var(--verde);
 
     box-shadow:
@@ -795,22 +691,13 @@ button:hover{
         rgba(0,255,157,.18);
 }
 
-.small{
-
-    font-size:12px;
-
-    color:var(--texto2);
-}
-
 .score{
-
     font-weight:900;
 
     color:var(--verde);
 }
 
 .bar{
-
     height:9px;
 
     margin-top:14px;
@@ -823,7 +710,6 @@ button:hover{
 }
 
 .fill{
-
     height:100%;
 
     background:
@@ -840,12 +726,9 @@ button:hover{
         rgba(0,255,157,.25);
 }
 
-/* =========================================================
-   TABELAS
-========================================================= */
+/* ANALISE */
 
 .analysis{
-
     display:grid;
 
     grid-template-columns:
@@ -855,14 +738,11 @@ button:hover{
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
 }
 
 th,td{
-
     padding:10px;
 
     border-bottom:
@@ -873,22 +753,18 @@ th,td{
 }
 
 th{
-
-    color:var(--texto2);
+    color:var(--cinza);
 
     font-size:11px;
 }
 
-/* =========================================================
-   SETORES
-========================================================= */
+/* SETORES */
 
 .sector-grid{
-
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(4,1fr);
 
     gap:12px;
 
@@ -896,7 +772,6 @@ th{
 }
 
 .sector-card{
-
     text-align:center;
 
     padding:20px;
@@ -912,7 +787,6 @@ th{
 }
 
 .sector-number{
-
     font-size:35px;
 
     font-weight:900;
@@ -922,12 +796,9 @@ th{
     margin:8px;
 }
 
-/* =========================================================
-   PROTEÇÃO
-========================================================= */
+/* PROTEÇÃO */
 
 .protection{
-
     margin-top:18px;
 
     padding:18px;
@@ -942,14 +813,21 @@ th{
         rgba(0,255,157,.12);
 }
 
-.zero{
+.protection-numbers{
+    display:flex;
 
-    width:70px;
-    height:70px;
+    flex-wrap:wrap;
 
-    margin:15px auto;
+    justify-content:center;
 
-    border-radius:50%;
+    gap:8px;
+
+    margin-top:15px;
+}
+
+.protection-number{
+    width:42px;
+    height:42px;
 
     display:flex;
 
@@ -957,36 +835,66 @@ th{
 
     justify-content:center;
 
-    font-size:28px;
+    border-radius:50%;
 
-    font-weight:900;
+    background:#09182b;
 
-    color:#00130b;
+    border:
+        1px solid
+        rgba(0,255,157,.3);
 
-    background:var(--verde);
+    color:var(--verde);
 
-    box-shadow:
-        0 0 30px
-        rgba(0,255,157,.35);
+    font-weight:bold;
 }
 
-/* =========================================================
-   HISTÓRICO
-========================================================= */
+/* HISTÓRICO */
 
 .history{
-
     max-height:350px;
 
     overflow:auto;
 }
 
-/* =========================================================
-   AVISO
-========================================================= */
+/* ESTATISTICAS */
+
+.stats-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.stat-box{
+    padding:18px;
+
+    border-radius:13px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    text-align:center;
+}
+
+.stat-value{
+    font-size:28px;
+
+    font-weight:900;
+
+    color:var(--verde);
+
+    margin-top:6px;
+}
+
+/* AVISO */
 
 .warning{
-
     padding:18px;
 
     border-radius:13px;
@@ -1005,12 +913,9 @@ th{
     font-size:13px;
 }
 
-/* =========================================================
-   RODAPÉ
-========================================================= */
+/* FOOTER */
 
 .footer{
-
     text-align:center;
 
     padding:25px;
@@ -1022,9 +927,20 @@ th{
     letter-spacing:1px;
 }
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+    .metrics{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .sector-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
 
 @media(max-width:900px){
 
@@ -1033,17 +949,11 @@ th{
             repeat(4,1fr);
     }
 
-    .metrics,
-    .sector-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
     .candidates,
     .analysis{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
+
 }
 
 @media(max-width:600px){
@@ -1054,14 +964,14 @@ th{
 
     .grid7,
     .metrics,
-    .sector-grid{
+    .sector-grid,
+    .stats-grid{
         grid-template-columns:
             repeat(2,1fr);
     }
 
     .logo{
         font-size:29px;
-
         letter-spacing:2px;
     }
 
@@ -1075,16 +985,13 @@ th{
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<!-- =====================================================
-     CABEÇALHO
-===================================================== -->
+<!-- CABEÇALHO -->
 
 <div class="card header">
 
@@ -1104,17 +1011,15 @@ th{
 </div>
 
 
-<!-- =====================================================
-     ENTRADA
-===================================================== -->
+<!-- ENTRADA -->
 
 <div class="card">
 
 <h2>🎲 Registrar os 7 últimos giros</h2>
 
 <p class="small">
-Informe os números de 0 a 36.
-A Megamente utiliza esses giros para realizar a leitura.
+Informe os números de 0 a 36. A Megamente analisa
+frequência, recência, vizinhança, dúzia, coluna e setor.
 </p>
 
 <div class="grid7" id="spinInputs"></div>
@@ -1151,16 +1056,14 @@ A Megamente utiliza esses giros para realizar a leitura.
     class="status"
     id="inputStatus">
 
-Preencha os 7 giros para liberar a análise.
+Preencha os 7 giros para liberar o gatilho completo.
 
 </div>
 
 </div>
 
 
-<!-- =====================================================
-     GATILHO
-===================================================== -->
+<!-- GATILHO -->
 
 <div
     class="card trigger wait"
@@ -1177,9 +1080,7 @@ Aguardando dados suficientes.
 </div>
 
 
-<!-- =====================================================
-     RESUMO
-===================================================== -->
+<!-- RESUMO -->
 
 <div class="card">
 
@@ -1188,62 +1089,28 @@ Aguardando dados suficientes.
 <div class="metrics">
 
 <div class="metric">
-
-<div class="label">
-Melhor Dúzia
+<div class="label">Melhor Dúzia</div>
+<div class="value" id="bestDozen">—</div>
 </div>
-
-<div
-    class="value"
-    id="bestDozen">
-—
-</div>
-
-</div>
-
 
 <div class="metric">
-
-<div class="label">
-Melhor Coluna
+<div class="label">Melhor Coluna</div>
+<div class="value" id="bestColumn">—</div>
 </div>
-
-<div
-    class="value"
-    id="bestColumn">
-—
-</div>
-
-</div>
-
 
 <div class="metric">
-
-<div class="label">
-Força do Gatilho
+<div class="label">Força</div>
+<div class="value" id="triggerScore">—</div>
 </div>
-
-<div
-    class="value"
-    id="triggerScore">
-—
-</div>
-
-</div>
-
 
 <div class="metric">
-
-<div class="label">
-Candidatos
+<div class="label">Candidatos</div>
+<div class="value" id="candidateCount">—</div>
 </div>
 
-<div
-    class="value"
-    id="candidateCount">
-—
-</div>
-
+<div class="metric">
+<div class="label">Nível</div>
+<div class="value" id="triggerLevel">—</div>
 </div>
 
 </div>
@@ -1251,9 +1118,7 @@ Candidatos
 </div>
 
 
-<!-- =====================================================
-     CANDIDATOS
-===================================================== -->
+<!-- CANDIDATOS -->
 
 <div class="card">
 
@@ -1272,9 +1137,7 @@ A análise aparecerá aqui.
 </div>
 
 
-<!-- =====================================================
-     DÚZIAS E COLUNAS
-===================================================== -->
+<!-- DÚZIAS E COLUNAS -->
 
 <div class="card">
 
@@ -1289,13 +1152,11 @@ A análise aparecerá aqui.
 <table>
 
 <thead>
-
 <tr>
 <th>Entrada</th>
 <th>Força</th>
 <th>Leitura</th>
 </tr>
-
 </thead>
 
 <tbody id="dozenTable"></tbody>
@@ -1312,13 +1173,11 @@ A análise aparecerá aqui.
 <table>
 
 <thead>
-
 <tr>
 <th>Entrada</th>
 <th>Força</th>
 <th>Leitura</th>
 </tr>
-
 </thead>
 
 <tbody id="columnTable"></tbody>
@@ -1332,25 +1191,81 @@ A análise aparecerá aqui.
 </div>
 
 
-<!-- =====================================================
-     SETORES
-===================================================== -->
+<!-- SETORES -->
 
 <div class="card">
 
 <h2>🛞 Setores + Proteção</h2>
 
+<div id="sectorBox"></div>
+
+</div>
+
+
+<!-- ESTATÍSTICAS -->
+
+<div class="card">
+
+<h2>📈 Desempenho da Megamente</h2>
+
+<div class="stats-grid">
+
+<div class="stat-box">
+
+<div class="small">
+TOTAL DE LEITURAS
+</div>
+
 <div
-    id="sectorBox">
+    class="stat-value"
+    id="totalHistory">
+
+0
 
 </div>
 
 </div>
 
 
-<!-- =====================================================
-     HISTÓRICO
-===================================================== -->
+<div class="stat-box">
+
+<div class="small">
+ACERTOS
+</div>
+
+<div
+    class="stat-value"
+    id="totalHits">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="stat-box">
+
+<div class="small">
+TAXA DE ACERTO
+</div>
+
+<div
+    class="stat-value"
+    id="hitRate">
+
+0%
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HISTÓRICO -->
 
 <div class="card">
 
@@ -1363,15 +1278,11 @@ A análise aparecerá aqui.
 <thead>
 
 <tr>
-
 <th>Hora</th>
-
 <th>Resultado</th>
-
 <th>Gatilho</th>
-
+<th>Força</th>
 <th>Resultado</th>
-
 </tr>
 
 </thead>
@@ -1385,9 +1296,7 @@ A análise aparecerá aqui.
 </div>
 
 
-<!-- =====================================================
-     AVISO
-===================================================== -->
+<!-- AVISO -->
 
 <div class="card">
 
@@ -1402,21 +1311,20 @@ de análise e simulação.
 
 <br><br>
 
-A pontuação apresentada pelo sistema é um
-<strong>indicador interno de confluência</strong> das regras
-utilizadas pela ferramenta e não representa uma
-probabilidade matemática real do próximo giro.
+A pontuação apresentada representa apenas uma
+<strong>força interna de confluência</strong> das regras
+utilizadas pelo sistema.
 
 <br><br>
 
-Os resultados da roleta são independentes.
-Resultados anteriores não alteram matematicamente
-a probabilidade real de um próximo resultado.
+Ela não representa uma probabilidade matemática real
+do próximo resultado.
 
 <br><br>
 
-O sistema deve ser utilizado para
-<strong>estudo e simulação</strong>.
+Os resultados da roleta são independentes e os giros
+anteriores não alteram matematicamente a chance do
+próximo número.
 
 </div>
 
@@ -1434,1351 +1342,3 @@ RACE • INTELIGÊNCIA DE LEITURA • SIMULAÇÃO
 </div>
 
 </div>
-
-
-<script>
-
-/* =========================================================
-   RODA EUROPEIA
-========================================================= */
-
-const wheel = [
-
-0,32,15,19,4,21,2,25,17,
-34,6,27,13,36,11,30,8,23,
-10,5,24,16,33,1,20,14,31,
-9,22,18,29,7,28,12,35,3,26
-
-];
-
-
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
-let lastAnalysis = null;
-
-let history = [];
-
-
-/* =========================================================
-   CRIAR CAMPOS
-========================================================= */
-
-function createInputs(){
-
-    const box =
-        document.getElementById(
-            "spinInputs"
-        );
-
-    box.innerHTML = "";
-
-    for(
-        let i = 1;
-        i <= 7;
-        i++
-    ){
-
-        const wrapper =
-            document.createElement(
-                "div"
-            );
-
-        wrapper.className =
-            "giro";
-
-        const label =
-            document.createElement(
-                "label"
-            );
-
-        label.innerText =
-            "GIRO " + i;
-
-        const input =
-            document.createElement(
-                "input"
-            );
-
-        input.className =
-            "spin";
-
-        input.id =
-            "s" + i;
-
-        input.type =
-            "number";
-
-        input.min = 0;
-
-        input.max = 36;
-
-        input.placeholder =
-            i;
-
-        input.addEventListener(
-            "input",
-            function(){
-
-                if(
-                    input.value !== ""
-                ){
-
-                    analisar(false);
-
-                }
-
-            }
-        );
-
-        wrapper.appendChild(label);
-
-        wrapper.appendChild(input);
-
-        box.appendChild(wrapper);
-
-    }
-
-}
-
-
-/* =========================================================
-   PEGAR GIROS
-========================================================= */
-
-function getSpins(){
-
-    return Array.from(
-        {length:7},
-        (_,i) => {
-
-            const valor =
-                document.getElementById(
-                    "s" + (i+1)
-                ).value;
-
-            return Number(valor);
-
-        }
-
-    ).filter(
-
-        v =>
-            Number.isInteger(v) &&
-            v >= 0 &&
-            v <= 36
-
-    );
-
-}
-
-
-/* =========================================================
-   DÚZIA
-========================================================= */
-
-function dozen(n){
-
-    if(n === 0)
-        return 0;
-
-    return Math.ceil(n / 12);
-
-}
-
-
-/* =========================================================
-   COLUNA
-========================================================= */
-
-function column(n){
-
-    if(n === 0)
-        return 0;
-
-    return ((n - 1) % 3) + 1;
-
-}
-
-
-/* =========================================================
-   SETOR
-========================================================= */
-
-function sector(n){
-
-    if(n === 0)
-        return "ZERO";
-
-    const idx =
-        wheel.indexOf(n);
-
-    if(
-        idx >= 0 &&
-        idx <= 12
-    ){
-
-        return "VOISINS DU ZÉRO";
-
-    }
-
-    if(
-        idx >= 13 &&
-        idx <= 24
-    ){
-
-        return "TIERS DU CYLINDRE";
-
-    }
-
-    return "ORPHELINS";
-
-}
-
-
-/* =========================================================
-   VIZINHOS
-========================================================= */
-
-function neighbors(
-    n,
-    count = 3
-){
-
-    const idx =
-        wheel.indexOf(n);
-
-    if(idx < 0)
-        return [];
-
-    const result = [];
-
-    for(
-        let d = -count;
-        d <= count;
-        d++
-    ){
-
-        if(d === 0)
-            continue;
-
-        result.push(
-            wheel[
-                (
-                    idx +
-                    d +
-                    wheel.length
-                )
-                %
-                wheel.length
-            ]
-        );
-
-    }
-
-    return result;
-
-}
-
-
-/* =========================================================
-   PONTUAÇÃO DÚZIAS / COLUNAS
-========================================================= */
-
-function frequencyScores(
-    spins,
-    type
-){
-
-    const scores =
-        [1,2,3].map(
-            k => ({
-                k:k,
-                score:0
-            })
-        );
-
-    spins.forEach(
-        (n,i) => {
-
-            const peso =
-                1 +
-                i * .12;
-
-            const key =
-                type === "dozen"
-                ?
-                dozen(n)
-                :
-                column(n);
-
-            if(key){
-
-                scores[
-                    key - 1
-                ].score += peso;
-
-            }
-
-        }
-    );
-
-    return scores.map(
-        x => ({
-
-            ...x,
-
-            score:
-                Math.min(
-                    100,
-                    25 +
-                    x.score * 11
-                )
-
-        })
-    );
-
-}
-
-
-/* =========================================================
-   CANDIDATOS
-========================================================= */
-
-function candidateScores(
-    spins
-){
-
-    const freq = {};
-
-    spins.forEach(
-        (n,i) => {
-
-            freq[n] =
-                (
-                    freq[n] || 0
-                )
-                +
-                (
-                    1 +
-                    i * .18
-                );
-
-        }
-    );
-
-
-    const recente =
-        spins[
-            spins.length - 1
-        ];
-
-
-    const vizinhos =
-        neighbors(
-            recente,
-            3
-        );
-
-
-    const pool =
-        new Set(
-            vizinhos.concat(
-                [recente]
-            )
-        );
-
-
-    const arr = [];
-
-
-    for(
-        let n = 0;
-        n <= 36;
-        n++
-    ){
-
-        let score = 20;
-
-
-        score +=
-            (
-                freq[n] || 0
-            ) * 10;
-
-
-        if(
-            pool.has(n)
-        ){
-
-            score += 24;
-
-        }
-
-
-        if(n === 0){
-
-            score += 10;
-
-        }
-
-
-        if(
-            n !== 0 &&
-            dozen(n) ===
-            dozen(recente)
-        ){
-
-            score += 8;
-
-        }
-
-
-        if(
-            n !== 0 &&
-            column(n) ===
-            column(recente)
-        ){
-
-            score += 7;
-
-        }
-
-
-        if(
-            sector(n) ===
-            sector(recente)
-        ){
-
-            score += 6;
-
-        }
-
-
-        arr.push({
-
-            n:n,
-
-            score:
-                Math.min(
-                    99,
-                    Math.round(score)
-                )
-
-        });
-
-    }
-
-
-    return arr
-
-        .filter(
-            x =>
-                x.n !== recente
-        )
-
-        .sort(
-            (a,b) =>
-                b.score -
-                a.score
-        )
-
-        .slice(0,3);
-
-}
-
-
-/* =========================================================
-   TABELAS
-========================================================= */
-
-function renderTable(
-    id,
-    data,
-    type
-){
-
-    const tbody =
-        document.getElementById(id);
-
-    tbody.innerHTML = "";
-
-
-    data
-        .sort(
-            (a,b) =>
-                b.score -
-                a.score
-        )
-        .forEach(
-            x => {
-
-                const tr =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                const leitura =
-                    x.score >= 70
-                    ?
-                    "FORTE"
-                    :
-                    x.score >= 55
-                    ?
-                    "ATENÇÃO"
-                    :
-                    "FRACA";
-
-
-                const cls =
-                    x.score >= 70
-                    ?
-                    "green"
-                    :
-                    x.score >= 55
-                    ?
-                    "yellow"
-                    :
-                    "red";
-
-
-                tr.innerHTML =
-
-                    `
-                    <td>
-                        ${type}${x.k}
-                    </td>
-
-                    <td class="score">
-                        ${Math.round(x.score)}%
-                    </td>
-
-                    <td>
-                        <span class="badge ${cls}">
-                            ${leitura}
-                        </span>
-                    </td>
-                    `;
-
-
-                tbody.appendChild(tr);
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   ANALISAR
-========================================================= */
-
-function analisar(
-    showMessage = true
-){
-
-    const spins =
-        getSpins();
-
-
-    document.getElementById(
-        "inputStatus"
-    ).innerHTML =
-
-        spins.length < 7
-
-        ?
-
-        `Giros preenchidos:
-        <strong>
-        ${spins.length}/7
-        </strong>.
-        Preencha os 7 para liberar
-        o gatilho completo.`
-
-        :
-
-        `🟢
-        <strong>
-        7 giros registrados.
-        </strong>
-        Análise Megamente completa disponível.`;
-
-
-    if(
-        spins.length < 3
-    ){
-
-        return;
-
-    }
-
-
-    /* DÚZIAS */
-
-    const d =
-        frequencyScores(
-            spins,
-            "dozen"
-        );
-
-
-    /* COLUNAS */
-
-    const c =
-        frequencyScores(
-            spins,
-            "column"
-        );
-
-
-    renderTable(
-        "dozenTable",
-        d,
-        "Dúzia "
-    );
-
-
-    renderTable(
-        "columnTable",
-        c,
-        "Coluna "
-    );
-
-
-    /* CANDIDATOS */
-
-    const cand =
-        candidateScores(
-            spins
-        );
-
-
-    const bestD =
-        [...d].sort(
-            (a,b) =>
-                b.score -
-                a.score
-        )[0];
-
-
-    const bestC =
-        [...c].sort(
-            (a,b) =>
-                b.score -
-                a.score
-        )[0];
-
-
-    const combined =
-        Math.round(
-            (
-                bestD.score +
-                bestC.score +
-                cand[0].score
-            ) / 3
-        );
-
-
-    const trigger =
-        spins.length === 7 &&
-        combined >= 65;
-
-
-    lastAnalysis = {
-
-        spins:[...spins],
-
-        d:d,
-
-        c:c,
-
-        cand:cand,
-
-        combined:combined,
-
-        trigger:trigger,
-
-        bestD:bestD,
-
-        bestC:bestC
-
-    };
-
-
-    /* RESUMO */
-
-    document.getElementById(
-        "bestDozen"
-    ).textContent =
-        bestD.k + "ª";
-
-
-    document.getElementById(
-        "bestColumn"
-    ).textContent =
-        bestC.k + "ª";
-
-
-    document.getElementById(
-        "triggerScore"
-    ).textContent =
-        combined + "%";
-
-
-    document.getElementById(
-        "candidateCount"
-    ).textContent =
-        cand.length;
-
-
-    /* CANDIDATOS */
-
-    const candidateBox =
-        document.getElementById(
-            "candidates"
-        );
-
-
-    candidateBox.innerHTML =
-        "";
-
-
-    cand.forEach(
-        (x,i) => {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "candidate" +
-                (
-                    i === 0
-                    ?
-                    " first"
-                    :
-                    ""
-                );
-
-
-            div.innerHTML =
-
-                `
-                <div class="position">
-
-                    ${
-                        i === 0
-                        ?
-                        "🥇 PRIMEIRA POSSIBILIDADE"
-                        :
-                        i === 1
-                        ?
-                        "🥈 SEGUNDA POSSIBILIDADE"
-                        :
-                        "🥉 TERCEIRA POSSIBILIDADE"
-                    }
-
-                </div>
-
-
-                <div class="num">
-                    ${x.n}
-                </div>
-
-
-                <div class="small">
-                    Dúzia:
-                    <strong>
-                        ${dozen(x.n) || "0"}
-                    </strong>
-                </div>
-
-
-                <div class="small">
-                    Coluna:
-                    <strong>
-                        ${column(x.n) || "0"}
-                    </strong>
-                </div>
-
-
-                <div class="small">
-                    Setor:
-                    <strong>
-                        ${sector(x.n)}
-                    </strong>
-                </div>
-
-
-                <div class="bar">
-
-                    <div
-                        class="fill"
-                        style="
-                            width:${x.score}%
-                        "
-                    ></div>
-
-                </div>
-
-
-                <p class="score">
-                    Força da regra:
-                    ${x.score}%
-                </p>
-
-
-                <div class="small">
-
-                    Vizinhos:
-
-                    ${neighbors(x.n,3).join(" • ")}
-
-                </div>
-                `;
-
-
-            candidateBox.appendChild(
-                div
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       SETORES
-    ===================================================== */
-
-    const recente =
-        spins[
-            spins.length - 1
-        ];
-
-
-    const protecao =
-        [
-            0,
-            ...neighbors(
-                cand[0]?.n || recente,
-                3
-            )
-        ];
-
-
-    document.getElementById(
-        "sectorBox"
-    ).innerHTML =
-
-        `
-
-        <div class="sector-grid">
-
-            <div class="sector-card">
-
-                <div class="small">
-                    ÚLTIMO RESULTADO
-                </div>
-
-                <div class="sector-number">
-                    ${recente}
-                </div>
-
-                <span class="badge blue">
-                    ${sector(recente)}
-                </span>
-
-            </div>
-
-
-            <div class="sector-card">
-
-                <div class="small">
-                    MELHOR DÚZIA
-                </div>
-
-                <div class="sector-number">
-                    ${bestD.k}ª
-                </div>
-
-                <span class="badge purple">
-                    ${Math.round(bestD.score)}%
-                </span>
-
-            </div>
-
-
-            <div class="sector-card">
-
-                <div class="small">
-                    MELHOR COLUNA
-                </div>
-
-                <div class="sector-number">
-                    ${bestC.k}ª
-                </div>
-
-                <span class="badge blue">
-                    ${Math.round(bestC.score)}%
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="protection">
-
-            <strong>
-                🛡️ PROTEÇÃO MEGAMENTE
-            </strong>
-
-            <p class="small">
-                Proteção adicional configurada
-                no zero + vizinhança do candidato principal.
-            </p>
-
-            <div class="zero">
-                0
-            </div>
-
-            <p style="text-align:center">
-
-                ${protecao.join(" • ")}
-
-            </p>
-
-        </div>
-
-        `;
-
-
-    /* =====================================================
-       GATILHO
-    ===================================================== */
-
-    const card =
-        document.getElementById(
-            "triggerCard"
-        );
-
-
-    card.className =
-        "card trigger " +
-        (
-            trigger
-            ?
-            "active"
-            :
-            "wait"
-        );
-
-
-    document.getElementById(
-        "triggerText"
-    ).innerHTML =
-
-        trigger
-
-        ?
-
-        `
-        <span class="badge green">
-            🟢 GATILHO ATIVO
-        </span>
-
-        <h3>
-            ENTRADA LIBERADA
-        </h3>
-
-        <p>
-
-            <strong>
-                DÚZIA:
-            </strong>
-
-            ${bestD.k}ª
-
-            &nbsp; +
-
-            <strong>
-                COLUNA:
-            </strong>
-
-            ${bestC.k}ª
-
-        </p>
-
-        <p>
-
-            🎯 Candidato principal:
-
-            <strong>
-                ${cand[0].n}
-            </strong>
-
-        </p>
-
-        <p>
-
-            💪 Força da leitura:
-
-            <strong>
-                ${combined}%
-            </strong>
-
-        </p>
-
-        `
-
-        :
-
-        `
-
-        <span class="badge yellow">
-            ⚪ AGUARDAR
-        </span>
-
-        <h3>
-            Sem confluência suficiente
-        </h3>
-
-        <p>
-
-            Força atual:
-
-            <strong>
-                ${combined}%
-            </strong>
-
-        </p>
-
-        <p class="small">
-
-            O gatilho completo exige
-            7 giros e força mínima de 65%.
-
-        </p>
-
-        `;
-
-}
-
-
-/* =========================================================
-   REGISTRAR RESULTADO
-========================================================= */
-
-function registrarResultado(){
-
-    const raw =
-        prompt(
-            "Digite o resultado real do próximo giro (0 a 36):"
-        );
-
-
-    if(raw === null)
-        return;
-
-
-    const n =
-        Number(raw);
-
-
-    if(
-        !Number.isInteger(n) ||
-        n < 0 ||
-        n > 36
-    ){
-
-        alert(
-            "Resultado inválido. Use um número de 0 a 36."
-        );
-
-        return;
-
-    }
-
-
-    let hit = false;
-
-
-    if(lastAnalysis){
-
-        hit =
-            lastAnalysis.cand.some(
-                x =>
-                    x.n === n
-            )
-
-            ||
-
-            n === 0;
-
-    }
-
-
-    history.unshift({
-
-        time:
-            new Date()
-            .toLocaleTimeString(
-                "pt-BR",
-                {
-                    hour:"2-digit",
-                    minute:"2-digit"
-                }
-            ),
-
-        n:n,
-
-        trigger:
-            lastAnalysis?.trigger
-            ?
-            "ATIVO"
-            :
-            "AGUARDAR",
-
-        hit:hit
-
-    });
-
-
-    renderHistory();
-
-
-    /* =====================================================
-       JANELA MÓVEL
-    ===================================================== */
-
-    const inputs =
-        Array.from(
-            {length:7},
-            (_,i) =>
-                document.getElementById(
-                    "s" + (i+1)
-                )
-        );
-
-
-    for(
-        let i = 0;
-        i < 6;
-        i++
-    ){
-
-        inputs[i].value =
-            inputs[i+1].value;
-
-    }
-
-
-    inputs[6].value =
-        n;
-
-
-    analisar();
-
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-}
-
-
-/* =========================================================
-   HISTÓRICO
-========================================================= */
-
-function renderHistory(){
-
-    document.getElementById(
-        "history"
-    ).innerHTML =
-
-        history.map(
-            h =>
-
-            `
-
-            <tr>
-
-                <td>
-                    ${h.time}
-                </td>
-
-                <td>
-                    <strong>
-                        ${h.n}
-                    </strong>
-                </td>
-
-                <td>
-
-                    <span
-                        class="badge
-                        ${
-                            h.trigger === "ATIVO"
-                            ?
-                            "green"
-                            :
-                            "yellow"
-                        }">
-
-                        ${h.trigger}
-
-                    </span>
-
-                </td>
-
-                <td>
-
-                    <span
-                        class="badge
-                        ${
-                            h.hit
-                            ?
-                            "green"
-                            :
-                            "red"
-                        }">
-
-                        ${
-                            h.hit
-                            ?
-                            "ACERTO"
-                            :
-                            "ERRO"
-                        }
-
-                    </span>
-
-                </td>
-
-            </tr>
-
-            `
-
-        )
-
-        .join("");
-
-}
-
-
-/* =========================================================
-   LIMPAR
-========================================================= */
-
-function limpar(){
-
-    for(
-        let i = 1;
-        i <= 7;
-        i++
-    ){
-
-        document.getElementById(
-            "s" + i
-        ).value = "";
-
-    }
-
-
-    lastAnalysis =
-        null;
-
-
-    document.getElementById(
-        "inputStatus"
-    ).textContent =
-
-        "Preencha os 7 giros para liberar a análise.";
-
-
-    document.getElementById(
-        "triggerText"
-    ).textContent =
-
-        "Aguardando dados suficientes.";
-
-
-    document.getElementById(
-        "triggerCard"
-    ).className =
-
-        "card trigger wait";
-
-
-    [
-
-        "bestDozen",
-        "bestColumn",
-        "triggerScore",
-        "candidateCount"
-
-    ].forEach(
-        id => {
-
-            document.getElementById(
-                id
-            ).textContent = "—";
-
-        }
-    );
-
-
-    document.getElementById(
-        "candidates"
-    ).innerHTML =
-
-        `
-        <div class="small">
-            A análise aparecerá aqui.
-        </div>
-        `;
-
-
-    document.getElementById(
-        "dozenTable"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "columnTable"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "sectorBox"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "s1"
-    ).focus();
-
-}
-
-
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
-
-createInputs();
-
-</script>
-
-</body>
-
-</html>
