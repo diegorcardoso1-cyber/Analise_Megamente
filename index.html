@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,1161 +7,1404 @@
 <title>ANÁLISE MEGAMENTE</title>
 
 <style>
+*{box-sizing:border-box}
 
-/* =========================================================
-   CONFIGURAÇÃO GERAL
-========================================================= */
-
-* {
-    box-sizing: border-box;
+:root{
+    --verde:#00ff9d;
+    --verde2:#00c97b;
+    --azul:#00b7ff;
+    --roxo:#8b5cf6;
+    --vermelho:#ff4d6d;
+    --amarelo:#ffd166;
+    --fundo:#030712;
+    --card:rgba(10,18,35,.94);
+    --texto:#f1f5f9;
+    --texto2:#94a3b8;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #eaf7ff;
+body{
+    margin:0;
+    padding:20px;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--texto);
+    min-height:100vh;
 
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(0, 217, 255, 0.12),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 80% 10%,
-            rgba(0, 100, 255, 0.12),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(0, 255, 180, 0.06),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #01050c 0%,
-            #03111f 45%,
-            #020813 100%
-        );
-
-    overflow-x: hidden;
+        radial-gradient(circle at 15% 15%,rgba(0,255,157,.12),transparent 30%),
+        radial-gradient(circle at 85% 10%,rgba(0,183,255,.12),transparent 30%),
+        radial-gradient(circle at 50% 90%,rgba(139,92,246,.12),transparent 35%),
+        linear-gradient(135deg,#02040a,#07101d,#030712);
 }
 
-/* Grade futurística */
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.25;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.12;
 
     background-image:
-        linear-gradient(
-            rgba(0, 217, 255, 0.04) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(0, 217, 255, 0.04) 1px,
-            transparent 1px
-        );
+        linear-gradient(rgba(0,255,157,.18) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,255,157,.18) 1px,transparent 1px);
 
-    background-size: 45px 45px;
+    background-size:45px 45px;
 }
 
-/* Brilho */
-
-body::after {
-    content: "";
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-
-    background: rgba(0, 190, 255, 0.035);
-    filter: blur(80px);
-    pointer-events: none;
+.container{
+    max-width:1250px;
+    margin:auto;
+    position:relative;
+    z-index:1;
 }
 
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.container {
-    width: 95%;
-    max-width: 1450px;
-    margin: 25px auto 50px;
-    position: relative;
-    z-index: 2;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header {
-    position: relative;
-    overflow: hidden;
-
-    padding: 30px;
-
-    text-align: center;
-
-    border: 1px solid rgba(0, 217, 255, 0.30);
-    border-radius: 22px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(3, 20, 38, 0.96),
-            rgba(2, 10, 23, 0.92)
-        );
+.card{
+    background:var(--card);
+    border:1px solid rgba(0,255,157,.16);
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:18px;
 
     box-shadow:
-        0 0 40px rgba(0, 150, 255, 0.12),
-        inset 0 0 30px rgba(0, 180, 255, 0.025);
+        0 10px 35px rgba(0,0,0,.35),
+        inset 0 0 25px rgba(0,255,157,.025);
+
+    backdrop-filter:blur(10px);
 }
 
-.header::before {
-    content: "";
-    position: absolute;
-    left: -20%;
-    top: 0;
-    width: 140%;
-    height: 1px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #00d9ff,
-        transparent
-    );
-
-    animation: scan 4s linear infinite;
+.header{
+    text-align:center;
+    padding:35px 20px;
 }
 
-@keyframes scan {
-    from {
-        transform: translateX(-20%);
-    }
-
-    to {
-        transform: translateX(20%);
-    }
-}
-
-.logo {
-    font-size: 42px;
-    font-weight: 900;
-    letter-spacing: 7px;
-
-    color: #00d9ff;
+.logo{
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:4px;
+    color:var(--verde);
 
     text-shadow:
-        0 0 8px rgba(0, 217, 255, 0.8),
-        0 0 25px rgba(0, 217, 255, 0.35);
+        0 0 10px rgba(0,255,157,.8),
+        0 0 30px rgba(0,255,157,.35);
 }
 
-.subtitle {
-    margin-top: 10px;
-    color: #86a9c3;
-    letter-spacing: 2px;
-    font-size: 13px;
+.subtitulo{
+    color:var(--texto2);
+    margin-top:10px;
+    letter-spacing:2px;
 }
 
-.module {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 7px 15px;
-
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 30px;
-
-    color: #00d9ff;
-    font-size: 11px;
-    letter-spacing: 2px;
-
-    background: rgba(0, 217, 255, 0.04);
+h2{
+    margin-top:0;
+    color:var(--verde);
 }
 
-/* =========================================================
-   GRID
-========================================================= */
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 18px;
+h3{
+    color:#e2e8f0;
 }
 
-/* =========================================================
-   CARDS
-========================================================= */
-
-.card {
-    position: relative;
-
-    padding: 21px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(5, 24, 43, 0.93),
-            rgba(2, 12, 25, 0.95)
-        );
-
-    border: 1px solid rgba(28, 89, 128, 0.65);
-    border-radius: 18px;
-
-    box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.25),
-        inset 0 0 25px rgba(0, 170, 255, 0.025);
+.muted{
+    color:var(--texto2);
 }
 
-.card h2 {
-    margin: 0 0 18px;
-
-    color: #00d9ff;
-
-    font-size: 18px;
-    letter-spacing: 1px;
-}
-
-/* =========================================================
+/* =========================
    GIROS
-========================================================= */
+========================= */
 
-.giros {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 8px;
+.giros{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:10px;
+    margin-top:20px;
 }
 
-.giro {
-    padding: 11px 4px;
-
-    text-align: center;
-
-    background: rgba(5, 27, 47, 0.9);
-
-    border: 1px solid #174766;
-    border-radius: 9px;
-
-    font-weight: bold;
-
-    box-shadow:
-        inset 0 0 10px rgba(0, 180, 255, 0.02);
+.giro{
+    text-align:center;
 }
 
-.giro span {
-    display: block;
-    margin-bottom: 4px;
-
-    color: #6386a1;
-
-    font-size: 10px;
+.giro label{
+    display:block;
+    margin-bottom:7px;
+    color:var(--texto2);
+    font-size:13px;
 }
 
-/* =========================================================
-   INPUT
-========================================================= */
-
-.input-area {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+input{
+    width:100%;
+    padding:14px 5px;
+    background:rgba(0,0,0,.35);
+    color:white;
+    border:1px solid rgba(0,255,157,.25);
+    border-radius:10px;
+    font-size:18px;
+    text-align:center;
 }
 
-input {
-    width: 100%;
-
-    padding: 13px 14px;
-
-    color: white;
-    background: #020d19;
-
-    border: 1px solid #215879;
-    border-radius: 10px;
-
-    outline: none;
-
-    font-size: 16px;
+input:focus{
+    outline:none;
+    border-color:var(--verde);
+    box-shadow:0 0 15px rgba(0,255,157,.2);
 }
 
-input:focus {
-    border-color: #00d9ff;
+/* =========================
+   BOTÕES
+========================= */
 
-    box-shadow:
-        0 0 15px rgba(0, 217, 255, 0.15);
+.botoes{
+    display:flex;
+    gap:12px;
+    margin-top:25px;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 13px;
+button{
+    border:none;
+    border-radius:10px;
+    padding:15px 20px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
 }
 
-button {
-    border: 0;
-    border-radius: 9px;
-
-    padding: 12px 18px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s,
-        filter 0.2s,
-        box-shadow 0.2s;
+button:hover{
+    transform:translateY(-2px);
 }
 
-button:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.12);
+.btn-analisar{
+    flex:1;
+    color:#00130b;
+    background:linear-gradient(90deg,var(--verde),var(--verde2));
 }
 
-.btn-primary {
-    color: #001018;
-    background: #00bfe8;
-
-    box-shadow:
-        0 0 15px rgba(0, 191, 232, 0.12);
+.btn-limpar{
+    background:#1e293b;
+    color:white;
 }
 
-.btn-success {
-    color: #00150d;
-    background: #00c878;
+.btn-resultado{
+    width:100%;
+    margin-top:15px;
+    background:linear-gradient(90deg,var(--azul),var(--roxo));
+    color:white;
 }
 
-.btn-danger {
-    color: white;
-    background: #d94456;
+/* =========================
+   STATUS RACE
+========================= */
+
+.status{
+    padding:25px;
+    border-radius:16px;
+    text-align:center;
+
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.08);
 }
 
-.btn-warning {
-    color: #171000;
-    background: #d99a18;
+.status-titulo{
+    color:var(--texto2);
+    font-size:13px;
+    letter-spacing:2px;
 }
 
-.btn-secondary {
-    color: white;
-    background: #17344d;
+.status-grande{
+    font-size:30px;
+    font-weight:900;
+    margin:10px 0;
 }
 
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status {
-    padding: 22px;
-
-    text-align: center;
-
-    border-radius: 15px;
-
-    background: rgba(3, 17, 31, 0.85);
-
-    border: 1px solid #25465e;
-
-    transition: 0.3s;
+.status-texto{
+    color:var(--texto2);
 }
 
-.status-title {
-    font-size: 27px;
-    font-weight: bold;
+.status-aguardar{
+    border-color:rgba(255,209,102,.35);
+    box-shadow:0 0 25px rgba(255,209,102,.05);
 }
 
-.status-text {
-    margin-top: 8px;
-    color: #91aabd;
-    line-height: 1.5;
+.status-entrada{
+    border-color:rgba(0,255,157,.45);
+    box-shadow:0 0 30px rgba(0,255,157,.10);
 }
 
-.status.entry {
-    border-color: #00d9ff;
-
-    box-shadow:
-        0 0 25px rgba(0, 217, 255, 0.13);
+.status-quebra{
+    border-color:rgba(255,77,109,.45);
+    box-shadow:0 0 30px rgba(255,77,109,.08);
 }
 
-.status.success {
-    border-color: #00c878;
+/* =========================
+   POSSIBILIDADES
+========================= */
 
-    box-shadow:
-        0 0 25px rgba(0, 200, 120, 0.13);
+.possibilidades{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
 }
 
-.status.attention {
-    border-color: #e4a82b;
+.possibilidade{
+    text-align:center;
+    padding:25px 15px;
 
-    box-shadow:
-        0 0 25px rgba(228, 168, 43, 0.13);
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
 }
 
-.status.break {
-    border-color: #e84b5b;
-
-    box-shadow:
-        0 0 30px rgba(232, 75, 91, 0.16);
+.possibilidade.primeira{
+    border:2px solid var(--verde);
 }
 
-.status.wait {
-    border-color: #36536a;
+.posicao{
+    font-weight:bold;
+    color:var(--texto2);
 }
 
-/* =========================================================
-   SCORE
-========================================================= */
+.centro{
+    width:90px;
+    height:90px;
+    margin:18px auto;
 
-.score {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-top: 15px;
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:40px;
+    font-weight:bold;
+
+    background:#111827;
+    border:3px solid var(--azul);
 }
 
-.score-box {
-    padding: 14px;
-
-    text-align: center;
-
-    background: rgba(4, 20, 35, 0.8);
-
-    border: 1px solid #173c57;
-    border-radius: 11px;
+.primeira .centro{
+    border-color:var(--verde);
 }
 
-.score-box strong {
-    display: block;
-
-    margin-bottom: 5px;
-
-    font-size: 24px;
-    color: #00d9ff;
+.setor-info{
+    color:var(--azul);
+    font-weight:bold;
 }
 
-.small {
-    color: #63849d;
-    font-size: 10px;
-    letter-spacing: 0.5px;
+.pontuacao{
+    margin-top:8px;
+    color:var(--texto2);
 }
 
-/* =========================================================
-   ANALYSIS
-========================================================= */
-
-.analysis-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+.cobertura-individual{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:18px;
 }
 
-.analysis-box {
-    padding: 15px;
+.numero-roleta{
+    width:38px;
+    height:38px;
+    border-radius:50%;
 
-    background: rgba(3, 18, 32, 0.85);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    border: 1px solid #163e5b;
-    border-radius: 12px;
+    background:#111827;
+    border:1px solid #334155;
+    font-size:12px;
+    font-weight:bold;
 }
 
-.analysis-box h3 {
-    margin: 0 0 8px;
-
-    color: #7398b3;
-
-    font-size: 12px;
-    letter-spacing: 1px;
+.numero-centro{
+    background:var(--verde);
+    color:#00130b;
+    border-color:var(--verde);
+    transform:scale(1.1);
 }
 
-.analysis-value {
-    color: #00d9ff;
+/* =========================
+   COBERTURA
+========================= */
 
-    font-size: 22px;
-    font-weight: bold;
+.cobertura-geral{
+    margin-top:25px;
+    padding:25px;
+    border-radius:15px;
+    background:rgba(0,0,0,.30);
 }
 
-/* =========================================================
-   BARRAS
-========================================================= */
-
-.bar {
-    height: 7px;
-
-    margin-top: 10px;
-
-    overflow: hidden;
-
-    background: #0c2235;
-
-    border-radius: 10px;
+.lista-cobertura-geral{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
 }
 
-.bar-fill {
-    height: 100%;
+.numero-geral{
+    width:44px;
+    height:44px;
+    border-radius:50%;
 
-    width: 0%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    background: #00bfe8;
-
-    border-radius: 10px;
-
-    transition: width 0.5s;
+    background:#182235;
+    border:1px solid #334155;
+    font-weight:bold;
 }
 
-/* =========================================================
-   GATILHO
-========================================================= */
-
-.trigger {
-    margin-top: 18px;
-
-    padding: 22px;
-
-    text-align: center;
-
-    border: 1px solid rgba(0, 217, 255, 0.35);
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0, 100, 160, 0.08),
-            rgba(0, 217, 255, 0.025)
-        );
+.numero-zero{
+    background:var(--verde);
+    color:#00130b;
 }
 
-.trigger-label {
-    color: #6d93ad;
+/* =========================
+   COLUNAS / DUZIAS
+========================= */
 
-    font-size: 11px;
-    letter-spacing: 2px;
+.duas-colunas{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
 }
 
-.trigger-value {
-    margin: 8px 0;
-
-    color: #00d9ff;
-
-    font-size: 30px;
-    font-weight: 900;
-
-    text-shadow:
-        0 0 15px rgba(0, 217, 255, 0.25);
+.mini-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
 }
 
-.trigger-sub {
-    color: #90aabd;
+.indicador{
+    padding:20px;
+    text-align:center;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.08);
 }
 
-/* =========================================================
-   NÚMEROS
-========================================================= */
+.indicador .numero{
+    display:block;
+    margin-top:8px;
 
-.numbers {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    font-size:28px;
+    font-weight:bold;
+
+    color:white;
 }
 
-.number {
-    width: 43px;
-    height: 43px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #092943;
-
-    border: 1px solid #17688f;
-
-    font-weight: bold;
-
-    box-shadow:
-        inset 0 0 10px rgba(0, 217, 255, 0.04);
+.indicador.destaque{
+    border-color:var(--verde);
+    box-shadow:0 0 20px rgba(0,255,157,.08);
 }
 
-.number.zero {
-    background: #174c31;
-    border-color: #00c878;
+.indicador.alerta{
+    border-color:var(--amarelo);
 }
 
-/* =========================================================
-   ALERTA
-========================================================= */
+/* =========================
+   SETORES
+========================= */
 
-.alert-panel {
-    margin-top: 15px;
-
-    padding: 17px;
-
-    text-align: center;
-
-    border-radius: 12px;
-
-    background: rgba(4, 17, 29, 0.8);
-
-    border: 1px solid #24465e;
+.setores{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
 
-.alert-normal {
-    color: #00d890;
+.setor-card{
+    text-align:center;
+    padding:20px;
+
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
 }
 
-.alert-warning {
-    color: #f1b52e;
+.setor-numero{
+    font-size:36px;
+    font-weight:bold;
+    color:var(--verde);
 }
 
-.alert-danger {
-    color: #ff6675;
+.setor-percentual{
+    color:var(--texto2);
 }
 
-/* =========================================================
-   LOG
-========================================================= */
+.destaque-setor{
+    margin-top:20px;
+    text-align:center;
+    padding:20px;
+    border-radius:12px;
 
-.log {
-    max-height: 280px;
-
-    overflow-y: auto;
-
-    padding-right: 4px;
+    background:linear-gradient(
+        90deg,
+        rgba(0,255,157,.08),
+        rgba(0,183,255,.08)
+    );
 }
 
-.log-item {
-    padding: 11px 5px;
-
-    border-bottom: 1px solid #123149;
-
-    color: #9bb2c4;
-
-    font-size: 12px;
-
-    line-height: 1.4;
+.destaque-setor .nome{
+    margin-top:7px;
+    font-size:24px;
+    font-weight:bold;
+    color:var(--verde);
 }
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+/* =========================
+   QUEBRA
+========================= */
 
-@media(max-width: 1000px) {
+.alerta-quebra{
+    padding:20px;
+    border-radius:14px;
 
-    .grid {
-        grid-template-columns: 1fr;
+    background:rgba(255,209,102,.07);
+    border:1px solid rgba(255,209,102,.25);
+
+    color:#fcd34d;
+    line-height:1.6;
+}
+
+.quebra-detectada{
+    background:rgba(255,77,109,.08);
+    border-color:rgba(255,77,109,.40);
+    color:#ff8095;
+}
+
+.analise-estavel{
+    background:rgba(0,255,157,.07);
+    border-color:rgba(0,255,157,.30);
+    color:#72ffc5;
+}
+
+/* =========================
+   RESULTADO
+========================= */
+
+.resultado-rodada{
+    text-align:center;
+    padding:25px;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+.acerto{
+    background:rgba(0,255,157,.08);
+    border:1px solid rgba(0,255,157,.3);
+}
+
+.erro{
+    background:rgba(255,77,109,.08);
+    border:1px solid rgba(255,77,109,.3);
+}
+
+.resultado-numero{
+    font-size:45px;
+    font-weight:bold;
+    margin:10px;
+}
+
+/* =========================
+   ESTATISTICAS
+========================= */
+
+.estatisticas{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.estatistica{
+    padding:20px;
+    text-align:center;
+
+    border-radius:12px;
+    background:rgba(255,255,255,.025);
+}
+
+.estatistica .valor{
+    display:block;
+    margin-top:8px;
+
+    font-size:28px;
+    font-weight:bold;
+    color:white;
+}
+
+.positivo{
+    color:var(--verde)!important;
+}
+
+.negativo{
+    color:var(--vermelho)!important;
+}
+
+.neutro{
+    color:var(--amarelo)!important;
+}
+
+/* =========================
+   HISTORICO
+========================= */
+
+.lista-giros{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.numero-giro{
+    padding:9px 13px;
+    border-radius:8px;
+
+    background:rgba(0,255,157,.08);
+    border:1px solid rgba(0,255,157,.20);
+
+    color:var(--verde);
+    font-weight:bold;
+}
+
+.linha-frequencia{
+    display:flex;
+    justify-content:space-between;
+
+    padding:13px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.linha-frequencia strong{
+    color:var(--verde);
+}
+
+/* =========================
+   AVISO
+========================= */
+
+.aviso{
+    padding:18px;
+    border-radius:12px;
+
+    background:rgba(245,158,11,.08);
+    border:1px solid rgba(245,158,11,.25);
+
+    color:#fcd34d;
+    line-height:1.6;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:20px;
+}
+
+@media(max-width:900px){
+
+    .giros{
+        grid-template-columns:repeat(4,1fr);
     }
 
-    .giros {
-        grid-template-columns: repeat(5, 1fr);
+    .possibilidades{
+        grid-template-columns:1fr;
     }
 
+    .estatisticas{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .duas-colunas{
+        grid-template-columns:1fr;
+    }
 }
 
-@media(max-width: 650px) {
+@media(max-width:600px){
 
-    .container {
-        width: 92%;
+    .giros{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .logo {
-        font-size: 27px;
-        letter-spacing: 4px;
+    .setores{
+        grid-template-columns:1fr;
     }
 
-    .analysis-grid {
-        grid-template-columns: 1fr;
+    .estatisticas{
+        grid-template-columns:1fr;
     }
 
-    .score {
-        grid-template-columns: repeat(2, 1fr);
+    .mini-grid{
+        grid-template-columns:1fr;
     }
 
-    .input-area {
-        flex-direction: column;
+    .logo{
+        font-size:30px;
     }
 
-    .giros {
-        grid-template-columns: repeat(4, 1fr);
+    .botoes{
+        flex-direction:column;
     }
-
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
-
-<!-- ======================================================
+<!-- =====================================================
      CABEÇALHO
-====================================================== -->
+===================================================== -->
 
-<header class="header">
+<div class="card header">
 
-    <div class="logo">
-        ANÁLISE MEGAMENTE
-    </div>
+<div class="logo">
+🧠 ANÁLISE MEGAMENTE
+</div>
 
-    <div class="subtitle">
-        SISTEMA DE ANÁLISE ESTATÍSTICA E MONITORAMENTO
-    </div>
-
-    <div class="module">
-        RACE • CONTROLE DE ENTRADA • QUEBRA • REANÁLISE
-    </div>
-
-</header>
-
-
-<!-- ======================================================
-     GIROS + STATUS
-====================================================== -->
-
-<div class="grid">
-
-
-<section class="card">
-
-    <h2>🎯 REGISTRO DOS GIROS</h2>
-
-    <div
-        id="giros"
-        class="giros">
-    </div>
-
-    <div class="input-area">
-
-        <input
-            type="number"
-            id="numeroInput"
-            min="0"
-            max="36"
-            placeholder="Digite o resultado de 0 a 36"
-            onkeydown="
-                if(event.key === 'Enter')
-                registrarGiro();
-            "
-        >
-
-        <button
-            class="btn-primary"
-            onclick="registrarGiro()">
-
-            REGISTRAR
-
-        </button>
-
-    </div>
-
-    <div class="actions">
-
-        <button
-            class="btn-secondary"
-            onclick="desfazerGiro()">
-
-            ↩ DESFAZER
-
-        </button>
-
-        <button
-            class="btn-danger"
-            onclick="limparTudo()">
-
-            🗑 LIMPAR
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<section class="card">
-
-    <h2>🧠 ESTADO DA RACE</h2>
-
-    <div
-        id="statusBox"
-        class="status wait">
-
-        <div
-            id="statusTitle"
-            class="status-title">
-
-            AGUARDANDO GIROS
-
-        </div>
-
-        <div
-            id="statusText"
-            class="status-text">
-
-            Registre os giros para iniciar a análise.
-
-        </div>
-
-    </div>
-
-
-    <div class="score">
-
-        <div class="score-box">
-
-            <strong id="acertos">
-                0
-            </strong>
-
-            <span class="small">
-                ACERTOS
-            </span>
-
-        </div>
-
-
-        <div class="score-box">
-
-            <strong id="erros">
-                0
-            </strong>
-
-            <span class="small">
-                ERROS
-            </span>
-
-        </div>
-
-
-        <div class="score-box">
-
-            <strong id="quebras">
-                0
-            </strong>
-
-            <span class="small">
-                QUEBRAS
-            </span>
-
-        </div>
-
-
-        <div class="score-box">
-
-            <strong id="ciclos">
-                0
-            </strong>
-
-            <span class="small">
-                CICLOS
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
+<div class="subtitulo">
+MEGAMENTE • RACE • GATILHO • COBERTURA • SIMULAÇÃO
+</div>
 
 </div>
 
 
-<!-- ======================================================
-     ANÁLISE
-====================================================== -->
+<!-- =====================================================
+     7 GIROS
+===================================================== -->
 
-<div class="grid">
+<div class="card">
 
+<h2>🎲 Registrar os 7 últimos giros</h2>
 
-<section class="card">
+<p class="muted">
+Informe os números de 0 a 36 para iniciar a análise.
+</p>
 
-    <h2>📊 ANÁLISE MEGAMENTE</h2>
+<div class="giros">
 
+<div class="giro">
+<label>GIRO 1</label>
+<input id="giro1" type="number" min="0" max="36">
+</div>
 
-    <div class="analysis-grid">
+<div class="giro">
+<label>GIRO 2</label>
+<input id="giro2" type="number" min="0" max="36">
+</div>
 
+<div class="giro">
+<label>GIRO 3</label>
+<input id="giro3" type="number" min="0" max="36">
+</div>
 
-        <div class="analysis-box">
+<div class="giro">
+<label>GIRO 4</label>
+<input id="giro4" type="number" min="0" max="36">
+</div>
 
-            <h3>
-                DÚZIA MAIS FORTE
-            </h3>
+<div class="giro">
+<label>GIRO 5</label>
+<input id="giro5" type="number" min="0" max="36">
+</div>
 
-            <div
-                id="duziaValor"
-                class="analysis-value">
+<div class="giro">
+<label>GIRO 6</label>
+<input id="giro6" type="number" min="0" max="36">
+</div>
 
-                --
+<div class="giro">
+<label>GIRO 7</label>
+<input id="giro7" type="number" min="0" max="36">
+</div>
 
-            </div>
+</div>
 
-            <div class="bar">
+<div class="botoes">
 
-                <div
-                    id="duziaBar"
-                    class="bar-fill">
-                </div>
+<button class="btn-analisar"
+onclick="analisar()">
 
-            </div>
+🧠 ANALISAR E VERIFICAR GATILHO
 
-        </div>
+</button>
 
+<button class="btn-limpar"
+onclick="limpar()">
 
-        <div class="analysis-box">
+LIMPAR
 
-            <h3>
-                COLUNA MAIS FORTE
-            </h3>
+</button>
 
-            <div
-                id="colunaValor"
-                class="analysis-value">
-
-                --
-
-            </div>
-
-            <div class="bar">
-
-                <div
-                    id="colunaBar"
-                    class="bar-fill">
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="analysis-box">
-
-            <h3>
-                SETOR MAIS FORTE
-            </h3>
-
-            <div
-                id="setorValor"
-                class="analysis-value">
-
-                --
-
-            </div>
-
-            <div class="bar">
-
-                <div
-                    id="setorBar"
-                    class="bar-fill">
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="trigger">
-
-        <div class="trigger-label">
-            GATILHO DA RACE
-        </div>
-
-        <div
-            id="triggerValue"
-            class="trigger-value">
-
-            AGUARDANDO
-
-        </div>
-
-        <div
-            id="triggerSub"
-            class="trigger-sub">
-
-            Aguardando quantidade mínima de giros.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ======================================================
-     NÚMEROS
-====================================================== -->
-
-<section class="card">
-
-    <h2>🎯 NÚMEROS DA ANÁLISE</h2>
-
-
-    <div
-        id="numerosAnalise"
-        class="numbers">
-
-        <span class="small">
-            Aguardando análise...
-        </span>
-
-    </div>
-
-
-    <div style="margin-top:20px">
-
-        <h3 style="color:#7398b3">
-            PROTEÇÃO
-        </h3>
-
-        <div
-            id="protecao"
-            class="numbers">
-
-            <div class="number zero">
-                0
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div style="margin-top:20px">
-
-        <h3 style="color:#7398b3">
-            ÚLTIMOS RESULTADOS
-        </h3>
-
-        <div
-            id="ultimos"
-            class="numbers">
-
-        </div>
-
-    </div>
-
-</section>
+</div>
 
 </div>
 
 
-<!-- ======================================================
-     MONITORAMENTO
-====================================================== -->
+<!-- =====================================================
+     RACE
+===================================================== -->
 
-<div class="grid">
+<div class="card">
 
+<h2>🏁 RACE — STATUS DA OPERAÇÃO</h2>
 
-<section class="card">
+<div id="statusRace"
+class="status status-aguardar">
 
-    <h2>⚠️ MONITORAMENTO DA RACE</h2>
+<div class="status-titulo">
+STATUS ATUAL
+</div>
 
+<div id="statusGrande"
+class="status-grande">
 
-    <div class="analysis-grid">
+🟡 AGUARDANDO ANÁLISE
 
+</div>
 
-        <div class="analysis-box">
+<div id="statusTexto"
+class="status-texto">
 
-            <h3>
-                FORÇA DA ANÁLISE
-            </h3>
+Registre os 7 giros para iniciar a análise.
 
-            <div
-                id="forca"
-                class="analysis-value">
+</div>
 
-                --
+</div>
 
-            </div>
-
-        </div>
-
-
-        <div class="analysis-box">
-
-            <h3>
-                RESULTADOS CONTRÁRIOS
-            </h3>
-
-            <div
-                id="contrarios"
-                class="analysis-value">
-
-                0
-
-            </div>
-
-        </div>
+</div>
 
 
-        <div class="analysis-box">
-
-            <h3>
-                NÍVEL DE RISCO
-            </h3>
-
-            <div
-                id="risco"
-                class="analysis-value">
-
-                --
-
-            </div>
-
-        </div>
-
-    </div>
+<div id="resultado"
+style="display:none;">
 
 
-    <div
-        id="quebraMensagem"
-        class="alert-panel">
+<!-- =====================================================
+     MEGAMENTE
+===================================================== -->
 
-        Nenhuma análise ativa.
+<div class="card">
 
-    </div>
+<h2>🎯 MEGAMENTE — 3 POSSIBILIDADES</h2>
 
-</section>
+<div class="possibilidades">
 
 
-<!-- ======================================================
-     HISTÓRICO
-====================================================== -->
+<div class="possibilidade primeira">
 
-<section class="card">
+<div class="posicao">
+🥇 PRIMEIRA
+</div>
 
-    <h2>📜 HISTÓRICO DA RACE</h2>
+<div id="numero1"
+class="centro">
+-
+</div>
 
-    <div
-        id="log"
-        class="log">
+<div id="setor1"
+class="setor-info">
+-
+</div>
 
-        <div class="log-item">
-            Sistema ANÁLISE MEGAMENTE iniciado.
-        </div>
+<div id="pontuacao1"
+class="pontuacao">
+Pontuação: -
+</div>
 
-    </div>
+<div id="cobertura1"
+class="cobertura-individual">
+</div>
 
-</section>
+</div>
+
+
+<div class="possibilidade">
+
+<div class="posicao">
+🥈 SEGUNDA
+</div>
+
+<div id="numero2"
+class="centro">
+-
+</div>
+
+<div id="setor2"
+class="setor-info">
+-
+</div>
+
+<div id="pontuacao2"
+class="pontuacao">
+Pontuação: -
+</div>
+
+<div id="cobertura2"
+class="cobertura-individual">
+</div>
+
+</div>
+
+
+<div class="possibilidade">
+
+<div class="posicao">
+🥉 TERCEIRA
+</div>
+
+<div id="numero3"
+class="centro">
+-
+</div>
+
+<div id="setor3"
+class="setor-info">
+-
+</div>
+
+<div id="pontuacao3"
+class="pontuacao">
+Pontuação: -
+</div>
+
+<div id="cobertura3"
+class="cobertura-individual">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="cobertura-geral">
+
+<h3>
+🛞 COBERTURA TOTAL + PROTEÇÃO
+</h3>
+
+<div id="coberturaGeral"
+class="lista-cobertura-geral">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULTADO DO PRÓXIMO GIRO — NO TOPO
+===================================================== -->
+
+<div class="card">
+
+<h2>🎰 Registrar resultado do próximo giro</h2>
+
+<p class="muted">
+
+Informe o número que realmente saiu.
+Depois disso a RACE registra acerto/erro,
+move a janela dos 7 giros e somente então
+gera a nova análise.
+
+</p>
+
+<input id="resultado8"
+type="number"
+min="0"
+max="36"
+placeholder="0 - 36">
+
+<button class="btn-resultado"
+onclick="registrarResultado()">
+
+🔄 REGISTRAR RESULTADO E AVANÇAR RACE
+
+</button>
+
+<div id="resultadoRodada">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     COLUNAS E DUZIAS
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📐 Análise de Colunas e Dúzias
+</h2>
+
+<div class="duas-colunas">
+
+
+<div>
+
+<h3>
+📊 COLUNAS
+</h3>
+
+<div class="mini-grid">
+
+<div id="coluna1"
+class="indicador">
+COLUNA 1
+<span class="numero">
+0
+</span>
+</div>
+
+<div id="coluna2"
+class="indicador">
+COLUNA 2
+<span class="numero">
+0
+</span>
+</div>
+
+<div id="coluna3"
+class="indicador">
+COLUNA 3
+<span class="numero">
+0
+</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<h3>
+🔢 DÚZIAS
+</h3>
+
+<div class="mini-grid">
+
+<div id="duzia1"
+class="indicador">
+1ª DÚZIA
+<span class="numero">
+0
+</span>
+</div>
+
+<div id="duzia2"
+class="indicador">
+2ª DÚZIA
+<span class="numero">
+0
+</span>
+</div>
+
+<div id="duzia3"
+class="indicador">
+3ª DÚZIA
+<span class="numero">
+0
+</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SETORES
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🛞 Análise dos setores
+</h2>
+
+<div class="setores">
+
+
+<div class="setor-card">
+
+<h3>
+🟢 VOISINS
+</h3>
+
+<div id="quantVoisins"
+class="setor-numero">
+0
+</div>
+
+<div id="percVoisins"
+class="setor-percentual">
+0%
+</div>
+
+</div>
+
+
+<div class="setor-card">
+
+<h3>
+🔵 TIERS
+</h3>
+
+<div id="quantTiers"
+class="setor-numero">
+0
+</div>
+
+<div id="percTiers"
+class="setor-percentual">
+0%
+</div>
+
+</div>
+
+
+<div class="setor-card">
+
+<h3>
+🟠 ORPHELINS
+</h3>
+
+<div id="quantOrphelins"
+class="setor-numero">
+0
+</div>
+
+<div id="percOrphelins"
+class="setor-percentual">
+0%
+</div>
+
+</div>
+
+</div>
+
+
+<div class="destaque-setor">
+
+<div>
+🔥 SETOR DOMINANTE
+</div>
+
+<div id="setorDominante"
+class="nome">
+-
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     GATILHO
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🚨 Gatilho da RACE
+</h2>
+
+<div class="estatisticas">
+
+
+<div class="estatistica">
+
+CONCENTRAÇÃO
+
+<span id="indicadorConcentracao"
+class="valor">
+0%
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+REPETIÇÕES
+
+<span id="indicadorRepeticao"
+class="valor">
+0
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+FORÇA DO GATILHO
+
+<span id="indicadorForca"
+class="valor">
+0
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+COBERTURA
+
+<span id="indicadorCobertura"
+class="valor">
+0%
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     POSSÍVEL QUEBRA
+===================================================== -->
+
+<div class="card">
+
+<h2>
+💥 Possível quebra da análise
+</h2>
+
+<div id="alertaQuebra"
+class="alerta-quebra">
+
+Aguardando análise.
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ESTATÍSTICAS
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📊 Estatísticas da simulação
+</h2>
+
+<div class="estatisticas">
+
+
+<div class="estatistica">
+
+ACERTOS
+
+<span id="acertos"
+class="valor positivo">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+ERROS
+
+<span id="erros"
+class="valor negativo">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+TAXA DE ACERTO
+
+<span id="taxa"
+class="valor">
+
+0%
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+MAIOR SEQUÊNCIA SEM ACERTO
+
+<span id="sequencia"
+class="valor">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+FICHAS UTILIZADAS
+
+<span id="fichas"
+class="valor">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+COBERTURA ATUAL
+
+<span id="coberturaAtual"
+class="valor">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+PERCENTUAL COBERTO
+
+<span id="percentualCobertura"
+class="valor">
+
+0%
+
+</span>
+
+</div>
+
+
+<div class="estatistica">
+
+GIROS NO CICLO
+
+<span id="totalGiros"
+class="valor">
+
+7
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     HISTÓRICO EMBAIXO
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📋 Giros analisados
+</h2>
+
+<div id="listaGiros"
+class="lista-giros">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FREQUÊNCIA
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🔎 Frequência dos números
+</h2>
+
+<div id="frequencia">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     AVISO
+===================================================== -->
+
+<div class="card">
+
+<div class="aviso">
+
+<strong>
+⚠️ IMPORTANTE
+</strong>
+
+<br><br>
+
+A Megamente é uma ferramenta de análise
+e simulação.
+
+<br><br>
+
+O gatilho da RACE é calculado com base
+nos dados registrados no sistema, incluindo
+frequência, repetição, concentração na roda,
+setores, colunas, dúzias e proximidade dos
+números.
+
+<br><br>
+
+O alerta de possível quebra indica que
+o padrão utilizado pelo modelo perdeu força.
+Ele não significa que o próximo resultado
+possa ser previsto com certeza.
+
+<br><br>
+
+Os giros da roleta são independentes.
+Resultados anteriores não alteram
+matematicamente a probabilidade real
+do próximo giro.
+
+</div>
+
+</div>
+
+
+<div class="footer">
+
+🧠 ANÁLISE MEGAMENTE
+<br>
+MEGAMENTE • RACE • SISTEMA DE ANÁLISE E SIMULAÇÃO
 
 </div>
 
@@ -1171,1572 +1413,1938 @@ button:hover {
 
 <script>
 
-/* =========================================================
-   CONFIGURAÇÕES
-========================================================= */
+/* =====================================================
+   RODA EUROPEIA
+===================================================== */
 
-const MIN_GIROS_ANALISE = 6;
+const roda = [
 
-const MAX_GIROS = 20;
-
-
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
-let giros = [];
-
-let estadoRace = "AGUARDANDO";
-
-let analiseAtiva = null;
-
-let contrarios = 0;
-
-let acertos = 0;
-
-let erros = 0;
-
-let quebras = 0;
-
-let ciclos = 0;
-
-
-/* =========================================================
-   SETORES DA ROLETA
-========================================================= */
-
-const setores = {
-
-    Voisins: [
-        22,18,29,7,28,12,35,3,26,
-        0,32,15,19,4,21,2,25
-    ],
-
-    Tiers: [
-        27,13,36,11,30,8,
-        23,10,5,24,16,33
-    ],
-
-    Orphelins: [
-        1,20,14,31,9,22,18,
-        29,7,28,12,35,3,26
-    ]
-
-};
-
-
-/* =========================================================
-   ORDEM DA ROLETA EUROPEIA
-========================================================= */
-
-const ordemRoleta = [
-
-    0,32,15,19,4,21,2,25,17,
-    34,6,27,13,36,11,30,8,23,
-    10,5,24,16,33,1,20,14,31,
-    9,22,18,29,7,28,12,35,3,26
+0,32,15,19,4,21,2,25,17,
+34,6,27,13,36,11,30,8,23,
+10,5,24,16,33,1,20,14,31,
+9,22,18,29,7,28,12,35,3,26
 
 ];
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
+/* =====================================================
+   SETORES
+===================================================== */
 
-function inicializar() {
+const voisins = [
 
-    renderGiros();
+22,18,29,7,28,12,35,3,26,
+0,32,15,19,4,21,2,25,17,
+34,6,27,13
 
-    atualizarTela();
+];
+
+const tiers = [
+
+5,24,16,33,1,20,
+14,31,9,22,18,29
+
+];
+
+
+/* =====================================================
+   COLUNAS
+===================================================== */
+
+const colunas = [
+
+[
+1,4,7,10,13,16,
+19,22,25,28,31,34
+],
+
+[
+2,5,8,11,14,17,
+20,23,26,29,32,35
+],
+
+[
+3,6,9,12,15,18,
+21,24,27,30,33,36
+]
+
+];
+
+
+/* =====================================================
+   DÚZIAS
+===================================================== */
+
+const duzias = [
+
+[
+1,2,3,4,5,6,7,8,9,10,11,12
+],
+
+[
+13,14,15,16,17,18,19,20,21,22,23,24
+],
+
+[
+25,26,27,28,29,30,31,32,33,34,35,36
+]
+
+];
+
+
+/* =====================================================
+   VARIÁVEIS
+===================================================== */
+
+let girosAtuais = [];
+
+let coberturaAtual = new Set();
+
+let candidatosAtuais = [];
+
+let estatisticas = {
+
+    acertos:0,
+
+    erros:0,
+
+    fichas:0,
+
+    sequenciaAtual:0,
+
+    maiorSequencia:0
+
+};
+
+
+/* =====================================================
+   SETOR
+===================================================== */
+
+function identificarSetor(numero){
+
+    if(
+        voisins.includes(numero)
+    ){
+
+        return "VOISINS DU ZÉRO";
+
+    }
+
+    if(
+        tiers.includes(numero)
+    ){
+
+        return "TIERS";
+
+    }
+
+    return "ORPHELINS";
 
 }
 
 
-/* =========================================================
-   REGISTRAR GIRO
-========================================================= */
+/* =====================================================
+   COLUNA
+===================================================== */
 
-function registrarGiro() {
+function identificarColuna(numero){
 
-    const input =
-        document.getElementById("numeroInput");
+    if(numero === 0){
 
-    const numero =
-        Number(input.value);
+        return "ZERO";
+
+    }
+
+    for(
+        let i=0;
+        i<colunas.length;
+        i++
+    ){
+
+        if(
+            colunas[i].includes(numero)
+        ){
+
+            return "COLUNA " + (i+1);
+
+        }
+
+    }
+
+    return "-";
+
+}
 
 
-    if (
-        !Number.isInteger(numero) ||
-        numero < 0 ||
-        numero > 36
-    ) {
+/* =====================================================
+   DÚZIA
+===================================================== */
 
-        alert(
-            "Digite um número válido entre 0 e 36."
+function identificarDuzia(numero){
+
+    if(numero === 0){
+
+        return "ZERO";
+
+    }
+
+    if(numero <= 12){
+
+        return "1ª DÚZIA";
+
+    }
+
+    if(numero <= 24){
+
+        return "2ª DÚZIA";
+
+    }
+
+    return "3ª DÚZIA";
+
+}
+
+
+/* =====================================================
+   DISTÂNCIA NA RODA
+===================================================== */
+
+function distanciaNaRoda(a,b){
+
+    const ia =
+        roda.indexOf(a);
+
+    const ib =
+        roda.indexOf(b);
+
+    if(
+        ia === -1 ||
+        ib === -1
+    ){
+
+        return 99;
+
+    }
+
+    const distancia =
+        Math.abs(
+            ia - ib
         );
 
-        return;
-    }
-
-
-    /*
-       Quando existe uma entrada ativa,
-       o resultado é avaliado primeiro.
-    */
-
-    if (estadoRace === "ENTRADA") {
-
-        avaliarResultado(numero);
-
-    }
-
-
-    giros.push(numero);
-
-
-    if (giros.length > MAX_GIROS) {
-
-        giros.shift();
-
-    }
-
-
-    input.value = "";
-
-
-    adicionarLog(
-        `Giro registrado: ${numero}`
+    return Math.min(
+        distancia,
+        roda.length - distancia
     );
 
-
-    /*
-       Depois de uma entrada,
-       o sistema espera o próximo giro
-       antes de criar outra leitura.
-    */
-
-    if (
-        estadoRace === "BATEU" ||
-        estadoRace === "ERRO" ||
-        estadoRace === "ATENCAO" ||
-        estadoRace === "QUEBRA"
-    ) {
-
-        estadoRace =
-            "AGUARDANDO_NOVO_GIRO";
-
-    }
+}
 
 
-    /*
-       Se temos dados suficientes,
-       uma nova análise pode ser criada.
-    */
+/* =====================================================
+   3 VIZINHOS CADA LADO
+===================================================== */
 
-    if (
-        giros.length >= MIN_GIROS_ANALISE &&
-        (
-            estadoRace === "AGUARDANDO" ||
-            estadoRace === "AGUARDANDO_NOVO_GIRO"
-        )
-    ) {
+function obterVizinhos(numero){
 
-        analisar();
+    const indice =
+        roda.indexOf(numero);
+
+    if(
+        indice === -1
+    ){
+
+        return [];
 
     }
 
+    const resultado = [];
 
-    renderGiros();
+    for(
+        let i=-3;
+        i<=3;
+        i++
+    ){
 
-    atualizarTela();
+        const pos =
+            (
+                indice +
+                i +
+                roda.length
+            )
+            %
+            roda.length;
+
+        resultado.push(
+            roda[pos]
+        );
+
+    }
+
+    return resultado;
 
 }
 
 
-/* =========================================================
-   AVALIAR RESULTADO
-========================================================= */
+/* =====================================================
+   PERCENTUAL
+===================================================== */
 
-function avaliarResultado(numero) {
+function percentual(
+    quantidade,
+    total
+){
 
-    if (!analiseAtiva) {
+    if(!total){
 
-        return;
-
-    }
-
-
-    const acertouNumero =
-        analiseAtiva.numeros.includes(numero);
-
-
-    const acertouDuzia =
-        duzia(numero) ===
-        analiseAtiva.duzia;
-
-
-    const acertouColuna =
-        coluna(numero) ===
-        analiseAtiva.coluna;
-
-
-    const acertouSetor =
-        setor(numero) ===
-        analiseAtiva.setor;
-
-
-    /*
-       Um resultado é considerado
-       compatível quando confirma
-       pelo menos um dos critérios
-       da análise.
-    */
-
-    if (
-        acertouNumero ||
-        acertouDuzia ||
-        acertouColuna ||
-        acertouSetor
-    ) {
-
-        acertos++;
-
-        contrarios = 0;
-
-        estadoRace = "BATEU";
-
-
-        adicionarLog(
-            `✅ ANÁLISE CONFIRMADA pelo resultado ${numero}.`
-        );
-
-        return;
+        return "0%";
 
     }
 
-
-    /*
-       Resultado contrário.
-    */
-
-    erros++;
-
-    contrarios++;
-
-    estadoRace = "ERRO";
-
-
-    adicionarLog(
-        `❌ Resultado ${numero} contrariou a análise.`
-    );
-
-
-    /*
-       Dois resultados contrários:
-       atenção.
-    */
-
-    if (contrarios >= 2) {
-
-        estadoRace = "ATENCAO";
-
-        adicionarLog(
-            "🟡 Tendência perdendo força."
-        );
-
-    }
-
-
-    /*
-       Três resultados contrários:
-       possível quebra.
-    */
-
-    if (contrarios >= 3) {
-
-        estadoRace = "QUEBRA";
-
-        quebras++;
-
-
-        adicionarLog(
-            "🔴 POSSÍVEL QUEBRA DE ANÁLISE DETECTADA."
-        );
-
-    }
+    return (
+        quantidade /
+        total *
+        100
+    )
+    .toFixed(1)
+    + "%";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    ANALISAR
-========================================================= */
+===================================================== */
 
-function analisar() {
+function analisar(){
 
-    if (giros.length < MIN_GIROS_ANALISE) {
+    const numeros = [];
 
-        estadoRace =
-            "AGUARDANDO";
+    for(
+        let i=1;
+        i<=7;
+        i++
+    ){
 
-        return;
+        const campo =
+            document.getElementById(
+                "giro"+i
+            );
+
+        if(
+            campo.value === ""
+        ){
+
+            alert(
+                "Preencha os 7 giros."
+            );
+
+            campo.focus();
+
+            return;
+
+        }
+
+        const numero =
+            Number(
+                campo.value
+            );
+
+        if(
+            numero < 0 ||
+            numero > 36
+        ){
+
+            alert(
+                "Digite números entre 0 e 36."
+            );
+
+            campo.focus();
+
+            return;
+
+        }
+
+        numeros.push(
+            numero
+        );
 
     }
 
+    girosAtuais =
+        numeros.slice();
 
-    /*
-       Utiliza os últimos 12 giros
-       como janela principal.
-    */
+    executarAnalise();
 
-    const ultimos =
-        giros.slice(-12);
+}
 
 
-    const duzias =
-        contarDuzias(ultimos);
+/* =====================================================
+   EXECUTAR ANÁLISE
+===================================================== */
 
-
-    const colunas =
-        contarColunas(ultimos);
-
-
-    const setoresContagem =
-        contarSetores(ultimos);
-
-
-    const melhorDuzia =
-        maior(duzias);
-
-
-    const melhorColuna =
-        maior(colunas);
-
-
-    const melhorSetor =
-        maior(setoresContagem);
-
+function executarAnalise(){
 
     const numeros =
-        gerarNumeros(
-            Number(melhorDuzia.chave),
-            Number(melhorColuna.chave),
-            melhorSetor.chave
-        );
+        girosAtuais;
 
 
-    const forca =
-        calcularForca(
-            melhorDuzia.valor,
-            melhorColuna.valor,
-            melhorSetor.valor,
-            ultimos.length
-        );
-
-
-    analiseAtiva = {
-
-        duzia:
-            Number(melhorDuzia.chave),
-
-        coluna:
-            Number(melhorColuna.chave),
-
-        setor:
-            melhorSetor.chave,
-
-        numeros:
-            numeros,
-
-        forca:
-            forca
-
-    };
-
-
-    contrarios = 0;
-
-    ciclos++;
-
-    estadoRace =
-        "ENTRADA";
-
-
-    adicionarLog(
-        `🎯 NOVO GATILHO RACE: D${analiseAtiva.duzia} • C${analiseAtiva.coluna} • ${analiseAtiva.setor}`
+    mostrarGiros(
+        numeros
     );
 
-}
+
+    const frequencia = {};
 
 
-/* =========================================================
-   DÚZIA
-========================================================= */
+    numeros.forEach(
+        numero=>{
 
-function duzia(numero) {
-
-    if (numero === 0) {
-
-        return 0;
-
-    }
-
-    if (numero <= 12) {
-
-        return 1;
-
-    }
-
-    if (numero <= 24) {
-
-        return 2;
-
-    }
-
-    return 3;
-
-}
-
-
-function contarDuzias(lista) {
-
-    const contagem = {
-        1: 0,
-        2: 0,
-        3: 0
-    };
-
-
-    lista.forEach(numero => {
-
-        const d =
-            duzia(numero);
-
-
-        if (d !== 0) {
-
-            contagem[d]++;
+            frequencia[numero] =
+                (
+                    frequencia[numero] ||
+                    0
+                ) + 1;
 
         }
+    );
 
-    });
 
+    /* ==========================================
+       SETORES
+    ========================================== */
 
-    return contagem;
+    let quantVoisins = 0;
 
-}
+    let quantTiers = 0;
 
+    let quantOrphelins = 0;
 
-/* =========================================================
-   COLUNA
-========================================================= */
 
-function coluna(numero) {
+    numeros.forEach(
+        numero=>{
 
-    if (numero === 0) {
+            const setor =
+                identificarSetor(
+                    numero
+                );
 
-        return 0;
+            if(
+                setor ===
+                "VOISINS DU ZÉRO"
+            ){
 
-    }
+                quantVoisins++;
 
+            }
+            else if(
+                setor === "TIERS"
+            ){
 
-    const resto =
-        numero % 3;
+                quantTiers++;
 
+            }
+            else{
 
-    if (resto === 1) {
-
-        return 1;
-
-    }
-
-
-    if (resto === 2) {
-
-        return 2;
-
-    }
-
-
-    return 3;
-
-}
-
-
-function contarColunas(lista) {
-
-    const contagem = {
-        1: 0,
-        2: 0,
-        3: 0
-    };
-
-
-    lista.forEach(numero => {
-
-        const c =
-            coluna(numero);
-
-
-        if (c !== 0) {
-
-            contagem[c]++;
-
-        }
-
-    });
-
-
-    return contagem;
-
-}
-
-
-/* =========================================================
-   SETOR
-========================================================= */
-
-function setor(numero) {
-
-    if (numero === 0) {
-
-        return "Voisins";
-
-    }
-
-
-    for (const nome in setores) {
-
-        if (
-            setores[nome].includes(numero)
-        ) {
-
-            return nome;
-
-        }
-
-    }
-
-
-    return "Tiers";
-
-}
-
-
-function contarSetores(lista) {
-
-    const contagem = {
-
-        Voisins: 0,
-
-        Tiers: 0,
-
-        Orphelins: 0
-
-    };
-
-
-    lista.forEach(numero => {
-
-        const s =
-            setor(numero);
-
-
-        if (
-            contagem[s] !== undefined
-        ) {
-
-            contagem[s]++;
-
-        }
-
-    });
-
-
-    return contagem;
-
-}
-
-
-/* =========================================================
-   GERAR NÚMEROS
-========================================================= */
-
-function gerarNumeros(
-    d,
-    c,
-    s
-) {
-
-    let candidatos = [];
-
-
-    /*
-       Primeiro encontra números
-       pertencentes à mesma dúzia.
-    */
-
-    for (
-        let i = 1;
-        i <= 36;
-        i++
-    ) {
-
-        if (
-            duzia(i) === d
-        ) {
-
-            candidatos.push(i);
-
-        }
-
-    }
-
-
-    /*
-       Prioriza também a coluna.
-    */
-
-    const intersecao =
-        candidatos.filter(
-            numero =>
-                coluna(numero) === c
-        );
-
-
-    let principais =
-        intersecao.length >= 3
-            ? intersecao
-            : candidatos;
-
-
-    /*
-       Ordena considerando
-       os números mais recentes.
-    */
-
-    const recentes =
-        [...giros].reverse();
-
-
-    principais.sort(
-        (a, b) => {
-
-            const ia =
-                recentes.indexOf(a);
-
-            const ib =
-                recentes.indexOf(b);
-
-
-            if (ia === -1) {
-
-                return 1;
+                quantOrphelins++;
 
             }
 
-
-            if (ib === -1) {
-
-                return -1;
-
-            }
-
-
-            return ia - ib;
-
         }
     );
-
-
-    /*
-       Pega até 3 números principais.
-    */
-
-    const principaisSelecionados =
-        principais.slice(0, 3);
-
-
-    /*
-       Adiciona vizinhos.
-    */
-
-    let cobertura = [];
-
-
-    principaisSelecionados.forEach(
-        numero => {
-
-            cobertura.push(numero);
-
-            cobertura.push(
-                vizinhoRoleta(
-                    numero,
-                    -1
-                )
-            );
-
-            cobertura.push(
-                vizinhoRoleta(
-                    numero,
-                    1
-                )
-            );
-
-        }
-    );
-
-
-    /*
-       Proteção adicional no zero.
-    */
-
-    cobertura.push(0);
-
-
-    return [
-        ...new Set(cobertura)
-    ];
-
-}
-
-
-/* =========================================================
-   VIZINHOS
-========================================================= */
-
-function vizinhoRoleta(
-    numero,
-    deslocamento
-) {
-
-    const index =
-        ordemRoleta.indexOf(numero);
-
-
-    if (index === -1) {
-
-        return numero;
-
-    }
-
-
-    let novo =
-        index + deslocamento;
-
-
-    if (
-        novo < 0
-    ) {
-
-        novo +=
-            ordemRoleta.length;
-
-    }
-
-
-    if (
-        novo >=
-        ordemRoleta.length
-    ) {
-
-        novo -=
-            ordemRoleta.length;
-
-    }
-
-
-    return ordemRoleta[novo];
-
-}
-
-
-/* =========================================================
-   FORÇA
-========================================================= */
-
-function calcularForca(
-    d,
-    c,
-    s,
-    total
-) {
-
-    if (
-        total === 0
-    ) {
-
-        return 0;
-
-    }
-
-
-    const media =
-        (
-            (d / total) +
-            (c / total) +
-            (s / total)
-        ) / 3;
-
-
-    let percentual =
-        media * 100;
-
-
-    /*
-       Apenas normalização
-       para leitura visual.
-    */
-
-    percentual =
-        Math.min(
-            95,
-            Math.max(
-                25,
-                percentual
-            )
-        );
-
-
-    return Math.round(
-        percentual
-    );
-
-}
-
-
-/* =========================================================
-   MAIOR
-========================================================= */
-
-function maior(obj) {
-
-    let chave = null;
-
-    let valor = -1;
-
-
-    for (
-        const k in obj
-    ) {
-
-        if (
-            obj[k] > valor
-        ) {
-
-            valor =
-                obj[k];
-
-            chave =
-                k;
-
-        }
-
-    }
-
-
-    return {
-        chave,
-        valor
-    };
-
-}
-
-
-/* =========================================================
-   RENDER GIROS
-========================================================= */
-
-function renderGiros() {
-
-    const container =
-        document.getElementById("giros");
-
-
-    container.innerHTML = "";
-
-
-    if (
-        giros.length === 0
-    ) {
-
-        for (
-            let i = 1;
-            i <= 10;
-            i++
-        ) {
-
-            container.innerHTML += `
-                <div class="giro">
-                    <span>G${i}</span>
-                    --
-                </div>
-            `;
-
-        }
-
-
-        return;
-
-    }
-
-
-    giros.forEach(
-        (numero, index) => {
-
-            container.innerHTML += `
-                <div class="giro">
-                    <span>G${index + 1}</span>
-                    ${numero}
-                </div>
-            `;
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ATUALIZAR TELA
-========================================================= */
-
-function atualizarTela() {
-
-    renderStatus();
-
-    renderAnalise();
-
-    renderUltimos();
 
 
     document.getElementById(
+        "quantVoisins"
+    ).innerText =
+        quantVoisins;
+
+
+    document.getElementById(
+        "quantTiers"
+    ).innerText =
+        quantTiers;
+
+
+    document.getElementById(
+        "quantOrphelins"
+    ).innerText =
+        quantOrphelins;
+
+
+    document.getElementById(
+        "percVoisins"
+    ).innerText =
+        percentual(
+            quantVoisins,
+            numeros.length
+        );
+
+
+    document.getElementById(
+        "percTiers"
+    ).innerText =
+        percentual(
+            quantTiers,
+            numeros.length
+        );
+
+
+    document.getElementById(
+        "percOrphelins"
+    ).innerText =
+        percentual(
+            quantOrphelins,
+            numeros.length
+        );
+
+
+    let setorDominante = "ORPHELINS";
+
+    let maiorSetor =
+        quantOrphelins;
+
+
+    if(
+        quantVoisins >
+        maiorSetor
+    ){
+
+        setorDominante =
+            "VOISINS DU ZÉRO";
+
+        maiorSetor =
+            quantVoisins;
+
+    }
+
+
+    if(
+        quantTiers >
+        maiorSetor
+    ){
+
+        setorDominante =
+            "TIERS";
+
+        maiorSetor =
+            quantTiers;
+
+    }
+
+
+    document.getElementById(
+        "setorDominante"
+    ).innerText =
+        setorDominante;
+
+
+    /* ==========================================
+       CANDIDATOS
+    ========================================== */
+
+    const candidatos = [];
+
+
+    for(
+        let numero=0;
+        numero<=36;
+        numero++
+    ){
+
+        const freq =
+            frequencia[numero] ||
+            0;
+
+
+        let proximidade = 0;
+
+        let recencia = 0;
+
+
+        numeros.forEach(
+            (n,index)=>{
+
+                const distancia =
+                    distanciaNaRoda(
+                        numero,
+                        n
+                    );
+
+
+                if(
+                    distancia <= 3
+                ){
+
+                    proximidade++;
+
+                }
+
+
+                if(
+                    n === numero
+                ){
+
+                    recencia +=
+                        index + 1;
+
+                }
+
+            }
+        );
+
+
+        const setor =
+            identificarSetor(
+                numero
+            );
+
+
+        let freqSetor = 0;
+
+
+        numeros.forEach(
+            n=>{
+
+                if(
+                    identificarSetor(n)
+                    ===
+                    setor
+                ){
+
+                    freqSetor++;
+
+                }
+
+            }
+        );
+
+
+        const repeticao =
+            freq > 1
+            ?
+            freq * 3
+            :
+            0;
+
+
+        const pontuacao =
+
+            freq * 10
+
+            +
+
+            freqSetor * 2
+
+            +
+
+            proximidade * 2
+
+            +
+
+            recencia
+
+            +
+
+            repeticao;
+
+
+        candidatos.push({
+
+            numero,
+
+            setor,
+
+            frequencia:freq,
+
+            pontuacao,
+
+            recencia
+
+        });
+
+    }
+
+
+    candidatos.sort(
+        (a,b)=>{
+
+            if(
+                b.pontuacao !==
+                a.pontuacao
+            ){
+
+                return (
+                    b.pontuacao -
+                    a.pontuacao
+                );
+
+            }
+
+            return (
+                b.frequencia -
+                a.frequencia
+            );
+
+        }
+    );
+
+
+    /* ==========================================
+       ESCOLHER 3 CENTROS
+    ========================================== */
+
+    candidatosAtuais = [];
+
+
+    for(
+        const candidato
+        of candidatos
+    ){
+
+        const proximo =
+            candidatosAtuais.some(
+                escolhido=>
+                    distanciaNaRoda(
+                        candidato.numero,
+                        escolhido.numero
+                    ) <= 3
+            );
+
+
+        if(
+            !proximo
+        ){
+
+            candidatosAtuais.push(
+                candidato
+            );
+
+        }
+
+
+        if(
+            candidatosAtuais.length === 3
+        ){
+
+            break;
+
+        }
+
+    }
+
+
+    if(
+        candidatosAtuais.length < 3
+    ){
+
+        for(
+            const candidato
+            of candidatos
+        ){
+
+            if(
+                !candidatosAtuais.some(
+                    x =>
+                    x.numero ===
+                    candidato.numero
+                )
+            ){
+
+                candidatosAtuais.push(
+                    candidato
+                );
+
+            }
+
+
+            if(
+                candidatosAtuais.length === 3
+            ){
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    mostrarPossibilidades(
+        candidatosAtuais
+    );
+
+
+    /* ==========================================
+       COBERTURA
+    ========================================== */
+
+    coberturaAtual =
+        new Set();
+
+
+    candidatosAtuais.forEach(
+        candidato=>{
+
+            obterVizinhos(
+                candidato.numero
+            )
+            .forEach(
+                numero=>{
+
+                    coberturaAtual.add(
+                        numero
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* PROTEÇÃO ZERO */
+
+    coberturaAtual.add(0);
+
+
+    mostrarCoberturaTotal(
+        coberturaAtual
+    );
+
+
+    /* ==========================================
+       COLUNAS E DÚZIAS
+    ========================================== */
+
+    atualizarColunasDuzias(
+        numeros
+    );
+
+
+    /* ==========================================
+       FREQUÊNCIA
+    ========================================== */
+
+    mostrarFrequencia(
+        frequencia
+    );
+
+
+    /* ==========================================
+       INDICADORES
+    ========================================== */
+
+    const cobertura =
+        coberturaAtual.size;
+
+
+    const concentracao =
+        (
+            cobertura /
+            37 *
+            100
+        );
+
+
+    const repeticoes =
+        Object.values(
+            frequencia
+        )
+        .filter(
+            x=>x > 1
+        )
+        .length;
+
+
+    const forca =
+        candidatosAtuais.reduce(
+            (total,c)=>
+                total +
+                c.pontuacao,
+            0
+        );
+
+
+    document.getElementById(
+        "indicadorConcentracao"
+    ).innerText =
+        concentracao.toFixed(1)
+        + "%";
+
+
+    document.getElementById(
+        "indicadorRepeticao"
+    ).innerText =
+        repeticoes;
+
+
+    document.getElementById(
+        "indicadorForca"
+    ).innerText =
+        forca;
+
+
+    document.getElementById(
+        "indicadorCobertura"
+    ).innerText =
+        concentracao.toFixed(1)
+        + "%";
+
+
+    /* ==========================================
+       GATILHO
+    ========================================== */
+
+    const gatilho =
+
+        cobertura >= 16
+
+        &&
+
+        (
+            repeticoes >= 1
+            ||
+            maiorSetor >= 3
+        )
+
+        &&
+
+        forca >= 45;
+
+
+    /* ==========================================
+       POSSÍVEL QUEBRA
+    ========================================== */
+
+    const diferenca =
+        candidatosAtuais.length >= 2
+        ?
+        candidatosAtuais[0].pontuacao -
+        candidatosAtuais[1].pontuacao
+        :
+        0;
+
+
+    const possivelQuebra =
+
+        cobertura < 14
+
+        ||
+
+        diferenca < 3;
+
+
+    const status =
+        document.getElementById(
+            "statusRace"
+        );
+
+
+    const statusGrande =
+        document.getElementById(
+            "statusGrande"
+        );
+
+
+    const statusTexto =
+        document.getElementById(
+            "statusTexto"
+        );
+
+
+    if(
+        possivelQuebra
+    ){
+
+        status.className =
+            "status status-quebra";
+
+
+        statusGrande.innerText =
+            "🔴 POSSÍVEL QUEBRA";
+
+
+        statusTexto.innerText =
+            "Os indicadores perderam força. A orientação do modelo é AGUARDAR.";
+
+    }
+    else if(
+        gatilho
+    ){
+
+        status.className =
+            "status status-entrada";
+
+
+        statusGrande.innerText =
+            "🟢 ENTRADA LIBERADA";
+
+
+        statusTexto.innerText =
+            "Gatilho identificado com base nos dados registrados.";
+
+    }
+    else{
+
+        status.className =
+            "status status-aguardar";
+
+
+        statusGrande.innerText =
+            "🟡 AGUARDAR GATILHO";
+
+
+        statusTexto.innerText =
+            "Ainda não existe convergência suficiente para liberar a entrada.";
+
+    }
+
+
+    /* ==========================================
+       ALERTA DE QUEBRA
+    ========================================== */
+
+    const alerta =
+        document.getElementById(
+            "alertaQuebra"
+        );
+
+
+    if(
+        possivelQuebra
+    ){
+
+        alerta.className =
+            "alerta-quebra quebra-detectada";
+
+
+        alerta.innerHTML =
+
+            "<strong>💥 POSSÍVEL QUEBRA DA ANÁLISE</strong>" +
+
+            "<br><br>" +
+
+            "A diferença entre os principais candidatos " +
+
+            "está baixa ou a cobertura perdeu concentração." +
+
+            "<br><br>" +
+
+            "🛑 RACE recomenda aguardar o próximo ciclo.";
+
+    }
+    else{
+
+        alerta.className =
+            "alerta-quebra analise-estavel";
+
+
+        alerta.innerHTML =
+
+            "<strong>🟢 ANÁLISE ESTÁVEL</strong>" +
+
+            "<br><br>" +
+
+            "Não foi identificado um sinal forte de quebra " +
+
+            "pelos critérios atuais do modelo.";
+
+    }
+
+
+    /* ==========================================
+       MOSTRAR
+    ========================================== */
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "resultado"
+    ).scrollIntoView({
+
+        behavior:"smooth"
+
+    });
+
+
+    atualizarEstatisticas();
+
+}
+
+
+/* =====================================================
+   MOSTRAR POSSIBILIDADES
+===================================================== */
+
+function mostrarPossibilidades(
+    possibilidades
+){
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+        const candidato =
+            possibilidades[i];
+
+
+        const numero =
+            document.getElementById(
+                "numero"+(i+1)
+            );
+
+
+        const setor =
+            document.getElementById(
+                "setor"+(i+1)
+            );
+
+
+        const pontuacao =
+            document.getElementById(
+                "pontuacao"+(i+1)
+            );
+
+
+        const cobertura =
+            document.getElementById(
+                "cobertura"+(i+1)
+            );
+
+
+        if(
+            !candidato
+        ){
+
+            numero.innerText="-";
+            setor.innerText="-";
+            pontuacao.innerText=
+                "Pontuação: -";
+            cobertura.innerHTML="";
+
+            continue;
+
+        }
+
+
+        numero.innerText =
+            candidato.numero;
+
+
+        setor.innerText =
+            candidato.setor;
+
+
+        pontuacao.innerText =
+            "Pontuação: " +
+            candidato.pontuacao;
+
+
+        cobertura.innerHTML =
+            "";
+
+
+        const vizinhos =
+            obterVizinhos(
+                candidato.numero
+            );
+
+
+        vizinhos.forEach(
+            n=>{
+
+                const elemento =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                elemento.className =
+                    "numero-roleta";
+
+
+                if(
+                    n ===
+                    candidato.numero
+                ){
+
+                    elemento.classList.add(
+                        "numero-centro"
+                    );
+
+                }
+
+
+                elemento.innerText =
+                    n;
+
+
+                cobertura.appendChild(
+                    elemento
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   COBERTURA TOTAL
+===================================================== */
+
+function mostrarCoberturaTotal(
+    conjunto
+){
+
+    const div =
+        document.getElementById(
+            "coberturaGeral"
+        );
+
+
+    div.innerHTML =
+        "";
+
+
+    const numeros =
+        Array.from(
+            conjunto
+        );
+
+
+    numeros.sort(
+        (a,b)=>
+            roda.indexOf(a) -
+            roda.indexOf(b)
+    );
+
+
+    numeros.forEach(
+        numero=>{
+
+            const elemento =
+                document.createElement(
+                    "div"
+                );
+
+
+            elemento.className =
+                "numero-geral";
+
+
+            if(
+                numero === 0
+            ){
+
+                elemento.classList.add(
+                    "numero-zero"
+                );
+
+            }
+
+
+            elemento.innerText =
+                numero;
+
+
+            div.appendChild(
+                elemento
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COLUNAS E DÚZIAS
+===================================================== */
+
+function atualizarColunasDuzias(
+    numeros
+){
+
+    const contColunas =
+        [0,0,0];
+
+
+    const contDuzias =
+        [0,0,0];
+
+
+    numeros.forEach(
+        numero=>{
+
+            for(
+                let i=0;
+                i<3;
+                i++
+            ){
+
+                if(
+                    colunas[i].includes(
+                        numero
+                    )
+                ){
+
+                    contColunas[i]++;
+
+                }
+
+
+                if(
+                    duzias[i].includes(
+                        numero
+                    )
+                ){
+
+                    contDuzias[i]++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+        document.getElementById(
+            "coluna"+(i+1)
+        ).querySelector(
+            ".numero"
+        ).innerText =
+            contColunas[i];
+
+
+        document.getElementById(
+            "duzia"+(i+1)
+        ).querySelector(
+            ".numero"
+        ).innerText =
+            contDuzias[i];
+
+
+        document.getElementById(
+            "coluna"+(i+1)
+        ).classList.remove(
+            "destaque"
+        );
+
+
+        document.getElementById(
+            "duzia"+(i+1)
+        ).classList.remove(
+            "destaque"
+        );
+
+    }
+
+
+    const maiorColuna =
+        Math.max(
+            ...contColunas
+        );
+
+
+    const maiorDuzia =
+        Math.max(
+            ...contDuzias
+        );
+
+
+    contColunas.forEach(
+        (v,i)=>{
+
+            if(
+                v === maiorColuna &&
+                v > 0
+            ){
+
+                document.getElementById(
+                    "coluna"+(i+1)
+                ).classList.add(
+                    "destaque"
+                );
+
+            }
+
+        }
+    );
+
+
+    contDuzias.forEach(
+        (v,i)=>{
+
+            if(
+                v === maiorDuzia &&
+                v > 0
+            ){
+
+                document.getElementById(
+                    "duzia"+(i+1)
+                ).classList.add(
+                    "destaque"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   RESULTADO 8º GIRO
+===================================================== */
+
+function registrarResultado(){
+
+    const campo =
+        document.getElementById(
+            "resultado8"
+        );
+
+
+    if(
+        campo.value === ""
+    ){
+
+        alert(
+            "Informe o resultado do próximo giro."
+        );
+
+        campo.focus();
+
+        return;
+
+    }
+
+
+    const resultado =
+        Number(
+            campo.value
+        );
+
+
+    if(
+        resultado < 0 ||
+        resultado > 36
+    ){
+
+        alert(
+            "Digite um número entre 0 e 36."
+        );
+
+        campo.focus();
+
+        return;
+
+    }
+
+
+    if(
+        coberturaAtual.size === 0
+    ){
+
+        alert(
+            "Faça uma análise antes de registrar o resultado."
+        );
+
+        return;
+
+    }
+
+
+    /* ==========================================
+       VERIFICAR ACERTO
+    ========================================== */
+
+    const acertou =
+        coberturaAtual.has(
+            resultado
+        );
+
+
+    if(
+        acertou
+    ){
+
+        estatisticas.acertos++;
+
+        estatisticas.sequenciaAtual =
+            0;
+
+    }
+    else{
+
+        estatisticas.erros++;
+
+        estatisticas.sequenciaAtual++;
+
+        if(
+            estatisticas.sequenciaAtual >
+            estatisticas.maiorSequencia
+        ){
+
+            estatisticas.maiorSequencia =
+                estatisticas.sequenciaAtual;
+
+        }
+
+    }
+
+
+    estatisticas.fichas +=
+        coberturaAtual.size;
+
+
+    mostrarResultadoRodada(
+        resultado,
+        acertou
+    );
+
+
+    atualizarEstatisticas();
+
+
+    /* ==========================================
+       NOVO CICLO DA RACE
+    ========================================== */
+
+    girosAtuais =
+        girosAtuais.slice(1);
+
+
+    girosAtuais.push(
+        resultado
+    );
+
+
+    campo.value =
+        "";
+
+
+    /*
+       Atualiza os 7 campos
+    */
+
+    for(
+        let i=0;
+        i<7;
+        i++
+    ){
+
+        document.getElementById(
+            "giro"+(i+1)
+        ).value =
+            girosAtuais[i];
+
+    }
+
+
+    /*
+       IMPORTANTE:
+
+       somente agora a nova análise
+       é calculada.
+    */
+
+    executarAnalise();
+
+}
+
+
+/* =====================================================
+   RESULTADO VISUAL
+===================================================== */
+
+function mostrarResultadoRodada(
+    resultado,
+    acertou
+){
+
+    const div =
+        document.getElementById(
+            "resultadoRodada"
+        );
+
+
+    div.className =
+        "resultado-rodada " +
+        (
+            acertou
+            ?
+            "acerto"
+            :
+            "erro"
+        );
+
+
+    div.innerHTML =
+
+        "<div>" +
+
+        (
+            acertou
+            ?
+            "🟢 ACERTO — ESTAVA NA COBERTURA"
+            :
+            "🔴 ERRO — FORA DA COBERTURA"
+        )
+
+        +
+
+        "</div>" +
+
+        "<div class='resultado-numero'>" +
+
+        resultado +
+
+        "</div>" +
+
+        "<div>" +
+
+        "Cobertura utilizada: " +
+
+        coberturaAtual.size +
+
+        " números" +
+
+        "</div>";
+
+}
+
+
+/* =====================================================
+   ESTATÍSTICAS
+===================================================== */
+
+function atualizarEstatisticas(){
+
+    document.getElementById(
         "acertos"
-    ).textContent =
-        acertos;
+    ).innerText =
+        estatisticas.acertos;
 
 
     document.getElementById(
         "erros"
-    ).textContent =
-        erros;
+    ).innerText =
+        estatisticas.erros;
+
+
+    const total =
+        estatisticas.acertos +
+        estatisticas.erros;
 
 
     document.getElementById(
-        "quebras"
-    ).textContent =
-        quebras;
+        "taxa"
+    ).innerText =
+
+        total > 0
+
+        ?
+
+        (
+            estatisticas.acertos /
+            total *
+            100
+        )
+        .toFixed(1)
+        +
+        "%"
+
+        :
+
+        "0%";
 
 
     document.getElementById(
-        "ciclos"
-    ).textContent =
-        ciclos;
+        "sequencia"
+    ).innerText =
+        estatisticas.maiorSequencia;
 
 
     document.getElementById(
-        "contrarios"
-    ).textContent =
-        contrarios;
-
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function renderStatus() {
-
-    const box =
-        document.getElementById(
-            "statusBox"
-        );
-
-
-    const title =
-        document.getElementById(
-            "statusTitle"
-        );
-
-
-    const text =
-        document.getElementById(
-            "statusText"
-        );
-
-
-    box.className =
-        "status";
-
-
-    switch (
-        estadoRace
-    ) {
-
-        case "ENTRADA":
-
-            box.classList.add(
-                "entry"
-            );
-
-
-            title.textContent =
-                "🎯 ENTRADA ATIVA";
-
-
-            text.textContent =
-                "A RACE está monitorando o resultado da análise atual.";
-
-            break;
-
-
-        case "BATEU":
-
-            box.classList.add(
-                "success"
-            );
-
-
-            title.textContent =
-                "✅ ANÁLISE CONFIRMADA";
-
-
-            text.textContent =
-                "Resultado compatível. A RACE aguarda o próximo giro para uma nova leitura.";
-
-            break;
-
-
-        case "ERRO":
-
-            box.classList.add(
-                "attention"
-            );
-
-
-            title.textContent =
-                "⚠️ ANÁLISE NÃO CONFIRMADA";
-
-
-            text.textContent =
-                "Resultado contrário detectado. A RACE está monitorando a tendência.";
-
-            break;
-
-
-        case "ATENCAO":
-
-            box.classList.add(
-                "attention"
-            );
-
-
-            title.textContent =
-                "🟡 ATENÇÃO";
-
-
-            text.textContent =
-                "A tendência está perdendo força. Aguardando novo giro.";
-
-            break;
-
-
-        case "QUEBRA":
-
-            box.classList.add(
-                "break"
-            );
-
-
-            title.textContent =
-                "🔴 QUEBRA DE ANÁLISE";
-
-
-            text.textContent =
-                "A leitura anterior perdeu sustentação. A RACE aguarda novo giro.";
-
-            break;
-
-
-        case "AGUARDANDO_NOVO_GIRO":
-
-            box.classList.add(
-                "wait"
-            );
-
-
-            title.textContent =
-                "⏳ AGUARDANDO NOVO GIRO";
-
-
-            text.textContent =
-                "A análise anterior foi encerrada. O próximo giro será utilizado na reanálise.";
-
-            break;
-
-
-        default:
-
-            box.classList.add(
-                "wait"
-            );
-
-
-            title.textContent =
-                "AGUARDANDO GIROS";
-
-
-            text.textContent =
-                "Registre pelo menos 6 resultados para iniciar a análise.";
-
-    }
-
-}
-
-
-/* =========================================================
-   RENDER ANÁLISE
-========================================================= */
-
-function renderAnalise() {
-
-    if (!analiseAtiva) {
-
-        document.getElementById(
-            "duziaValor"
-        ).textContent =
-            "--";
-
-
-        document.getElementById(
-            "colunaValor"
-        ).textContent =
-            "--";
-
-
-        document.getElementById(
-            "setorValor"
-        ).textContent =
-            "--";
-
-
-        document.getElementById(
-            "forca"
-        ).textContent =
-            "--";
-
-
-        document.getElementById(
-            "risco"
-        ).textContent =
-            "--";
-
-
-        document.getElementById(
-            "triggerValue"
-        ).textContent =
-            "AGUARDANDO";
-
-
-        document.getElementById(
-            "triggerSub"
-        ).textContent =
-            "Aguardando quantidade mínima de giros.";
-
-
-        return;
-
-    }
+        "fichas"
+    ).innerText =
+        estatisticas.fichas;
 
 
     document.getElementById(
-        "duziaValor"
-    ).textContent =
-        "Dúzia " +
-        analiseAtiva.duzia;
+        "coberturaAtual"
+    ).innerText =
+        coberturaAtual.size;
 
 
     document.getElementById(
-        "colunaValor"
-    ).textContent =
-        "Coluna " +
-        analiseAtiva.coluna;
+        "percentualCobertura"
+    ).innerText =
 
-
-    document.getElementById(
-        "setorValor"
-    ).textContent =
-        analiseAtiva.setor;
-
-
-    /*
-       Percentuais visuais.
-    */
-
-    document.getElementById(
-        "duziaBar"
-    ).style.width =
-        Math.min(
-            100,
-            analiseAtiva.forca + 5
-        ) + "%";
-
-
-    document.getElementById(
-        "colunaBar"
-    ).style.width =
-        Math.min(
-            100,
-            analiseAtiva.forca
-        ) + "%";
-
-
-    document.getElementById(
-        "setorBar"
-    ).style.width =
-        Math.min(
-            100,
-            analiseAtiva.forca + 8
-        ) + "%";
-
-
-    document.getElementById(
-        "forca"
-    ).textContent =
-        analiseAtiva.forca +
+        (
+            coberturaAtual.size /
+            37 *
+            100
+        )
+        .toFixed(1)
+        +
         "%";
 
-
-    let risco;
-
-
-    if (
-        contrarios === 0
-    ) {
-
-        risco =
-            "BAIXO";
-
-    } else if (
-        contrarios === 1
-    ) {
-
-        risco =
-            "MODERADO";
-
-    } else if (
-        contrarios === 2
-    ) {
-
-        risco =
-            "ALTO";
-
-    } else {
-
-        risco =
-            "CRÍTICO";
-
-    }
+}
 
 
-    document.getElementById(
-        "risco"
-    ).textContent =
-        risco;
+/* =====================================================
+   GIROS
+===================================================== */
 
+function mostrarGiros(
+    numeros
+){
 
-    document.getElementById(
-        "triggerValue"
-    ).textContent =
-        `D${analiseAtiva.duzia} • C${analiseAtiva.coluna}`;
-
-
-    document.getElementById(
-        "triggerSub"
-    ).textContent =
-        `${analiseAtiva.setor} • Força estimada ${analiseAtiva.forca}%`;
-
-
-    /*
-       Números.
-    */
-
-    const numeros =
+    const div =
         document.getElementById(
-            "numerosAnalise"
+            "listaGiros"
         );
 
 
-    numeros.innerHTML = "";
+    div.innerHTML =
+        "";
 
 
-    analiseAtiva.numeros.forEach(
-        numero => {
+    numeros.forEach(
+        (numero,index)=>{
 
-            numeros.innerHTML += `
-                <div class="number ${
-                    numero === 0
-                        ? "zero"
-                        : ""
-                }">
-                    ${numero}
-                </div>
-            `;
+            const elemento =
+                document.createElement(
+                    "div"
+                );
+
+
+            elemento.className =
+                "numero-giro";
+
+
+            elemento.innerText =
+
+                "GIRO " +
+                (index+1) +
+                " → " +
+                numero;
+
+
+            div.appendChild(
+                elemento
+            );
 
         }
     );
 
-
-    /*
-       Proteção no zero.
-    */
-
-    document.getElementById(
-        "protecao"
-    ).innerHTML = `
-        <div class="number zero">
-            0
-        </div>
-    `;
-
-
-    /*
-       Mensagem de monitoramento.
-    */
-
-    const mensagem =
-        document.getElementById(
-            "quebraMensagem"
-        );
-
-
-    if (
-        contrarios >= 3
-    ) {
-
-        mensagem.innerHTML =
-            `
-            <span class="alert-danger">
-                🔴 POSSÍVEL QUEBRA DE ANÁLISE
-            </span>
-            `;
-
-    } else if (
-        contrarios >= 2
-    ) {
-
-        mensagem.innerHTML =
-            `
-            <span class="alert-warning">
-                🟡 TENDÊNCIA PERDENDO FORÇA
-            </span>
-            `;
-
-    } else if (
-        estadoRace ===
-        "BATEU"
-    ) {
-
-        mensagem.innerHTML =
-            `
-            <span class="alert-normal">
-                🟢 ANÁLISE CONFIRMADA • AGUARDANDO NOVO GIRO
-            </span>
-            `;
-
-    } else {
-
-        mensagem.innerHTML =
-            `
-            <span class="alert-normal">
-                🟢 TENDÊNCIA SENDO MONITORADA
-            </span>
-            `;
-
-    }
-
 }
 
 
-/* =========================================================
-   ÚLTIMOS RESULTADOS
-========================================================= */
+/* =====================================================
+   FREQUÊNCIA
+===================================================== */
 
-function renderUltimos() {
+function mostrarFrequencia(
+    frequencia
+){
 
-    const container =
+    const div =
         document.getElementById(
-            "ultimos"
+            "frequencia"
         );
 
 
-    container.innerHTML = "";
+    div.innerHTML =
+        "";
 
 
-    giros
-        .slice(-10)
-        .reverse()
-        .forEach(
-            numero => {
+    const numeros =
 
-                container.innerHTML += `
-                    <div class="number ${
-                        numero === 0
-                            ? "zero"
-                            : ""
-                    }">
-                        ${numero}
-                    </div>
-                `;
+        Object.keys(
+            frequencia
+        )
+        .map(Number)
+        .sort(
+            (a,b)=>{
+
+                if(
+                    frequencia[b] !==
+                    frequencia[a]
+                ){
+
+                    return (
+                        frequencia[b] -
+                        frequencia[a]
+                    );
+
+                }
+
+                return a-b;
 
             }
         );
 
-}
+
+    numeros.forEach(
+        numero=>{
+
+            const linha =
+                document.createElement(
+                    "div"
+                );
 
 
-/* =========================================================
-   LOG
-========================================================= */
-
-function adicionarLog(
-    texto
-) {
-
-    const log =
-        document.getElementById(
-            "log"
-        );
+            linha.className =
+                "linha-frequencia";
 
 
-    const hora =
-        new Date()
-            .toLocaleTimeString(
-                "pt-BR"
+            linha.innerHTML =
+
+                "<span>" +
+
+                "<strong>" +
+                numero +
+                "</strong>" +
+
+                " — " +
+
+                identificarSetor(
+                    numero
+                ) +
+
+                "</span>" +
+
+                "<strong>" +
+
+                frequencia[numero] +
+
+                "x" +
+
+                "</strong>";
+
+
+            div.appendChild(
+                linha
             );
 
-
-    log.innerHTML =
-        `
-        <div class="log-item">
-            [${hora}] ${texto}
-        </div>
-        ` +
-        log.innerHTML;
-
-}
-
-
-/* =========================================================
-   DESFAZER
-========================================================= */
-
-function desfazerGiro() {
-
-    if (
-        giros.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    const removido =
-        giros.pop();
-
-
-    adicionarLog(
-        `↩ Giro removido: ${removido}`
+        }
     );
 
-
-    /*
-       Alteração manual do histórico
-       invalida a análise atual.
-    */
-
-    analiseAtiva = null;
-
-    contrarios = 0;
-
-    estadoRace =
-        giros.length >= MIN_GIROS_ANALISE
-            ? "AGUARDANDO"
-            : "AGUARDANDO";
-
-
-    renderGiros();
-
-    atualizarTela();
-
 }
 
 
-/* =========================================================
+/* =====================================================
    LIMPAR
-========================================================= */
+===================================================== */
 
-function limparTudo() {
+function limpar(){
 
-    if (
-        !confirm(
-            "Deseja realmente limpar toda a análise?"
-        )
-    ) {
+    for(
+        let i=1;
+        i<=7;
+        i++
+    ){
 
-        return;
+        document.getElementById(
+            "giro"+i
+        ).value =
+            "";
 
     }
-
-
-    giros = [];
-
-    estadoRace =
-        "AGUARDANDO";
-
-    analiseAtiva =
-        null;
-
-    contrarios =
-        0;
-
-    acertos =
-        0;
-
-    erros =
-        0;
-
-    quebras =
-        0;
-
-    ciclos =
-        0;
 
 
     document.getElementById(
-        "log"
+        "resultado8"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultadoRodada"
     ).innerHTML =
-        `
-        <div class="log-item">
-            Sistema ANÁLISE MEGAMENTE reiniciado.
-        </div>
-        `;
+        "";
 
 
-    renderGiros();
+    girosAtuais = [];
 
-    atualizarTela();
+    coberturaAtual =
+        new Set();
+
+    candidatosAtuais = [];
+
+
+    estatisticas = {
+
+        acertos:0,
+
+        erros:0,
+
+        fichas:0,
+
+        sequenciaAtual:0,
+
+        maiorSequencia:0
+
+    };
+
+
+    atualizarEstatisticas();
+
+
+    const status =
+        document.getElementById(
+            "statusRace"
+        );
+
+
+    status.className =
+        "status status-aguardar";
+
+
+    document.getElementById(
+        "statusGrande"
+    ).innerText =
+        "🟡 AGUARDANDO ANÁLISE";
+
+
+    document.getElementById(
+        "statusTexto"
+    ).innerText =
+        "Registre os 7 giros para iniciar a análise.";
+
+
+    document.getElementById(
+        "giro1"
+    ).focus();
 
 }
-
-
-/* =========================================================
-   INICIAR SISTEMA
-========================================================= */
-
-inicializar();
 
 </script>
 
