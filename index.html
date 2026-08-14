@@ -645,6 +645,274 @@ button:hover{
         flex-direction:column;
     }
 }
+
+/* =========================================================
+   PAINEL TECNOLÓGICO — IDENTIDADE DIEGO CARDOSO
+   Camada visual adicionada sem alterar a lógica do sistema.
+   ========================================================= */
+
+html {
+    background:#01030a;
+}
+
+body {
+    position:relative;
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(0,183,255,.16), transparent 32%),
+        radial-gradient(circle at 0% 45%, rgba(0,255,157,.10), transparent 28%),
+        radial-gradient(circle at 100% 65%, rgba(139,92,246,.12), transparent 30%),
+        linear-gradient(135deg,#01030a 0%,#06111e 48%,#02050c 100%);
+}
+
+/* Grid tecnológico */
+body::before {
+    opacity:.16;
+    background-image:
+        linear-gradient(rgba(0,183,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,183,255,.16) 1px, transparent 1px),
+        linear-gradient(rgba(0,255,157,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,157,.05) 1px, transparent 1px);
+    background-size:48px 48px,48px 48px,12px 12px,12px 12px;
+    animation: gridMove 24s linear infinite;
+}
+
+body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:
+        linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(0,255,157,.025) 48%,
+            rgba(0,183,255,.045) 50%,
+            rgba(0,255,157,.025) 52%,
+            transparent 100%
+        );
+    background-size:100% 8px;
+    opacity:.35;
+    mix-blend-mode:screen;
+}
+
+@keyframes gridMove {
+    from { background-position:0 0,0 0,0 0,0 0; }
+    to   { background-position:48px 48px,-48px 48px,12px 12px,-12px 12px; }
+}
+
+.container {
+    z-index:1;
+}
+
+/* Cabeçalho com aparência de central de comando */
+.header {
+    position:relative;
+    overflow:hidden;
+    border-color:rgba(0,183,255,.30);
+    background:
+        linear-gradient(135deg,rgba(4,16,30,.97),rgba(7,22,38,.90)),
+        radial-gradient(circle at 50% 0%,rgba(0,255,157,.12),transparent 55%);
+    box-shadow:
+        0 0 0 1px rgba(0,183,255,.05),
+        0 0 35px rgba(0,183,255,.10),
+        0 18px 55px rgba(0,0,0,.45),
+        inset 0 0 35px rgba(0,255,157,.035);
+}
+
+.header::before,
+.header::after {
+    content:"";
+    position:absolute;
+    height:1px;
+    left:8%;
+    right:8%;
+    background:linear-gradient(90deg,transparent,var(--azul),var(--verde),var(--azul),transparent);
+    box-shadow:0 0 12px rgba(0,183,255,.7);
+}
+
+.header::before { top:0; }
+.header::after { bottom:0; }
+
+.logo {
+    position:relative;
+    font-size:42px;
+    letter-spacing:5px;
+    color:#7dffd1;
+    text-shadow:
+        0 0 8px rgba(0,255,157,.95),
+        0 0 22px rgba(0,255,157,.65),
+        0 0 45px rgba(0,183,255,.25);
+}
+
+.logo::after {
+    content:"SYSTEM ONLINE";
+    display:block;
+    margin-top:10px;
+    font-size:10px;
+    letter-spacing:4px;
+    color:var(--azul);
+    text-shadow:0 0 10px rgba(0,183,255,.8);
+}
+
+.subtitulo {
+    letter-spacing:3px;
+    color:#8ba7bc;
+}
+
+/* Marca do desenvolvedor */
+.assinatura-diego {
+    margin-top:18px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 18px;
+    border:1px solid rgba(0,183,255,.30);
+    border-radius:999px;
+    background:rgba(0,10,22,.58);
+    color:#b7dfff;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    box-shadow:
+        0 0 18px rgba(0,183,255,.08),
+        inset 0 0 14px rgba(0,183,255,.04);
+}
+
+.assinatura-diego strong {
+    color:#7dffd1;
+    text-shadow:0 0 10px rgba(0,255,157,.65);
+}
+
+/* Cards com borda tecnológica */
+.card {
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(145deg,rgba(7,17,31,.96),rgba(5,12,23,.94));
+    border-color:rgba(0,183,255,.16);
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.38),
+        0 0 22px rgba(0,183,255,.035),
+        inset 0 0 28px rgba(0,255,157,.018);
+}
+
+.card::before {
+    content:"";
+    position:absolute;
+    top:0;
+    left:18px;
+    right:18px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(0,183,255,.7),rgba(0,255,157,.7),transparent);
+    opacity:.45;
+}
+
+.card h2 {
+    text-shadow:0 0 12px rgba(0,255,157,.18);
+}
+
+/* Inputs estilo terminal */
+input {
+    background:
+        linear-gradient(180deg,rgba(0,8,17,.78),rgba(1,14,24,.92));
+    border-color:rgba(0,183,255,.28);
+    box-shadow:inset 0 0 14px rgba(0,183,255,.035);
+}
+
+input:hover {
+    border-color:rgba(0,255,157,.40);
+}
+
+input:focus {
+    border-color:var(--verde);
+    box-shadow:
+        0 0 0 1px rgba(0,255,157,.10),
+        0 0 18px rgba(0,255,157,.22),
+        inset 0 0 15px rgba(0,255,157,.05);
+}
+
+/* Botões com brilho */
+button {
+    box-shadow:0 5px 18px rgba(0,0,0,.25);
+}
+
+button:hover {
+    filter:brightness(1.08);
+    box-shadow:0 8px 24px rgba(0,183,255,.12);
+}
+
+.btn-analisar {
+    box-shadow:
+        0 0 18px rgba(0,255,157,.16),
+        inset 0 0 12px rgba(255,255,255,.08);
+}
+
+.btn-resultado {
+    box-shadow:
+        0 0 18px rgba(0,183,255,.16),
+        inset 0 0 12px rgba(255,255,255,.06);
+}
+
+/* Status */
+.status {
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.025),rgba(0,183,255,.025));
+}
+
+/* Números da análise */
+.centro {
+    box-shadow:
+        0 0 18px rgba(0,183,255,.10),
+        inset 0 0 18px rgba(0,183,255,.08);
+}
+
+.primeira .centro {
+    box-shadow:
+        0 0 25px rgba(0,255,157,.22),
+        inset 0 0 18px rgba(0,255,157,.08);
+}
+
+.numero-roleta,
+.numero-geral {
+    box-shadow:inset 0 0 8px rgba(0,183,255,.035);
+}
+
+/* Rodapé */
+.footer {
+    position:relative;
+    margin-top:8px;
+    color:#52677d;
+    letter-spacing:1px;
+}
+
+.footer .assinatura-footer {
+    margin-top:8px;
+    color:#6c8299;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+/* Pequenos detalhes HUD */
+.hud-corner {
+    position:absolute;
+    width:22px;
+    height:22px;
+    border-color:rgba(0,255,157,.55);
+    pointer-events:none;
+}
+.hud-corner.tl { top:12px; left:12px; border-top:1px solid; border-left:1px solid; }
+.hud-corner.tr { top:12px; right:12px; border-top:1px solid; border-right:1px solid; }
+.hud-corner.bl { bottom:12px; left:12px; border-bottom:1px solid; border-left:1px solid; }
+.hud-corner.br { bottom:12px; right:12px; border-bottom:1px solid; border-right:1px solid; }
+
+@media(max-width:600px) {
+    .logo { font-size:30px; letter-spacing:3px; }
+    .assinatura-diego { font-size:9px; letter-spacing:1.8px; }
+}
+
 </style>
 </head>
 
@@ -665,6 +933,16 @@ button:hover{
 <div class="subtitulo">
 MEGAMENTE • RACE • GATILHO • COBERTURA • SIMULAÇÃO
 </div>
+
+<div class="assinatura-diego">
+<span>◈</span>
+DESENVOLVIDO POR <strong>DIEGO CARDOSO</strong>
+</div>
+
+<div class="hud-corner tl"></div>
+<div class="hud-corner tr"></div>
+<div class="hud-corner bl"></div>
+<div class="hud-corner br"></div>
 
 </div>
 
@@ -1405,6 +1683,7 @@ do próximo giro.
 🧠 ANÁLISE MEGAMENTE
 <br>
 MEGAMENTE • RACE • SISTEMA DE ANÁLISE E SIMULAÇÃO
+<div class="assinatura-footer">© DIEGO CARDOSO • PAINEL TECNOLÓGICO</div>
 
 </div>
 
