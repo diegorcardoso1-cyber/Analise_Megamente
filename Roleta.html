@@ -1,0 +1,3721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RACE + MEGAMENTE</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+:root{
+
+    --verde:#00ff9d;
+    --verde2:#00c97b;
+    --azul:#00b7ff;
+    --roxo:#8b5cf6;
+    --vermelho:#ff4d6d;
+    --amarelo:#ffd166;
+
+    --fundo:#030712;
+    --card:rgba(10,18,35,.94);
+
+    --texto:#f1f5f9;
+    --texto2:#94a3b8;
+
+    --linha:rgba(255,255,255,.08);
+
+}
+
+body{
+
+    margin:0;
+    padding:20px;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    color:var(--texto);
+
+    min-height:100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(0,255,157,.12),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(0,183,255,.12),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(139,92,246,.10),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #02040a,
+            #07101d,
+            #030712
+        );
+
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.10;
+
+    background-image:
+
+        linear-gradient(
+            rgba(0,255,157,.18) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(0,255,157,.18) 1px,
+            transparent 1px
+        );
+
+    background-size:45px 45px;
+
+}
+
+.container{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+.card{
+
+    background:var(--card);
+
+    border:1px solid rgba(0,255,157,.16);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+
+        0 10px 35px rgba(0,0,0,.35),
+
+        inset 0 0 25px rgba(0,255,157,.025);
+
+    backdrop-filter:blur(10px);
+
+}
+
+.header{
+
+    text-align:center;
+
+    padding:35px 20px;
+
+}
+
+.logo{
+
+    font-size:42px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+
+    color:var(--verde);
+
+    text-shadow:
+
+        0 0 10px rgba(0,255,157,.8),
+
+        0 0 30px rgba(0,255,157,.35);
+
+}
+
+.subtitulo{
+
+    color:var(--texto2);
+
+    margin-top:10px;
+
+    letter-spacing:2px;
+
+}
+
+h2{
+
+    margin-top:0;
+
+    color:var(--verde);
+
+}
+
+h3{
+
+    color:#dbeafe;
+
+}
+
+.giros{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.giro{
+
+    text-align:center;
+
+}
+
+.giro label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:var(--texto2);
+
+    font-size:13px;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:14px 5px;
+
+    background:rgba(0,0,0,.35);
+
+    color:white;
+
+    border:1px solid rgba(0,255,157,.25);
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    text-align:center;
+
+}
+
+input:focus{
+
+    outline:none;
+
+    border-color:var(--verde);
+
+    box-shadow:0 0 15px rgba(0,255,157,.2);
+
+}
+
+.botoes{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:25px;
+
+    flex-wrap:wrap;
+
+}
+
+button{
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:15px 20px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-analisar{
+
+    flex:1;
+
+    color:#00130b;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--verde),
+            var(--verde2)
+        );
+
+}
+
+.btn-limpar{
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+.btn-resultado{
+
+    width:100%;
+
+    margin-top:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color:white;
+
+}
+
+.status{
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:rgba(0,0,0,.25);
+
+    border:1px solid var(--linha);
+
+    color:var(--texto2);
+
+}
+
+/* ===============================
+   GATILHO
+================================ */
+
+.gatilho{
+
+    text-align:center;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,209,102,.10),
+            rgba(0,0,0,.25)
+        );
+
+    border:2px solid var(--amarelo);
+
+}
+
+.gatilho.ativo{
+
+    border-color:var(--verde);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,157,.14),
+            transparent 70%
+        );
+
+    box-shadow:
+        0 0 30px rgba(0,255,157,.15);
+
+}
+
+.gatilho.aguardar{
+
+    border-color:#475569;
+
+}
+
+.gatilho-titulo{
+
+    font-size:28px;
+
+    font-weight:900;
+
+}
+
+.gatilho-entrada{
+
+    margin-top:12px;
+
+    font-size:20px;
+
+    color:var(--verde);
+
+}
+
+.gatilho-forca{
+
+    margin-top:15px;
+
+    font-size:42px;
+
+    font-weight:900;
+
+}
+
+/* ===============================
+   BADGES
+================================ */
+
+.badge{
+
+    display:inline-block;
+
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin:3px;
+
+}
+
+.badge-verde{
+
+    background:rgba(0,255,157,.12);
+
+    color:var(--verde);
+
+}
+
+.badge-amarelo{
+
+    background:rgba(255,209,102,.12);
+
+    color:var(--amarelo);
+
+}
+
+.badge-vermelho{
+
+    background:rgba(255,77,109,.12);
+
+    color:var(--vermelho);
+
+}
+
+.badge-azul{
+
+    background:rgba(0,183,255,.12);
+
+    color:var(--azul);
+
+}
+
+/* ===============================
+   METRICAS
+================================ */
+
+.metricas{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+
+}
+
+.metrica{
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--linha);
+
+}
+
+.metrica-label{
+
+    color:var(--texto2);
+
+    font-size:12px;
+
+}
+
+.metrica-valor{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
+/* ===============================
+   POSSIBILIDADES
+================================ */
+
+.possibilidades{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+}
+
+.possibilidade{
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--linha);
+
+    border-radius:16px;
+
+}
+
+.possibilidade.primeira{
+
+    border:2px solid var(--verde);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,255,157,.10);
+
+}
+
+.posicao{
+
+    font-weight:bold;
+
+    color:var(--texto2);
+
+}
+
+.centro{
+
+    width:90px;
+
+    height:90px;
+
+    margin:18px auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    background:#111827;
+
+    border:3px solid var(--azul);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,183,255,.25);
+
+}
+
+.primeira .centro{
+
+    border-color:var(--verde);
+
+}
+
+.setor-info{
+
+    color:var(--azul);
+
+    font-weight:bold;
+
+}
+
+.pontuacao{
+
+    margin-top:8px;
+
+    color:var(--texto2);
+
+}
+
+.cobertura-individual{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-top:18px;
+
+}
+
+.numero-roleta{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#111827;
+
+    border:1px solid #334155;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+.numero-centro{
+
+    background:var(--verde);
+
+    color:#00130b;
+
+    border-color:var(--verde);
+
+    transform:scale(1.1);
+
+}
+
+/* ===============================
+   COBERTURA
+================================ */
+
+.cobertura-geral{
+
+    margin-top:25px;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    background:rgba(0,0,0,.30);
+
+}
+
+.lista-cobertura{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:8px;
+
+}
+
+.numero-geral{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#182235;
+
+    border:1px solid #334155;
+
+    font-weight:bold;
+
+}
+
+.numero-zero{
+
+    background:var(--verde);
+
+    color:#00130b;
+
+}
+
+/* ===============================
+   TABELAS
+================================ */
+
+.tabelas{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th,td{
+
+    padding:11px;
+
+    border-bottom:1px solid var(--linha);
+
+    text-align:left;
+
+}
+
+th{
+
+    color:var(--texto2);
+
+    font-size:12px;
+
+}
+
+.forca{
+
+    font-weight:bold;
+
+}
+
+.barra{
+
+    height:9px;
+
+    background:#0a1120;
+
+    border-radius:99px;
+
+    overflow:hidden;
+
+}
+
+.preenchimento{
+
+    height:100%;
+
+    background:var(--verde);
+
+    border-radius:99px;
+
+}
+
+/* ===============================
+   SETORES
+================================ */
+
+.setores{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+
+}
+
+.setor-card{
+
+    text-align:center;
+
+    padding:20px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--linha);
+
+    border-radius:14px;
+
+}
+
+.setor-numero{
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    color:var(--verde);
+
+}
+
+.setor-percentual{
+
+    color:var(--texto2);
+
+}
+
+/* ===============================
+   FINANCEIRO
+================================ */
+
+.financeiro{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+
+}
+
+.financeiro-card{
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--linha);
+
+}
+
+.financeiro-card .valor{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+}
+
+.positivo{
+
+    color:var(--verde)!important;
+
+}
+
+.negativo{
+
+    color:var(--vermelho)!important;
+
+}
+
+.neutro{
+
+    color:var(--amarelo)!important;
+
+}
+
+/* ===============================
+   HISTÓRICO
+================================ */
+
+.historico{
+
+    max-height:350px;
+
+    overflow:auto;
+
+}
+
+/* ===============================
+   RESULTADO
+================================ */
+
+.resultado-rodada{
+
+    text-align:center;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    margin-top:20px;
+
+}
+
+.acerto{
+
+    background:rgba(0,255,157,.08);
+
+    border:1px solid rgba(0,255,157,.3);
+
+}
+
+.erro{
+
+    background:rgba(255,77,109,.08);
+
+    border:1px solid rgba(255,77,109,.3);
+
+}
+
+.resultado-numero{
+
+    font-size:45px;
+
+    font-weight:bold;
+
+    margin:10px;
+
+}
+
+/* ===============================
+   AVISO
+================================ */
+
+.aviso{
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:rgba(245,158,11,.08);
+
+    border:1px solid rgba(245,158,11,.25);
+
+    color:#fcd34d;
+
+    line-height:1.6;
+
+}
+
+.footer{
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:12px;
+
+    padding:20px;
+
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+
+@media(max-width:900px){
+
+    .giros{
+
+        grid-template-columns:
+            repeat(4,1fr);
+
+    }
+
+    .possibilidades{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .metricas,
+    .financeiro{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .tabelas{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .giros{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .setores{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .metricas,
+    .financeiro{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .logo{
+
+        font-size:28px;
+
+    }
+
+    .botoes{
+
+        flex-direction:column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- =====================================================
+     CABEÇALHO
+===================================================== -->
+
+<div class="card header">
+
+    <div class="logo">
+        🧠 RACE + MEGAMENTE
+    </div>
+
+    <div class="subtitulo">
+        ANÁLISE • GATILHO • COBERTURA • SETORES • DÚZIAS • COLUNAS
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ENTRADA
+===================================================== -->
+
+<div class="card">
+
+<h2>🎲 Registrar os 7 últimos giros</h2>
+
+<p style="color:#94a3b8">
+
+Informe os números de 0 a 36.
+
+O sistema analisará automaticamente
+números, setores, dúzias, colunas,
+vizinhança e confluência.
+
+</p>
+
+<div class="giros">
+
+<div class="giro">
+<label>GIRO 1</label>
+<input id="giro1" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 2</label>
+<input id="giro2" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 3</label>
+<input id="giro3" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 4</label>
+<input id="giro4" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 5</label>
+<input id="giro5" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 6</label>
+<input id="giro6" type="number" min="0" max="36">
+</div>
+
+<div class="giro">
+<label>GIRO 7</label>
+<input id="giro7" type="number" min="0" max="36">
+</div>
+
+</div>
+
+<div class="botoes">
+
+<button class="btn-analisar"
+onclick="analisar()">
+
+🧠 ANALISAR RACE
+
+</button>
+
+<button class="btn-limpar"
+onclick="limpar()">
+
+🧹 LIMPAR
+
+</button>
+
+<button class="btn-resultado"
+onclick="registrarResultado()">
+
+➕ REGISTRAR PRÓXIMO RESULTADO
+
+</button>
+
+</div>
+
+<div id="inputStatus"
+class="status">
+
+Preencha os 7 giros para liberar
+a análise completa.
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     GATILHO
+===================================================== -->
+
+<div class="card">
+
+<div id="gatilhoBox"
+class="gatilho aguardar">
+
+<div class="gatilho-titulo">
+
+🚨 GATILHO DE ENTRADA
+
+</div>
+
+<div id="gatilhoStatus">
+
+AGUARDANDO DADOS
+
+</div>
+
+<div id="gatilhoForca"
+class="gatilho-forca">
+
+—
+
+</div>
+
+<div id="gatilhoEntrada"
+class="gatilho-entrada">
+
+Aguardando análise dos 7 giros.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     RESUMO
+===================================================== -->
+
+<div class="card">
+
+<h2>📊 Resumo da leitura RACE</h2>
+
+<div class="metricas">
+
+<div class="metrica">
+
+<div class="metrica-label">
+MELHOR DÚZIA
+</div>
+
+<span id="melhorDuzia"
+class="metrica-valor">
+
+—
+
+</span>
+
+</div>
+
+
+<div class="metrica">
+
+<div class="metrica-label">
+MELHOR COLUNA
+</div>
+
+<span id="melhorColuna"
+class="metrica-valor">
+
+—
+
+</span>
+
+</div>
+
+
+<div class="metrica">
+
+<div class="metrica-label">
+FORÇA DO GATILHO
+</div>
+
+<span id="forcaGatilho"
+class="metrica-valor">
+
+—
+
+</span>
+
+</div>
+
+
+<div class="metrica">
+
+<div class="metrica-label">
+COBERTURA
+</div>
+
+<span id="totalCobertura"
+class="metrica-valor">
+
+—
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     GIROS
+===================================================== -->
+
+<div id="resultado">
+
+<div class="card">
+
+<h2>📋 Giros analisados</h2>
+
+<div id="listaGiros"
+class="lista-cobertura">
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     3 POSSIBILIDADES
+===================================================== -->
+
+<div class="card">
+
+<h2>🎯 3 possibilidades principais</h2>
+
+<div class="possibilidades">
+
+
+<div class="possibilidade primeira">
+
+<div class="posicao">
+🥇 PRIMEIRA
+</div>
+
+<div id="numero1"
+class="centro">
+-
+</div>
+
+<div id="setor1"
+class="setor-info">
+-
+</div>
+
+<div id="pontuacao1"
+class="pontuacao">
+Força: -
+</div>
+
+<div id="cobertura1"
+class="cobertura-individual">
+</div>
+
+</div>
+
+
+<div class="possibilidade">
+
+<div class="posicao">
+🥈 SEGUNDA
+</div>
+
+<div id="numero2"
+class="centro">
+-
+</div>
+
+<div id="setor2"
+class="setor-info">
+-
+</div>
+
+<div id="pontuacao2"
+class="pontuacao">
+Força: -
+</div>
+
+<div id="cobertura2"
+class="cobertura-individual">
+</div>
+
+</div>
+
+
+<div class="possibilidade">
+
+<div class="posicao">
+🥉 TERCEIRA
+</div>
+
+<div id="numero3"
+class="centro">
+-
+</div>
+
+<div id="setor3"
+class="setor-info">
+-
+</div>
+
+<div id="pontuacao3"
+class="pontuacao">
+Força: -
+</div>
+
+<div id="cobertura3"
+class="cobertura-individual">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="cobertura-geral">
+
+<h3>
+🛞 COBERTURA TOTAL
+</h3>
+
+<div id="coberturaGeral"
+class="lista-cobertura">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     DÚZIAS E COLUNAS
+===================================================== -->
+
+<div class="card">
+
+<h2>📌 Análise de Dúzias e Colunas</h2>
+
+<div class="tabelas">
+
+
+<div>
+
+<h3>
+🎯 Dúzias
+</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Entrada
+</th>
+
+<th>
+Força
+</th>
+
+<th>
+Leitura
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tabelaDuzias">
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div>
+
+<h3>
+📊 Colunas
+</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Entrada
+</th>
+
+<th>
+Força
+</th>
+
+<th>
+Leitura
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tabelaColunas">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SETORES
+===================================================== -->
+
+<div class="card">
+
+<h2>🛞 Análise dos setores</h2>
+
+<div class="setores">
+
+
+<div class="setor-card">
+
+<h3>
+🟢 VOISINS
+</h3>
+
+<div id="quantVoisins"
+class="setor-numero">
+
+0
+
+</div>
+
+<div id="percVoisins"
+class="setor-percentual">
+
+0%
+
+</div>
+
+</div>
+
+
+<div class="setor-card">
+
+<h3>
+🔵 TIERS
+</h3>
+
+<div id="quantTiers"
+class="setor-numero">
+
+0
+
+</div>
+
+<div id="percTiers"
+class="setor-percentual">
+
+0%
+
+</div>
+
+</div>
+
+
+<div class="setor-card">
+
+<h3>
+🟠 ORPHELINS
+</h3>
+
+<div id="quantOrphelins"
+class="setor-numero">
+
+0
+
+</div>
+
+<div id="percOrphelins"
+class="setor-percentual">
+
+0%
+
+</div>
+
+</div>
+
+</div>
+
+
+<div style="
+margin-top:20px;
+text-align:center;
+">
+
+<div class="badge badge-verde">
+
+🔥 SETOR DOMINANTE
+
+</div>
+
+<div id="setorDominante"
+style="
+font-size:25px;
+font-weight:bold;
+margin-top:8px;
+color:var(--verde);
+">
+
+—
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULTADO REAL
+===================================================== -->
+
+<div class="card">
+
+<h2>
+🎰 Resultado do próximo giro
+</h2>
+
+<p style="color:#94a3b8">
+
+Informe o número que realmente saiu.
+
+O sistema verificará automaticamente
+se estava entre os números cobertos
+e atualizará os 7 giros.
+
+</p>
+
+<input
+id="resultado8"
+type="number"
+min="0"
+max="36"
+placeholder="0 - 36"
+>
+
+<button
+class="btn-resultado"
+onclick="registrarResultado()">
+
+🔄 REGISTRAR RESULTADO E ATUALIZAR
+
+</button>
+
+<div id="resultadoRodada"></div>
+
+</div>
+
+
+<!-- =====================================================
+     FINANCEIRO
+===================================================== -->
+
+<div class="card">
+
+<h2>
+💰 Controle da simulação
+</h2>
+
+<div class="financeiro">
+
+
+<div class="financeiro-card">
+
+Valor por ficha
+
+<span class="valor">
+
+R$ 0,50
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Fichas utilizadas
+
+<span id="fichas"
+class="valor">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Total investido
+
+<span id="investido"
+class="valor">
+
+R$ 0,00
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Resultado
+
+<span id="saldo"
+class="valor neutro">
+
+R$ 0,00
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Acertos
+
+<span id="acertos"
+class="valor positivo">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Erros
+
+<span id="erros"
+class="valor negativo">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Taxa de acerto
+
+<span id="taxa"
+class="valor">
+
+0%
+
+</span>
+
+</div>
+
+
+<div class="financeiro-card">
+
+Maior sequência sem acerto
+
+<span id="sequencia"
+class="valor">
+
+0
+
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     HISTÓRICO
+===================================================== -->
+
+<div class="card">
+
+<h2>
+📜 Histórico das rodadas
+</h2>
+
+<div class="historico">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Hora
+</th>
+
+<th>
+Resultado
+</th>
+
+<th>
+Gatilho
+</th>
+
+<th>
+Cobertura
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historico">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     AVISO
+===================================================== -->
+
+<div class="card">
+
+<div class="aviso">
+
+<strong>
+⚠️ IMPORTANTE
+</strong>
+
+<br><br>
+
+A RACE + MEGAMENTE é uma ferramenta
+de análise e simulação.
+
+<br><br>
+
+A pontuação apresentada representa
+<strong>força interna do modelo</strong>,
+e não uma probabilidade matemática real
+de o próximo número acontecer.
+
+<br><br>
+
+Os giros da roleta são independentes.
+
+<br><br>
+
+O gatilho serve para organizar a leitura
+dos dados e testar uma estratégia
+em ambiente de simulação.
+
+<br><br>
+
+O controle financeiro é apenas
+acompanhamento da simulação e
+não representa garantia de lucro.
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+
+🧠 RACE + MEGAMENTE
+
+<br>
+
+Sistema de análise e simulação
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURAÇÕES
+===================================================== */
+
+const VALOR_FICHA = 0.50;
+
+const MINIMO_GATILHO = 65;
+
+
+/* =====================================================
+   RODA EUROPEIA
+===================================================== */
+
+const roda = [
+
+0,32,15,19,4,21,2,25,17,
+34,6,27,13,36,11,30,8,23,
+10,5,24,16,33,1,20,14,31,
+9,22,18,29,7,28,12,35,3,26
+
+];
+
+
+/* =====================================================
+   SETORES
+===================================================== */
+
+const voisins = [
+
+0,32,15,19,4,21,2,25,17,
+34,6,27,13
+
+];
+
+const tiers = [
+
+36,11,30,8,23,10,5,24,16,33,1,20
+
+];
+
+const orphelins = [
+
+14,31,9,22,18,29,7,28,12,35,3,26
+
+];
+
+
+/* =====================================================
+   VARIÁVEIS
+===================================================== */
+
+let girosAtuais = [];
+
+let coberturaAtual = new Set();
+
+let ultimaAnalise = null;
+
+let historico = [];
+
+let estatisticas = {
+
+    acertos:0,
+
+    erros:0,
+
+    fichas:0,
+
+    investido:0,
+
+    saldo:0,
+
+    sequenciaAtual:0,
+
+    maiorSequencia:0
+
+};
+
+
+/* =====================================================
+   SETOR
+===================================================== */
+
+function identificarSetor(numero){
+
+    if(voisins.includes(numero))
+        return "VOISINS DU ZÉRO";
+
+    if(tiers.includes(numero))
+        return "TIERS DU CYLINDRE";
+
+    return "ORPHELINS";
+
+}
+
+
+/* =====================================================
+   DÚZIA
+===================================================== */
+
+function identificarDuzia(numero){
+
+    if(numero === 0)
+        return 0;
+
+    if(numero <= 12)
+        return 1;
+
+    if(numero <= 24)
+        return 2;
+
+    return 3;
+
+}
+
+
+/* =====================================================
+   COLUNA
+===================================================== */
+
+function identificarColuna(numero){
+
+    if(numero === 0)
+        return 0;
+
+    return ((numero - 1) % 3) + 1;
+
+}
+
+
+/* =====================================================
+   DISTÂNCIA
+===================================================== */
+
+function distanciaNaRoda(a,b){
+
+    const ia = roda.indexOf(a);
+
+    const ib = roda.indexOf(b);
+
+    if(ia === -1 || ib === -1)
+        return 99;
+
+    const distancia =
+        Math.abs(ia - ib);
+
+    return Math.min(
+        distancia,
+        roda.length - distancia
+    );
+
+}
+
+
+/* =====================================================
+   VIZINHOS
+===================================================== */
+
+function obterVizinhos(numero){
+
+    const indice =
+        roda.indexOf(numero);
+
+    if(indice === -1)
+        return [];
+
+    const resultado = [];
+
+    for(let i=-3;i<=3;i++){
+
+        resultado.push(
+            roda[
+                (indice+i+roda.length)
+                %
+                roda.length
+            ]
+        );
+
+    }
+
+    return resultado;
+
+}
+
+
+/* =====================================================
+   FORÇA DÚZIA
+===================================================== */
+
+function calcularDuzias(numeros){
+
+    const resultado = [
+
+        {numero:1,forca:25},
+        {numero:2,forca:25},
+        {numero:3,forca:25}
+
+    ];
+
+    numeros.forEach((numero,index)=>{
+
+        const d =
+            identificarDuzia(numero);
+
+        if(d){
+
+            const peso =
+                1 + index * 0.12;
+
+            resultado[d-1].forca +=
+                peso * 8;
+
+        }
+
+    });
+
+    resultado.forEach(x=>{
+
+        x.forca =
+            Math.min(
+                99,
+                Math.round(x.forca)
+            );
+
+    });
+
+    return resultado;
+
+}
+
+
+/* =====================================================
+   FORÇA COLUNAS
+===================================================== */
+
+function calcularColunas(numeros){
+
+    const resultado = [
+
+        {numero:1,forca:25},
+        {numero:2,forca:25},
+        {numero:3,forca:25}
+
+    ];
+
+    numeros.forEach((numero,index)=>{
+
+        const c =
+            identificarColuna(numero);
+
+        if(c){
+
+            const peso =
+                1 + index * 0.12;
+
+            resultado[c-1].forca +=
+                peso * 8;
+
+        }
+
+    });
+
+    resultado.forEach(x=>{
+
+        x.forca =
+            Math.min(
+                99,
+                Math.round(x.forca)
+            );
+
+    });
+
+    return resultado;
+
+}
+
+
+/* =====================================================
+   CANDIDATOS
+===================================================== */
+
+function calcularCandidatos(numeros){
+
+    const frequencia = {};
+
+    numeros.forEach((numero,index)=>{
+
+        if(!frequencia[numero])
+            frequencia[numero]=0;
+
+        frequencia[numero] +=
+            1 + index * .18;
+
+    });
+
+
+    const ultimo =
+        numeros[numeros.length-1];
+
+
+    const vizinhosUltimo =
+        obterVizinhos(ultimo);
+
+
+    const candidatos=[];
+
+
+    for(let numero=0;numero<=36;numero++){
+
+        let pontuacao = 20;
+
+
+        /* frequência */
+
+        pontuacao +=
+            (frequencia[numero] || 0)
+            * 8;
+
+
+        /* vizinhança */
+
+        if(vizinhosUltimo.includes(numero))
+            pontuacao += 22;
+
+
+        /* proximidade aos giros */
+
+        numeros.forEach(n=>{
+
+            const distancia =
+                distanciaNaRoda(numero,n);
+
+            if(distancia <= 3)
+                pontuacao += 2;
+
+        });
+
+
+        /* mesmo setor */
+
+        if(
+            identificarSetor(numero)
+            ===
+            identificarSetor(ultimo)
+        ){
+
+            pontuacao += 5;
+
+        }
+
+
+        /* mesma dúzia */
+
+        if(
+            numero !== 0 &&
+            identificarDuzia(numero)
+            ===
+            identificarDuzia(ultimo)
+        ){
+
+            pontuacao += 5;
+
+        }
+
+
+        /* mesma coluna */
+
+        if(
+            numero !== 0 &&
+            identificarColuna(numero)
+            ===
+            identificarColuna(ultimo)
+        ){
+
+            pontuacao += 5;
+
+        }
+
+
+        /* proteção */
+
+        if(numero === 0)
+            pontuacao += 10;
+
+
+        candidatos.push({
+
+            numero,
+
+            pontuacao:
+                Math.min(
+                    99,
+                    Math.round(pontuacao)
+                )
+
+        });
+
+    }
+
+
+    candidatos.sort(
+        (a,b)=>
+            b.pontuacao-a.pontuacao
+    );
+
+
+    const selecionados=[];
+
+
+    for(const candidato of candidatos){
+
+        let muitoProximo=false;
+
+        for(const escolhido of selecionados){
+
+            if(
+                distanciaNaRoda(
+                    candidato.numero,
+                    escolhido.numero
+                ) <= 3
+            ){
+
+                muitoProximo=true;
+
+                break;
+
+            }
+
+        }
+
+
+        if(!muitoProximo){
+
+            selecionados.push(
+                candidato
+            );
+
+        }
+
+
+        if(selecionados.length===3)
+            break;
+
+    }
+
+
+    return selecionados;
+
+}
+
+
+/* =====================================================
+   TABELA
+===================================================== */
+
+function mostrarTabela(id,dados,tipo){
+
+    const tbody =
+        document.getElementById(id);
+
+    tbody.innerHTML="";
+
+
+    [...dados]
+    .sort(
+        (a,b)=>
+            b.forca-a.forca
+    )
+    .forEach(item=>{
+
+        let leitura;
+
+        let classe;
+
+
+        if(item.forca>=70){
+
+            leitura="FORTE";
+            classe="badge-verde";
+
+        }
+        else if(item.forca>=55){
+
+            leitura="ATENÇÃO";
+            classe="badge-amarelo";
+
+        }
+        else{
+
+            leitura="FRACA";
+            classe="badge-vermelho";
+
+        }
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${tipo} ${item.numero}
+            </td>
+
+            <td>
+
+                <strong>
+                    ${item.forca}%
+                </strong>
+
+                <div class="barra">
+
+                    <div
+                    class="preenchimento"
+                    style="width:${item.forca}%">
+
+                    </div>
+
+                </div>
+
+            </td>
+
+            <td>
+
+                <span
+                class="badge ${classe}">
+
+                    ${leitura}
+
+                </span>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+/* =====================================================
+   ANALISAR
+===================================================== */
+
+function analisar(){
+
+    const numeros=[];
+
+
+    for(let i=1;i<=7;i++){
+
+        const campo =
+            document.getElementById(
+                "giro"+i
+            );
+
+
+        if(campo.value===""){
+
+            alert(
+                "Preencha os 7 giros."
+            );
+
+            campo.focus();
+
+            return;
+
+        }
+
+
+        const numero =
+            Number(campo.value);
+
+
+        if(
+            numero<0 ||
+            numero>36
+        ){
+
+            alert(
+                "Digite números entre 0 e 36."
+            );
+
+            campo.focus();
+
+            return;
+
+        }
+
+
+        numeros.push(numero);
+
+    }
+
+
+    girosAtuais =
+        numeros.slice();
+
+
+    executarAnalise();
+
+}
+
+
+/* =====================================================
+   EXECUTAR
+===================================================== */
+
+function executarAnalise(){
+
+    if(girosAtuais.length < 7)
+        return;
+
+
+    mostrarGiros();
+
+
+    /* ==============================
+       DÚZIAS
+    ============================== */
+
+    const duzias =
+        calcularDuzias(
+            girosAtuais
+        );
+
+
+    const colunas =
+        calcularColunas(
+            girosAtuais
+        );
+
+
+    mostrarTabela(
+        "tabelaDuzias",
+        duzias,
+        "Dúzia"
+    );
+
+
+    mostrarTabela(
+        "tabelaColunas",
+        colunas,
+        "Coluna"
+    );
+
+
+    /* ==============================
+       CANDIDATOS
+    ============================== */
+
+    const candidatos =
+        calcularCandidatos(
+            girosAtuais
+        );
+
+
+    mostrarPossibilidades(
+        candidatos
+    );
+
+
+    /* ==============================
+       COBERTURA
+    ============================== */
+
+    coberturaAtual =
+        new Set();
+
+
+    candidatos.forEach(candidato=>{
+
+        obterVizinhos(
+            candidato.numero
+        )
+        .forEach(numero=>{
+
+            coberturaAtual.add(
+                numero
+            );
+
+        });
+
+    });
+
+
+    /* proteção zero */
+
+    coberturaAtual.add(0);
+
+
+    mostrarCobertura();
+
+
+    /* ==============================
+       SETORES
+    ============================== */
+
+    let v=0;
+    let t=0;
+    let o=0;
+
+
+    girosAtuais.forEach(numero=>{
+
+        const setor =
+            identificarSetor(numero);
+
+
+        if(
+            setor==="VOISINS DU ZÉRO"
+        )
+            v++;
+
+        else if(
+            setor==="TIERS DU CYLINDRE"
+        )
+            t++;
+
+        else
+            o++;
+
+    });
+
+
+    document.getElementById(
+        "quantVoisins"
+    ).innerText=v;
+
+
+    document.getElementById(
+        "quantTiers"
+    ).innerText=t;
+
+
+    document.getElementById(
+        "quantOrphelins"
+    ).innerText=o;
+
+
+    document.getElementById(
+        "percVoisins"
+    ).innerText=
+        percentual(v);
+
+
+    document.getElementById(
+        "percTiers"
+    ).innerText=
+        percentual(t);
+
+
+    document.getElementById(
+        "percOrphelins"
+    ).innerText=
+        percentual(o);
+
+
+    let dominante;
+
+
+    if(v>=t && v>=o)
+        dominante="VOISINS DU ZÉRO";
+
+    else if(t>=v && t>=o)
+        dominante="TIERS DU CYLINDRE";
+
+    else
+        dominante="ORPHELINS";
+
+
+    document.getElementById(
+        "setorDominante"
+    ).innerText=
+        dominante;
+
+
+    /* ==============================
+       FORÇA FINAL
+    ============================== */
+
+    const melhorDuzia =
+        [...duzias]
+        .sort(
+            (a,b)=>
+                b.forca-a.forca
+        )[0];
+
+
+    const melhorColuna =
+        [...colunas]
+        .sort(
+            (a,b)=>
+                b.forca-a.forca
+        )[0];
+
+
+    const candidatoPrincipal =
+        candidatos[0];
+
+
+    const forcaFinal =
+        Math.round(
+
+            (
+                melhorDuzia.forca +
+
+                melhorColuna.forca +
+
+                candidatoPrincipal.pontuacao
+
+            ) / 3
+
+        );
+
+
+    const gatilho =
+        forcaFinal >= MINIMO_GATILHO;
+
+
+    ultimaAnalise={
+
+        candidatos,
+
+        melhorDuzia,
+
+        melhorColuna,
+
+        forcaFinal,
+
+        gatilho,
+
+        cobertura:
+            new Set(coberturaAtual)
+
+    };
+
+
+    atualizarGatilho(
+        gatilho,
+        forcaFinal,
+        melhorDuzia,
+        melhorColuna,
+        candidatoPrincipal
+    );
+
+
+    document.getElementById(
+        "melhorDuzia"
+    ).innerText=
+        melhorDuzia.numero+"ª";
+
+
+    document.getElementById(
+        "melhorColuna"
+    ).innerText=
+        melhorColuna.numero+"ª";
+
+
+    document.getElementById(
+        "forcaGatilho"
+    ).innerText=
+        forcaFinal+"%";
+
+
+    document.getElementById(
+        "totalCobertura"
+    ).innerText=
+        coberturaAtual.size;
+
+
+    document.getElementById(
+        "inputStatus"
+    ).innerHTML=
+
+        "✅ <strong>7/7 giros analisados.</strong> " +
+
+        "RACE + MEGAMENTE processados.";
+
+}
+
+
+/* =====================================================
+   GATILHO
+===================================================== */
+
+function atualizarGatilho(
+    ativo,
+    forca,
+    duzia,
+    coluna,
+    candidato
+){
+
+    const box =
+        document.getElementById(
+            "gatilhoBox"
+        );
+
+
+    box.className =
+        "gatilho " +
+        (
+            ativo
+            ?
+            "ativo"
+            :
+            "aguardar"
+        );
+
+
+    document.getElementById(
+        "gatilhoForca"
+    ).innerText=
+        forca+"%";
+
+
+    if(ativo){
+
+        document.getElementById(
+            "gatilhoStatus"
+        ).innerHTML=
+
+            `<span class="badge badge-verde">
+                🟢 GATILHO ATIVO
+            </span>`;
+
+
+        document.getElementById(
+            "gatilhoEntrada"
+        ).innerHTML=
+
+            `Entrada de análise:
+             <strong>
+             ${duzia.numero}ª DÚZIA
+             +
+             ${coluna.numero}ª COLUNA
+             </strong>
+             <br><br>
+             Número principal:
+             <strong>
+             ${candidato.numero}
+             </strong>`;
+
+    }
+
+    else{
+
+        document.getElementById(
+            "gatilhoStatus"
+        ).innerHTML=
+
+            `<span class="badge badge-amarelo">
+                ⚪ AGUARDAR
+            </span>`;
+
+
+        document.getElementById(
+            "gatilhoEntrada"
+        ).innerHTML=
+
+            `A confluência atual ainda não
+             atingiu o nível mínimo definido
+             de ${MINIMO_GATILHO}%.`;
+
+    }
+
+}
+
+
+/* =====================================================
+   POSSIBILIDADES
+===================================================== */
+
+function mostrarPossibilidades(
+    possibilidades
+){
+
+    for(let i=0;i<3;i++){
+
+        const candidato =
+            possibilidades[i];
+
+
+        const numero =
+            document.getElementById(
+                "numero"+(i+1)
+            );
+
+
+        const setor =
+            document.getElementById(
+                "setor"+(i+1)
+            );
+
+
+        const pontuacao =
+            document.getElementById(
+                "pontuacao"+(i+1)
+            );
+
+
+        const cobertura =
+            document.getElementById(
+                "cobertura"+(i+1)
+            );
+
+
+        cobertura.innerHTML="";
+
+
+        if(!candidato){
+
+            numero.innerText="-";
+
+            setor.innerText="-";
+
+            pontuacao.innerText=
+                "Força: -";
+
+            continue;
+
+        }
+
+
+        numero.innerText=
+            candidato.numero;
+
+
+        setor.innerText=
+            identificarSetor(
+                candidato.numero
+            );
+
+
+        pontuacao.innerText=
+            "Força: "+
+            candidato.pontuacao+
+            "%";
+
+
+        obterVizinhos(
+            candidato.numero
+        )
+        .forEach(n=>{
+
+            const elemento =
+                document.createElement(
+                    "div"
+                );
+
+
+            elemento.className=
+                "numero-roleta";
+
+
+            if(
+                n===
+                candidato.numero
+            ){
+
+                elemento.classList.add(
+                    "numero-centro"
+                );
+
+            }
+
+
+            elemento.innerText=n;
+
+
+            cobertura.appendChild(
+                elemento
+            );
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   COBERTURA
+===================================================== */
+
+function mostrarCobertura(){
+
+    const div =
+        document.getElementById(
+            "coberturaGeral"
+        );
+
+
+    div.innerHTML="";
+
+
+    const numeros =
+        Array.from(
+            coberturaAtual
+        );
+
+
+    numeros.sort(
+        (a,b)=>
+            roda.indexOf(a) -
+            roda.indexOf(b)
+    );
+
+
+    numeros.forEach(numero=>{
+
+        const elemento =
+            document.createElement(
+                "div"
+            );
+
+
+        elemento.className=
+            "numero-geral";
+
+
+        if(numero===0){
+
+            elemento.classList.add(
+                "numero-zero"
+            );
+
+        }
+
+
+        elemento.innerText=
+            numero;
+
+
+        div.appendChild(
+            elemento
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   GIROS
+===================================================== */
+
+function mostrarGiros(){
+
+    const div =
+        document.getElementById(
+            "listaGiros"
+        );
+
+
+    div.innerHTML="";
+
+
+    girosAtuais.forEach(
+        (numero,index)=>{
+
+            const elemento =
+                document.createElement(
+                    "div"
+                );
+
+
+            elemento.className=
+                "badge badge-verde";
+
+
+            elemento.innerText=
+                "GIRO "+
+                (index+1)+
+                " → "+
+                numero;
+
+
+            div.appendChild(
+                elemento
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PERCENTUAL
+===================================================== */
+
+function percentual(
+    quantidade
+){
+
+    if(!girosAtuais.length)
+        return "0%";
+
+
+    return (
+
+        (
+            quantidade /
+            girosAtuais.length
+        ) * 100
+
+    )
+    .toFixed(2)
+    +"%";
+
+}
+
+
+/* =====================================================
+   REGISTRAR RESULTADO
+===================================================== */
+
+function registrarResultado(){
+
+    const campo =
+        document.getElementById(
+            "resultado8"
+        );
+
+
+    if(
+        !ultimaAnalise
+    ){
+
+        alert(
+            "Faça uma análise dos 7 giros antes."
+        );
+
+        return;
+
+    }
+
+
+    let resultado;
+
+
+    if(campo.value!==""){
+
+        resultado =
+            Number(campo.value);
+
+    }
+    else{
+
+        const entrada =
+            prompt(
+                "Digite o resultado real do próximo giro (0 a 36):"
+            );
+
+
+        if(entrada===null)
+            return;
+
+
+        resultado =
+            Number(entrada);
+
+    }
+
+
+    if(
+        !Number.isInteger(resultado) ||
+        resultado<0 ||
+        resultado>36
+    ){
+
+        alert(
+            "Resultado inválido. Use 0 a 36."
+        );
+
+        return;
+
+    }
+
+
+    /* ==============================
+       VERIFICAR ACERTO
+    ============================== */
+
+    const acertou =
+        coberturaAtual.has(
+            resultado
+        );
+
+
+    const quantidade =
+        coberturaAtual.size;
+
+
+    const investimento =
+        quantidade *
+        VALOR_FICHA;
+
+
+    estatisticas.fichas +=
+        quantidade;
+
+
+    estatisticas.investido +=
+        investimento;
+
+
+    if(acertou){
+
+        estatisticas.acertos++;
+
+        estatisticas.sequenciaAtual=0;
+
+    }
+    else{
+
+        estatisticas.erros++;
+
+        estatisticas.sequenciaAtual++;
+
+
+        if(
+            estatisticas.sequenciaAtual >
+            estatisticas.maiorSequencia
+        ){
+
+            estatisticas.maiorSequencia =
+                estatisticas.sequenciaAtual;
+
+        }
+
+    }
+
+
+    estatisticas.saldo -=
+        investimento;
+
+
+    mostrarResultadoRodada(
+        resultado,
+        acertou,
+        quantidade,
+        investimento
+    );
+
+
+    adicionarHistorico(
+        resultado,
+        acertou,
+        ultimaAnalise.gatilho
+    );
+
+
+    atualizarFinanceiro();
+
+
+    /* ==============================
+       CICLO DOS 7 GIROS
+    ============================== */
+
+    girosAtuais =
+        girosAtuais.slice(1);
+
+
+    girosAtuais.push(
+        resultado
+    );
+
+
+    for(let i=0;i<7;i++){
+
+        document.getElementById(
+            "giro"+(i+1)
+        ).value=
+            girosAtuais[i];
+
+    }
+
+
+    campo.value="";
+
+
+    /* nova análise */
+
+    executarAnalise();
+
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+function mostrarResultadoRodada(
+    resultado,
+    acertou,
+    quantidade,
+    investimento
+){
+
+    const div =
+        document.getElementById(
+            "resultadoRodada"
+        );
+
+
+    div.className=
+        "resultado-rodada "+
+        (
+            acertou
+            ?
+            "acerto"
+            :
+            "erro"
+        );
+
+
+    div.innerHTML=
+
+        `
+
+        <div>
+
+        ${
+            acertou
+            ?
+            "🟢 ACERTO — ESTAVA NA COBERTURA"
+            :
+            "🔴 ERRO — FORA DA COBERTURA"
+        }
+
+        </div>
+
+        <div class="resultado-numero">
+
+            ${resultado}
+
+        </div>
+
+        <div>
+
+            Números cobertos:
+            <strong>
+                ${quantidade}
+            </strong>
+
+        </div>
+
+        <div>
+
+            Investimento da rodada:
+            <strong>
+                R$ ${investimento.toFixed(2)}
+            </strong>
+
+        </div>
+
+        `;
+
+}
+
+
+/* =====================================================
+   HISTÓRICO
+===================================================== */
+
+function adicionarHistorico(
+    resultado,
+    acertou,
+    gatilho
+){
+
+    historico.unshift({
+
+        hora:
+            new Date()
+            .toLocaleTimeString(
+                "pt-BR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            ),
+
+        resultado,
+
+        gatilho,
+
+        acertou
+
+    });
+
+
+    mostrarHistorico();
+
+}
+
+
+function mostrarHistorico(){
+
+    const tbody =
+        document.getElementById(
+            "historico"
+        );
+
+
+    tbody.innerHTML="";
+
+
+    historico.forEach(item=>{
+
+        const tr =
+            document.createElement(
+                "tr"
+            );
+
+
+        tr.innerHTML=
+
+            `
+
+            <td>
+                ${item.hora}
+            </td>
+
+            <td>
+                <strong>
+                    ${item.resultado}
+                </strong>
+            </td>
+
+            <td>
+
+                ${
+                    item.gatilho
+                    ?
+                    '<span class="badge badge-verde">ATIVO</span>'
+                    :
+                    '<span class="badge badge-amarelo">AGUARDAR</span>'
+                }
+
+            </td>
+
+            <td>
+
+                ${
+                    coberturaAtual.has(
+                        item.resultado
+                    )
+                    ?
+                    "SIM"
+                    :
+                    "NÃO"
+                }
+
+            </td>
+
+            <td>
+
+                ${
+                    item.acertou
+                    ?
+                    '<span class="badge badge-verde">ACERTO</span>'
+                    :
+                    '<span class="badge badge-vermelho">ERRO</span>'
+                }
+
+            </td>
+
+            `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+/* =====================================================
+   FINANCEIRO
+===================================================== */
+
+function atualizarFinanceiro(){
+
+    document.getElementById(
+        "fichas"
+    ).innerText=
+        estatisticas.fichas;
+
+
+    document.getElementById(
+        "investido"
+    ).innerText=
+        "R$ "+
+        estatisticas.investido
+        .toFixed(2);
+
+
+    const saldo =
+        document.getElementById(
+            "saldo"
+        );
+
+
+    saldo.innerText=
+        "R$ "+
+        estatisticas.saldo
+        .toFixed(2);
+
+
+    saldo.className=
+        "valor "+
+        (
+            estatisticas.saldo>0
+            ?
+            "positivo"
+            :
+            estatisticas.saldo<0
+            ?
+            "negativo"
+            :
+            "neutro"
+        );
+
+
+    document.getElementById(
+        "acertos"
+    ).innerText=
+        estatisticas.acertos;
+
+
+    document.getElementById(
+        "erros"
+    ).innerText=
+        estatisticas.erros;
+
+
+    const total =
+        estatisticas.acertos +
+        estatisticas.erros;
+
+
+    document.getElementById(
+        "taxa"
+    ).innerText=
+
+        total>0
+
+        ?
+
+        (
+            estatisticas.acertos /
+            total *
+            100
+        )
+        .toFixed(2)
+        +"%"
+
+        :
+
+        "0%";
+
+
+    document.getElementById(
+        "sequencia"
+    ).innerText=
+        estatisticas.maiorSequencia;
+
+}
+
+
+/* =====================================================
+   LIMPAR
+===================================================== */
+
+function limpar(){
+
+    for(let i=1;i<=7;i++){
+
+        document.getElementById(
+            "giro"+i
+        ).value="";
+
+    }
+
+
+    document.getElementById(
+        "resultado8"
+    ).value="";
+
+
+    girosAtuais=[];
+
+    coberturaAtual=
+        new Set();
+
+
+    ultimaAnalise=null;
+
+
+    estatisticas={
+
+        acertos:0,
+
+        erros:0,
+
+        fichas:0,
+
+        investido:0,
+
+        saldo:0,
+
+        sequenciaAtual:0,
+
+        maiorSequencia:0
+
+    };
+
+
+    document.getElementById(
+        "inputStatus"
+    ).innerText=
+        "Preencha os 7 giros para liberar a análise completa.";
+
+
+    document.getElementById(
+        "gatilhoBox"
+    ).className=
+        "gatilho aguardar";
+
+
+    document.getElementById(
+        "gatilhoStatus"
+    ).innerText=
+        "AGUARDANDO DADOS";
+
+
+    document.getElementById(
+        "gatilhoForca"
+    ).innerText=
+        "—";
+
+
+    document.getElementById(
+        "gatilhoEntrada"
+    ).innerText=
+        "Aguardando análise dos 7 giros.";
+
+
+    document.getElementById(
+        "melhorDuzia"
+    ).innerText="—";
+
+
+    document.getElementById(
+        "melhorColuna"
+    ).innerText="—";
+
+
+    document.getElementById(
+        "forcaGatilho"
+    ).innerText="—";
+
+
+    document.getElementById(
+        "totalCobertura"
+    ).innerText="—";
+
+
+    document.getElementById(
+        "listaGiros"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "coberturaGeral"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "tabelaDuzias"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "tabelaColunas"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "resultadoRodada"
+    ).innerHTML="";
+
+
+    document.getElementById(
+        "historico"
+    ).innerHTML="";
+
+
+    atualizarFinanceiro();
+
+
+    document.getElementById(
+        "giro1"
+    ).focus();
+
+}
+
+</script>
+
+</body>
+
+</html>
