@@ -252,6 +252,44 @@ button{
   border:1px solid rgba(0,183,255,.18);
 }
 
+
+/* ===== ALERTA AUTOMÁTICO DE GATILHO ===== */
+.gatilho-overlay{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:none;
+  width:min(360px,calc(100vw - 28px));
+  pointer-events:none;
+}
+.gatilho-overlay.show{display:block}
+.gatilho-modal{
+  width:100%;
+  border-radius:15px;
+  padding:14px;
+  pointer-events:auto;
+  background:linear-gradient(180deg,rgba(3,16,27,.97),rgba(1,8,16,.96));
+  border:1px solid rgba(0,255,157,.38);
+  box-shadow:0 10px 32px rgba(0,0,0,.48),0 0 24px rgba(0,255,157,.10);
+  backdrop-filter:blur(7px);
+}
+.gatilho-modal h2{margin:0 0 5px;color:var(--verde);font-size:17px}
+.gatilho-modal .apos{font-size:14px;font-weight:900;color:#fff;margin-bottom:9px}
+.gatilho-lista{display:grid;gap:6px}
+.gatilho-item{
+  padding:8px 10px;border-radius:10px;background:#030b18;border:1px solid rgba(255,255,255,.08);
+  font-size:12px;
+}
+.gatilho-item strong{color:var(--verde)}
+.gatilho-item .forca{color:var(--amarelo);font-weight:900}
+.gatilho-modal .acoes{display:flex;justify-content:flex-end;margin-top:9px}
+.gatilho-modal button{padding:8px 11px;font-size:11px;background:linear-gradient(135deg,var(--verde),var(--verde2));color:#012218}
+.gatilho-resumo{display:none}
+@media(max-width:600px){
+  .gatilho-overlay{top:10px;right:10px;width:calc(100vw - 20px)}
+}
+
 </style>
 </head>
 
@@ -441,6 +479,20 @@ button{
   </div>
 </div>
 
+
+<div id="gatilhoOverlay" class="gatilho-overlay" onclick="fecharAlertaGatilho(event)">
+  <div class="gatilho-modal" role="dialog" aria-modal="true" aria-labelledby="gatilhoTitulo">
+    <h2 id="gatilhoTitulo">🚨 POSSÍVEL ENTRADA</h2>
+    <div id="gatilhoApos" class="apos">Após o número —</div>
+    <div id="gatilhoLista" class="gatilho-lista"></div>
+    <div class="gatilho-resumo">
+      O alerta aparece quando pelo menos um gatilho independente atinge 55% ou mais.
+      Coluna e Dúzia continuam seguindo seus próprios ciclos de até 3 tentativas.
+    </div>
+    <div class="acoes"><button onclick="fecharAlertaGatilho()">Entendi</button></div>
+  </div>
+</div>
+
 <script>
 const roda=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
 const vermelhos=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
@@ -463,6 +515,8 @@ let ciclos=JSON.parse(localStorage.getItem("megamenteCiclos")||JSON.stringify({
   coluna:{ativo:false,tentativa:0,alvos:[]},
   duzia:{ativo:false,tentativa:0,alvos:[]}
 }));
+
+let ultimoAlertaChave=localStorage.getItem("megamenteUltimoAlertaChave")||"";
 
 function criarInputs(){
   const box=document.getElementById("inputsBase");
@@ -675,11 +729,89 @@ function capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz){
     raceAtivo:race>=55,
     raceScore:race,
     cobertura:[...cobertura.usados],
-    colunasAtivas:scoresCol.map((s,i)=>s>=55?i+1:null).filter(Boolean),
-    duziasAtivas:scoresDuz.map((s,i)=>s>=55?i+1:null).filter(Boolean),
+    colunasAtivas:scoresCol
+      .map((s,i)=>({numero:i+1,score:s}))
+      .filter(x=>x.score>=55)
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,2)
+      .map(x=>x.numero),
+    duziasAtivas:scoresDuz
+      .map((s,i)=>({numero:i+1,score:s}))
+      .filter(x=>x.score>=55)
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,2)
+      .map(x=>x.numero),
     timestamp:Date.now()
   };
   salvar();
+}
+
+function fecharAlertaGatilho(event){
+  if(event && event.target && event.target.id!=="gatilhoOverlay") return;
+  const ov=document.getElementById("gatilhoOverlay");
+  if(ov) ov.classList.remove("show");
+}
+
+function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
+  // No popup, sempre mostra as 2 melhores colunas e as 2 melhores dúzias
+  // quando existir uma entrada geral/RACE.
+  // A progressão GREEN/RED continua sendo controlada separadamente
+  // pelos gatilhos individuais de 55% no snapshot.
+  const colunasSelecionadas=scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const duziasSelecionadas=scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const raceAtiva=race>=55;
+  const algumaColunaAtiva=scoresCol.some(s=>s>=55);
+  const algumaDuziaAtiva=scoresDuz.some(s=>s>=55);
+
+  if(!raceAtiva && !algumaColunaAtiva && !algumaDuziaAtiva) return;
+
+  const chave=[
+    ultimoNumero,
+    race,
+    ...colunasSelecionadas.map(x=>`C${x.numero}:${x.score}`),
+    ...duziasSelecionadas.map(x=>`D${x.numero}:${x.score}`)
+  ].join("|");
+
+  if(chave===ultimoAlertaChave) return;
+  ultimoAlertaChave=chave;
+  localStorage.setItem("megamenteUltimoAlertaChave",ultimoAlertaChave);
+
+  const formatarLista=lista=>{
+    if(!lista.length) return "—";
+    if(lista.length===1) return String(lista[0].numero);
+    return lista.map(x=>x.numero).join(" e ");
+  };
+
+  const componentes=[];
+  if(raceAtiva) componentes.push(race);
+  componentes.push(...colunasSelecionadas.map(x=>x.score));
+  componentes.push(...duziasSelecionadas.map(x=>x.score));
+
+  const forcaConjunto=componentes.length
+    ? Math.round(componentes.reduce((a,b)=>a+b,0)/componentes.length)
+    : 0;
+
+  document.getElementById("gatilhoApos").textContent=`POSSÍVEL ENTRADA APÓS O NÚMERO ${ultimoNumero}`;
+
+  const colDetalhe=colunasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
+  const duzDetalhe=duziasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
+
+  document.getElementById("gatilhoLista").innerHTML=`
+    <div class="gatilho-item"><strong>📌 COLUNAS:</strong> ${colDetalhe}</div>
+    <div class="gatilho-item"><strong>🎯 DÚZIAS:</strong> ${duzDetalhe}</div>
+    <div class="gatilho-item"><strong>🏁 RACE:</strong> <span class="forca">${race}%</span></div>
+    <div class="gatilho-item"><strong>⚡ Força do conjunto:</strong> <span class="forca">${forcaConjunto}%</span></div>
+  `;
+
+  document.getElementById("gatilhoOverlay").classList.add("show");
 }
 
 function registrarGiro(){
@@ -712,6 +844,8 @@ function limparTudo(){
   base7=[];
   placar={race:{green:0,red:0},coluna:{green:0,red:0},duzia:{green:0,red:0}};
   snapshotEntrada=null;
+  ultimoAlertaChave="";
+  localStorage.removeItem("megamenteUltimoAlertaChave");
   ciclos={
     coluna:{ativo:false,tentativa:0,alvos:[]},
     duzia:{ativo:false,tentativa:0,alvos:[]}
@@ -992,6 +1126,10 @@ function analisar(){
   if(quebra>=65){quebraMsg.className="status danger";quebraMsg.textContent="QUEBRA ALTA — padrão recente pode estar saturado.";}
   else if(quebra>=45){quebraMsg.className="status wait";quebraMsg.textContent="QUEBRA MODERADA — atenção à mudança de região da roda.";}
   else{quebraMsg.className="status ok";quebraMsg.textContent="Estrutura recente ainda consistente dentro da leitura estatística.";}
+  // Exibe alerta automático quando houver gatilho independente
+  const ultimoNumero=base7[base7.length-1];
+  mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos);
+
   // Guarda os sinais atuais para avaliar o próximo resultado real
   capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz);
 
