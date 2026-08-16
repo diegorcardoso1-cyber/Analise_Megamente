@@ -353,7 +353,8 @@ button{
 
     <section class="card">
       <h2>📌 Gatilhos por coluna</h2>
-      <div class="trigger-grid">
+      <div id="colunaEntradaMsg" class="status wait">⏸️ AGUARDAR — calculando as 2 melhores colunas.</div>
+      <div class="trigger-grid" style="margin-top:10px">
         <div class="trigger-box"><div class="name">Coluna 1</div><div class="score" id="col1Score">0%</div><div class="state wait" id="col1State">AGUARDAR</div></div>
         <div class="trigger-box"><div class="name">Coluna 2</div><div class="score" id="col2Score">0%</div><div class="state wait" id="col2State">AGUARDAR</div></div>
         <div class="trigger-box"><div class="name">Coluna 3</div><div class="score" id="col3Score">0%</div><div class="state wait" id="col3State">AGUARDAR</div></div>
@@ -362,7 +363,8 @@ button{
 
     <section class="card">
       <h2>🎯 Gatilhos por dúzia</h2>
-      <div class="trigger-grid">
+      <div id="duziaEntradaMsg" class="status wait">⏸️ AGUARDAR — calculando as 2 melhores dúzias.</div>
+      <div class="trigger-grid" style="margin-top:10px">
         <div class="trigger-box"><div class="name">Dúzia 1</div><div class="score" id="duz1Score">0%</div><div class="state wait" id="duz1State">AGUARDAR</div></div>
         <div class="trigger-box"><div class="name">Dúzia 2</div><div class="score" id="duz2Score">0%</div><div class="state wait" id="duz2State">AGUARDAR</div></div>
         <div class="trigger-box"><div class="name">Dúzia 3</div><div class="score" id="duz3Score">0%</div><div class="state wait" id="duz3State">AGUARDAR</div></div>
@@ -486,7 +488,7 @@ button{
     <div id="gatilhoApos" class="apos">Após o número —</div>
     <div id="gatilhoLista" class="gatilho-lista"></div>
     <div class="gatilho-resumo">
-      O alerta aparece quando a RACE atinge 55% ou quando Coluna/Dúzia atinge 45% ou mais.
+      O alerta aparece quando pelo menos um gatilho independente atinge 55% ou mais.
       Coluna e Dúzia continuam seguindo seus próprios ciclos de até 3 tentativas.
     </div>
     <div class="acoes"><button onclick="fecharAlertaGatilho()">Entendi</button></div>
@@ -729,18 +731,12 @@ function capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz){
     raceAtivo:race>=55,
     raceScore:race,
     cobertura:[...cobertura.usados],
-    colunasAtivas:scoresCol
-      .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=45)
-      .sort((a,b)=>b.score-a.score)
-      .slice(0,2)
-      .map(x=>x.numero),
-    duziasAtivas:scoresDuz
-      .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=45)
-      .sort((a,b)=>b.score-a.score)
-      .slice(0,2)
-      .map(x=>x.numero),
+    colunasAtivas:Math.max(...scoresCol)>=45
+      ? scoresCol.map((s,i)=>({numero:i+1,score:s})).sort((a,b)=>b.score-a.score).slice(0,2).map(x=>x.numero)
+      : [],
+    duziasAtivas:Math.max(...scoresDuz)>=45
+      ? scoresDuz.map((s,i)=>({numero:i+1,score:s})).sort((a,b)=>b.score-a.score).slice(0,2).map(x=>x.numero)
+      : [],
     timestamp:Date.now()
   };
   salvar();
@@ -753,25 +749,23 @@ function fecharAlertaGatilho(event){
 }
 
 function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
-  // Colunas e Dúzias: a porcentagem individual prevalece.
-  // Analisa as melhores opções, mas só recomenda as que atingirem 45%.
-  // RACE permanece com o gatilho original de 55%.
-  const melhoresColunas=scoresCol
+  // No popup, sempre mostra as 2 melhores colunas e as 2 melhores dúzias
+  // quando existir uma entrada geral/RACE.
+  // A progressão GREEN/RED continua sendo controlada separadamente
+  // pelos gatilho de 45% para Colunas/Dúzias no snapshot; RACE continua em 55%.
+  const colunasSelecionadas=scoresCol
     .map((score,i)=>({numero:i+1,score}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,2);
 
-  const melhoresDuzias=scoresDuz
+  const duziasSelecionadas=scoresDuz
     .map((score,i)=>({numero:i+1,score}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,2);
-
-  const colunasSelecionadas=melhoresColunas.filter(x=>x.score>=45);
-  const duziasSelecionadas=melhoresDuzias.filter(x=>x.score>=45);
 
   const raceAtiva=race>=55;
-  const algumaColunaAtiva=colunasSelecionadas.length>0;
-  const algumaDuziaAtiva=duziasSelecionadas.length>0;
+  const algumaColunaAtiva=scoresCol.some(s=>s>=45);
+  const algumaDuziaAtiva=scoresDuz.some(s=>s>=45);
 
   if(!raceAtiva && !algumaColunaAtiva && !algumaDuziaAtiva) return;
 
@@ -803,13 +797,8 @@ function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
 
   document.getElementById("gatilhoApos").textContent=`POSSÍVEL ENTRADA APÓS O NÚMERO ${ultimoNumero}`;
 
-  const colDetalhe=colunasSelecionadas.length
-    ? colunasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
-    : `AGUARDAR — melhores: ${melhoresColunas.map(x=>`${x.numero} (${x.score}%)`).join(" e ")}`;
-
-  const duzDetalhe=duziasSelecionadas.length
-    ? duziasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
-    : `AGUARDAR — melhores: ${melhoresDuzias.map(x=>`${x.numero} (${x.score}%)`).join(" e ")}`;
+  const colDetalhe=colunasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
+  const duzDetalhe=duziasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
 
   document.getElementById("gatilhoLista").innerHTML=`
     <div class="gatilho-item"><strong>📌 COLUNAS:</strong> ${colDetalhe}</div>
@@ -1029,7 +1018,7 @@ function aplicarEstado(score,scoreId,stateId){
   document.getElementById(scoreId).textContent=score+"%";
   const st=document.getElementById(stateId);
   if(score>=45){st.textContent="ENTRADA";st.className="state ok";}
-  else if(score>=40){st.textContent="ATENÇÃO";st.className="state wait";}
+  else if(score>=35){st.textContent="ATENÇÃO";st.className="state wait";}
   else{st.textContent="AGUARDAR";st.className="state danger";}
 }
 function setorStats(arr){
@@ -1056,6 +1045,29 @@ function analisar(){
   aplicarEstado(scoresDuz[0],"duz1Score","duz1State");
   aplicarEstado(scoresDuz[1],"duz2Score","duz2State");
   aplicarEstado(scoresDuz[2],"duz3Score","duz3State");
+
+  // Sempre destaca as DUAS opções mais fortes.
+  // Se a melhor atingir 45%, as duas entram juntas no ciclo.
+  const top2Colunas=scoresCol.map((score,i)=>({numero:i+1,score})).sort((a,b)=>b.score-a.score).slice(0,2);
+  const top2Duzias=scoresDuz.map((score,i)=>({numero:i+1,score})).sort((a,b)=>b.score-a.score).slice(0,2);
+  const colMsg=document.getElementById("colunaEntradaMsg");
+  const duzMsg=document.getElementById("duziaEntradaMsg");
+  const txtCols=top2Colunas.map(x=>`${x.numero} (${x.score}%)`).join(" E ");
+  const txtDuz=top2Duzias.map(x=>`${x.numero} (${x.score}%)`).join(" E ");
+  if(top2Colunas[0]?.score>=45){
+    colMsg.className="status ok";
+    colMsg.textContent=`📌 ENTRAR NAS COLUNAS ${txtCols}`;
+  }else{
+    colMsg.className="status wait";
+    colMsg.textContent=`⏸️ AGUARDAR — MELHORES COLUNAS: ${txtCols}`;
+  }
+  if(top2Duzias[0]?.score>=45){
+    duzMsg.className="status ok";
+    duzMsg.textContent=`🎯 ENTRAR NAS DÚZIAS ${txtDuz}`;
+  }else{
+    duzMsg.className="status wait";
+    duzMsg.textContent=`⏸️ AGUARDAR — MELHORES DÚZIAS: ${txtDuz}`;
+  }
   const bestColScore=Math.max(...scoresCol),bestDuzScore=Math.max(...scoresDuz);
   document.getElementById("melhorColuna").textContent=(scoresCol.indexOf(bestColScore)+1)+"ª";
   document.getElementById("melhorDuzia").textContent=(scoresDuz.indexOf(bestDuzScore)+1)+"ª";
