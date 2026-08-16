@@ -1,70 +1,3 @@
-
-
-
-
-Código colado.html
-Arquivo
-
-3b68cb3c-a935-44f8-9409-d370e3a4a8fa.png
-fiz um teste e não apareceu as colunas e duzias 
-
-b9bd3305-6337-43a3-8578-4e1b9efaf478.png
-pode colucar a informação tb na coluna 
-
-a78ba668-6ba4-4db5-b1c4-ad6ae41a8395.png
-esta travado no agaurda
-
-Entendi, irmão. O problema era esse mesmo: quando não atingia o gatilho, aparecia apenas AGUARDAR e você ficava sem saber quais Colunas/Dúzias o sistema estava acompanhando.
-
-Corrigi para ficar assim:
-
-Quando ainda não liberou entrada:
-📌 AGUARDAR — MELHORES COLUNAS: 1 (47%) E 2 (44%)
-🎯 AGUARDAR — MELHORES DÚZIAS: 3 (48%) E 1 (43%)
-
-Quando atingir 50%:
-🚨 GATILHO — ENTRAR NAS COLUNAS 1 (56%) E 2 (48%)
-🚨 GATILHO — ENTRAR NAS DÚZIAS 3 (54%) E 1 (46%)
-
-Assim você sempre enxerga o que ele está analisando, mas ENTRAR só aparece quando o gatilho realmente for liberado.
-
-Baixar ANÁLISE MEGAMENTE V12 
-
-
-
-ANALISE_MEGAMENTE_V12_SEMPRE_MOSTRA_ALVOS.html
-HTML
-
-
-pow pode colocar 45 %
-
-Claro, irmão. 👊 Ajustei Coluna e Dúzia para gatilho em 45%.
-
-Agora, atingindo 45%, já pode aparecer:
-
-🚨 GATILHO — ENTRAR NAS COLUNAS 1 E 2
-🚨 GATILHO — ENTRAR NAS DÚZIAS 2 E 3
-
-A RACE continua em 55%, sem alteração. E mantém o ciclo de até 3 giros com GREEN/RED como combinamos.
-
-Baixar ANÁLISE MEGAMENTE V13 — gatilho 45% 
-
-
-
-ANALISE_MEGAMENTE_V13_GATILHO_45.html
-HTML
-
-
-pra fica melhor colcoar: entra nas colunas x e duzia Y na mesma linha 
-
-Sim, irmão. Fica bem mais fácil de bater o olho. Ajustei para aparecer na mesma linha, por exemplo:
-
-🚨 ENTRAR NAS COLUNAS 1 E 2 E DÚZIAS 1 E 3
-
-Se naquele momento só uma modalidade tiver gatilho, ele mostra somente ela. Mantive o 45% para Coluna/Dúzia e a RACE como estava.
-
-Baixar ANÁLISE MEGAMENTE V14 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -101,8 +34,1369 @@ body{
 body:before{
   content:"";
   position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(0,183,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(0,183,255,.055) 1px, transparent 1px);
+  background-size:42px 42px;
+  transform:perspective(600px) rotateX(58deg) scale(1.8);
+  transform-origin:center bottom;
+  opacity:.08;
+}
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 118px,rgba(0,255,157,.025) 119px 120px),
+    repeating-linear-gradient(0deg,transparent 0 118px,rgba(0,183,255,.025) 119px 120px),
+    radial-gradient(circle at center,transparent 0 40%,rgba(0,0,0,.52) 100%);
+  box-shadow:inset 0 0 180px rgba(0,0,0,.45);
+}
+.container{width:min(1180px,94%);margin:22px auto 50px}
+.hero{
+  text-align:center;
+  border:1px solid rgba(0,255,157,.25);
+  border-radius:22px;
+  padding:24px;
+  background:linear-gradient(135deg,rgba(5,18,35,.96),rgba(4,12,26,.92));
+  box-shadow:0 0 45px rgba(0,183,255,.14), inset 0 0 45px rgba(0,255,157,.035); backdrop-filter:blur(10px);
+}
+h1{margin:0;font-size:clamp(28px,5vw,54px);letter-spacing:2px}
+h1 span{color:var(--verde);text-shadow:0 0 16px rgba(0,255,157,.55)}
+.subtitle{color:var(--muted);margin-top:8px;line-height:1.5}
+.patente{margin-top:10px;color:var(--azul);font-weight:700;font-size:13px;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
+.card{
+  grid-column:span 12;
+  background:linear-gradient(180deg,rgba(8,19,38,.93),rgba(4,12,26,.91));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 12px 32px rgba(0,0,0,.32),0 0 20px rgba(0,183,255,.035); backdrop-filter:blur(8px);
+}
+.card h2{font-size:17px;margin:0 0 14px;color:#dffdf2}
+.card h3{margin:0 0 8px;font-size:15px}
+@media(min-width:800px){
+  .span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}
+}
+.inputs{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+@media(max-width:750px){.inputs{grid-template-columns:repeat(2,1fr)}}
+.input-wrap label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px}
+input{
+  width:100%;padding:12px;border-radius:11px;border:1px solid rgba(148,163,184,.2);
+  background:#030a17;color:white;outline:none;text-align:center;font-weight:800;font-size:16px;
+}
+input:focus{border-color:var(--verde);box-shadow:0 0 0 3px rgba(0,255,157,.08)}
+button{
+  border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;
+}
+.btn-primary{background:linear-gradient(135deg,var(--verde),var(--verde2));color:#012218}
+.btn-blue{background:linear-gradient(135deg,var(--azul),#2878ff);color:#fff}
+.btn-purple{background:linear-gradient(135deg,var(--roxo),#6d28d9);color:#fff}
+.btn-danger{background:linear-gradient(135deg,#ff4d6d,#c9184a);color:#fff}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.status{
+  margin-top:14px;padding:13px;border-radius:12px;background:rgba(0,0,0,.22);
+  border:1px solid rgba(148,163,184,.15);font-weight:800
+}
+.status.ok{border-color:rgba(0,255,157,.4);color:var(--verde)}
+.status.wait{border-color:rgba(255,209,102,.35);color:var(--amarelo)}
+.status.danger{border-color:rgba(255,77,109,.4);color:#ff8da1}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.metric{padding:14px;border-radius:14px;background:#030b18;border:1px solid rgba(148,163,184,.13)}
+.metric .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
+.metric .value{font-size:22px;font-weight:900;margin-top:5px;color:var(--verde)}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.tag{padding:7px 9px;border-radius:999px;background:rgba(0,183,255,.08);border:1px solid rgba(0,183,255,.18);font-weight:800;font-size:12px}
+.candidates{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.candidate{border-radius:15px;padding:14px;background:rgba(4,13,28,.9);border:1px solid rgba(0,255,157,.16)}
+.candidate .num{font-size:36px;font-weight:1000;color:var(--verde);line-height:1}
+.candidate .score{font-size:12px;color:var(--muted);margin-top:5px}
+.small{font-size:12px;color:var(--muted);line-height:1.55}
+.history{display:flex;flex-wrap:wrap;gap:7px}
+.ball{
+  min-width:36px;height:36px;padding:0 8px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:900;background:#121826;border:1px solid rgba(255,255,255,.1)
+}
+.ball.zero{background:#064e3b;color:#d1fae5}
+.ball.red{background:#7f1d1d;color:#fee2e2}
+.ball.black{background:#0f172a;color:#e2e8f0}
+.race-bar{height:12px;background:#020711;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.race-fill{height:100%;background:linear-gradient(90deg,var(--azul),var(--verde));width:0%;transition:.3s}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,157,.25),transparent);margin:16px 0}
+.footer{text-align:center;color:#64748b;font-size:12px;margin-top:24px}
+.highlight{color:var(--amarelo);font-weight:900}
+.trigger-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:750px){.trigger-grid{grid-template-columns:1fr}}
+.trigger-box{padding:14px;border-radius:14px;background:#030b18;border:1px solid rgba(148,163,184,.13)}
+.trigger-box .name{font-size:12px;color:var(--muted);text-transform:uppercase}
+.trigger-box .score{font-size:24px;font-weight:900;color:var(--verde);margin:5px 0}
+.trigger-box .state{font-size:12px;font-weight:900}
+.state.ok{color:var(--verde)}
+.state.wait{color:var(--amarelo)}
+.state.danger{color:#ff8da1}
 
-ANALISE_MEGAMENTE_V14_ENTRADA_LINHA_UNICA.html
-HTML
+#matrixBg{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  z-index:-3;
+  pointer-events:none;
+  background:#000;
+}
+.container{position:relative;z-index:1}
+.hero,.card{
+  background:linear-gradient(180deg,rgba(2,10,18,.78),rgba(2,8,15,.72)) !important;
+  border-color:rgba(0,255,120,.24) !important;
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.38),
+    0 0 24px rgba(0,255,120,.055),
+    inset 0 0 34px rgba(0,255,120,.025) !important;
+  backdrop-filter:blur(8px);
+}
 
 
+.scoreboard{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+@media(max-width:750px){.scoreboard{grid-template-columns:1fr}}
+.score-card{
+  padding:16px;
+  border-radius:15px;
+  background:#030b18;
+  border:1px solid rgba(148,163,184,.13);
+}
+.score-card h3{margin:0 0 12px}
+.score-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.score-pill{
+  padding:10px;
+  border-radius:12px;
+  text-align:center;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+}
+.score-pill .n{
+  font-size:24px;
+  font-weight:1000;
+  display:block;
+}
+.green{color:var(--verde)!important}
+.redtxt{color:#ff6b85!important}
+.neutral{color:var(--amarelo)!important}
+.result-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.08);
+  margin:3px 4px 3px 0;
+}
+.result-chip.green{
+  background:rgba(0,255,157,.08);
+  border-color:rgba(0,255,157,.25);
+}
+.result-chip.redtxt{
+  background:rgba(255,77,109,.08);
+  border-color:rgba(255,77,109,.25);
+}
+.result-chip.neutral{
+  background:rgba(255,209,102,.08);
+  border-color:rgba(255,209,102,.20);
+}
+
+
+.progress-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media(max-width:750px){.progress-grid{grid-template-columns:1fr}}
+.progress-card{
+  padding:16px;
+  border-radius:15px;
+  background:#030b18;
+  border:1px solid rgba(148,163,184,.13);
+}
+.progress-card h3{margin:0 0 10px}
+.progress-line{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.progress-line:last-child{border-bottom:0}
+.progress-badge{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  background:rgba(0,183,255,.08);
+  border:1px solid rgba(0,183,255,.18);
+}
+
+
+/* ===== ALERTA AUTOMÁTICO DE GATILHO ===== */
+.gatilho-overlay{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:9999;
+  display:none;
+  width:min(360px,calc(100vw - 28px));
+  pointer-events:none;
+}
+.gatilho-overlay.show{display:block}
+.gatilho-modal{
+  width:100%;
+  border-radius:15px;
+  padding:14px;
+  pointer-events:auto;
+  background:linear-gradient(180deg,rgba(3,16,27,.97),rgba(1,8,16,.96));
+  border:1px solid rgba(0,255,157,.38);
+  box-shadow:0 10px 32px rgba(0,0,0,.48),0 0 24px rgba(0,255,157,.10);
+  backdrop-filter:blur(7px);
+}
+.gatilho-modal h2{margin:0 0 5px;color:var(--verde);font-size:17px}
+.gatilho-modal .apos{font-size:14px;font-weight:900;color:#fff;margin-bottom:9px}
+.gatilho-lista{display:grid;gap:6px}
+.gatilho-item{
+  padding:8px 10px;border-radius:10px;background:#030b18;border:1px solid rgba(255,255,255,.08);
+  font-size:12px;
+}
+.gatilho-item strong{color:var(--verde)}
+.gatilho-item .forca{color:var(--amarelo);font-weight:900}
+.gatilho-modal .acoes{display:flex;justify-content:flex-end;margin-top:9px}
+.gatilho-modal button{padding:8px 11px;font-size:11px;background:linear-gradient(135deg,var(--verde),var(--verde2));color:#012218}
+.gatilho-resumo{display:none}
+@media(max-width:600px){
+  .gatilho-overlay{top:10px;right:10px;width:calc(100vw - 20px)}
+}
+
+</style>
+</head>
+
+<body>
+<canvas id="matrixBg" aria-hidden="true"></canvas>
+<div class="container">
+  <section class="hero">
+    <h1>🧠 ANÁLISE <span>MEGAMENTE</span></h1>
+    <div class="subtitle">
+      Sistema estatístico para acompanhamento de roleta, leitura de sequência, RACE,
+      gatilhos individuais de dúzias e colunas, vizinhos e quebra de padrão.
+      O RACE usa até 21 giros internos, porém os 7 mais recentes têm peso principal para deixar a leitura mais responsiva.
+    </div>
+    <div class="patente">⚡ CONCEITO / PATENTE — DIEGO CARDOSO</div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>🎰 Registrar resultado do próximo giro</h2>
+      <div class="actions">
+        <input id="novoGiro" type="number" min="0" max="36" placeholder="0–36" style="max-width:160px">
+        <button class="btn-primary" onclick="registrarGiro()">Registrar giro</button>
+        <button class="btn-blue" onclick="analisar()">Recalcular análise</button>
+        <button class="btn-danger" onclick="limparTudo()">Limpar histórico</button>
+      </div>
+      <div id="statusTopo" class="status wait">Aguardando entrada de um novo giro.</div>
+    </section>
+
+    <section class="card">
+      <h2>🧠 Base inicial — 7 giros</h2>
+      <div class="inputs" id="inputsBase"></div>
+      <div class="actions">
+        <button class="btn-purple" onclick="carregarBase()">Carregar sequência</button>
+      </div>
+      <p class="small">
+        Informe os 7 giros iniciais. Depois disso, cada novo número registrado entra como Giro 7,
+        e os anteriores avançam automaticamente. O histórico interno mantém até 21 giros para o cálculo do RACE.
+      </p>
+    </section>
+
+    <section class="card span8">
+      <h2>🎯 Alvos MEGAMENTE — próximo giro</h2>
+      <div id="candidatos" class="candidates"></div>
+      <div class="divider"></div>
+      <h3>Cobertura inteligente</h3>
+      <div id="cobertura" class="tags"></div>
+      <p class="small">
+        Quando há sobreposição entre vizinhos, a cobertura procura o vizinho livre mais próximo
+        na roda europeia para reduzir repetição.
+      </p>
+    </section>
+
+    <section class="card span4">
+      <h2>🚦 Gatilho geral</h2>
+      <div class="metrics">
+        <div class="metric"><div class="label">Trigger Score</div><div class="value" id="triggerScore">0%</div></div>
+        <div class="metric"><div class="label">Estado</div><div class="value" id="gatilhoEstado">—</div></div>
+      </div>
+      <div id="gatilhoMsg" class="status wait">Aguardando dados.</div>
+    </section>
+
+    <section class="card span12">
+      <h2>🚨 Entrada Coluna + Dúzia</h2>
+      <div id="entradaCombinadaMsg" class="status wait">⏸️ AGUARDAR — calculando melhores colunas e dúzias.</div>
+    </section>
+
+    <section class="card">
+      <h2>📌 Gatilhos por coluna</h2>
+      <div id="colunaEntradaMsg" class="status wait">⏸️ AGUARDAR</div>
+      <div class="trigger-grid" style="margin-top:10px">
+        <div class="trigger-box"><div class="name">Coluna 1</div><div class="score" id="col1Score">0%</div><div class="state wait" id="col1State">AGUARDAR</div></div>
+        <div class="trigger-box"><div class="name">Coluna 2</div><div class="score" id="col2Score">0%</div><div class="state wait" id="col2State">AGUARDAR</div></div>
+        <div class="trigger-box"><div class="name">Coluna 3</div><div class="score" id="col3Score">0%</div><div class="state wait" id="col3State">AGUARDAR</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🎯 Gatilhos por dúzia</h2>
+      <div id="duziaEntradaMsg" class="status wait">⏸️ AGUARDAR</div>
+      <div class="trigger-grid" style="margin-top:10px">
+        <div class="trigger-box"><div class="name">Dúzia 1</div><div class="score" id="duz1Score">0%</div><div class="state wait" id="duz1State">AGUARDAR</div></div>
+        <div class="trigger-box"><div class="name">Dúzia 2</div><div class="score" id="duz2Score">0%</div><div class="state wait" id="duz2State">AGUARDAR</div></div>
+        <div class="trigger-box"><div class="name">Dúzia 3</div><div class="score" id="duz3Score">0%</div><div class="state wait" id="duz3State">AGUARDAR</div></div>
+      </div>
+    </section>
+
+    <section class="card span6">
+      <h2>🏁 RACE</h2>
+      <div class="race-bar"><div id="raceFill" class="race-fill"></div></div>
+      <div class="metrics" style="margin-top:12px">
+        <div class="metric"><div class="label">Força RACE</div><div class="value" id="raceScore">0%</div></div>
+        <div class="metric"><div class="label">Candidatos</div><div class="value" id="candidateCount">0</div></div>
+      </div>
+      <div id="raceMsg" class="status wait">Sem corrida estatística definida.</div>
+    </section>
+
+    <section class="card span6">
+      <h2>🗺️ Setores da roda</h2>
+      <div class="metrics">
+        <div class="metric"><div class="label">Voisins</div><div class="value" id="voisinsPct">0%</div></div>
+        <div class="metric"><div class="label">Tiers</div><div class="value" id="tiersPct">0%</div></div>
+        <div class="metric"><div class="label">Orphelins</div><div class="value" id="orphelinsPct">0%</div></div>
+      </div>
+      <div id="setorMsg" class="status wait">Aguardando sequência.</div>
+    </section>
+
+    <section class="card span6">
+      <h2>⚠️ Quebra de análise</h2>
+      <div class="metrics">
+        <div class="metric"><div class="label">Pressão de quebra</div><div class="value" id="quebraScore">0%</div></div>
+        <div class="metric"><div class="label">Repetição</div><div class="value" id="repeticao">0%</div></div>
+      </div>
+      <div id="quebraMsg" class="status wait">Nenhuma quebra detectada.</div>
+    </section>
+
+    <section class="card span6">
+      <h2>📈 Destaques</h2>
+      <div class="metrics">
+        <div class="metric"><div class="label">Melhor dúzia</div><div class="value" id="melhorDuzia">—</div></div>
+        <div class="metric"><div class="label">Melhor coluna</div><div class="value" id="melhorColuna">—</div></div>
+      </div>
+    </section>
+
+
+
+    <section class="card">
+      <h2>📈 Progressão 3 giros — Dúzia e Coluna</h2>
+      <div class="progress-grid">
+        <div class="progress-card">
+          <h3>📌 COLUNA</h3>
+          <div class="progress-line"><span>Tentativa atual</span><strong id="colTentativa">0/3</strong></div>
+          <div class="progress-line"><span>Multiplicador</span><strong id="colMultiplicador">1x</strong></div>
+          <div class="progress-line"><span>Status do ciclo</span><strong id="colCicloStatus">AGUARDANDO GATILHO</strong></div>
+          <div class="progress-line"><span>Alvo(s)</span><strong id="colAlvosCiclo">—</strong></div>
+        </div>
+
+        <div class="progress-card">
+          <h3>🎯 DÚZIA</h3>
+          <div class="progress-line"><span>Tentativa atual</span><strong id="duzTentativa">0/3</strong></div>
+          <div class="progress-line"><span>Multiplicador</span><strong id="duzMultiplicador">1x</strong></div>
+          <div class="progress-line"><span>Status do ciclo</span><strong id="duzCicloStatus">AGUARDANDO GATILHO</strong></div>
+          <div class="progress-line"><span>Alvo(s)</span><strong id="duzAlvosCiclo">—</strong></div>
+        </div>
+      </div>
+      <p class="small">
+        Progressão limitada a 3 giros: 1x → 2x → 4x. GREEN encerra o ciclo. RED avança uma tentativa.
+        RED na 3ª tentativa encerra como RED FINAL.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>✅❌ Resultado dos gatilhos</h2>
+      <div class="scoreboard">
+        <div class="score-card">
+          <h3>🏁 RACE</h3>
+          <div class="score-row">
+            <div class="score-pill"><span class="n green" id="raceGreen">0</span><span class="small">GREEN</span></div>
+            <div class="score-pill"><span class="n redtxt" id="raceRed">0</span><span class="small">RED</span></div>
+            <div class="score-pill"><span class="n" id="raceTaxa">0%</span><span class="small">ACERTO</span></div>
+          </div>
+          <div id="raceUltimoResultado" class="status wait">Sem entrada RACE avaliada.</div>
+        </div>
+
+        <div class="score-card">
+          <h3>📌 COLUNAS</h3>
+          <div class="score-row">
+            <div class="score-pill"><span class="n green" id="colGreen">0</span><span class="small">GREEN</span></div>
+            <div class="score-pill"><span class="n redtxt" id="colRed">0</span><span class="small">RED</span></div>
+            <div class="score-pill"><span class="n" id="colTaxa">0%</span><span class="small">ACERTO</span></div>
+          </div>
+          <div id="colUltimoResultado" class="status wait">Sem entrada de coluna avaliada.</div>
+        </div>
+
+        <div class="score-card">
+          <h3>🎯 DÚZIAS</h3>
+          <div class="score-row">
+            <div class="score-pill"><span class="n green" id="duzGreen">0</span><span class="small">GREEN</span></div>
+            <div class="score-pill"><span class="n redtxt" id="duzRed">0</span><span class="small">RED</span></div>
+            <div class="score-pill"><span class="n" id="duzTaxa">0%</span><span class="small">ACERTO</span></div>
+          </div>
+          <div id="duzUltimoResultado" class="status wait">Sem entrada de dúzia avaliada.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>📜 Giros analisados</h2>
+      <div id="historico" class="history"></div>
+    </section>
+  </div>
+
+  <div class="footer">
+    ANÁLISE MEGAMENTE • ferramenta estatística/simulação • resultados de roleta permanecem aleatórios
+  </div>
+</div>
+
+
+<div id="gatilhoOverlay" class="gatilho-overlay" onclick="fecharAlertaGatilho(event)">
+  <div class="gatilho-modal" role="dialog" aria-modal="true" aria-labelledby="gatilhoTitulo">
+    <h2 id="gatilhoTitulo">🚨 POSSÍVEL ENTRADA</h2>
+    <div id="gatilhoApos" class="apos">Após o número —</div>
+    <div id="gatilhoLista" class="gatilho-lista"></div>
+    <div class="gatilho-resumo">
+      O alerta aparece quando pelo menos um gatilho independente atinge 55% ou mais.
+      Coluna e Dúzia continuam seguindo seus próprios ciclos de até 3 tentativas.
+    </div>
+    <div class="acoes"><button onclick="fecharAlertaGatilho()">Entendi</button></div>
+  </div>
+</div>
+
+<script>
+const roda=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const vermelhos=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+const voisins=new Set([22,18,29,7,28,12,35,3,26,0,32,15,19,4,21,2,25]);
+const tiers=new Set([27,13,36,11,30,8,23,10,5,24,16,33]);
+const orphelins=new Set([1,20,14,31,9,17,34,6]);
+
+let historico=JSON.parse(localStorage.getItem("megamenteHistorico")||"[]");
+let base7=JSON.parse(localStorage.getItem("megamenteBase7")||"[]");
+
+let placar=JSON.parse(localStorage.getItem("megamentePlacar")||JSON.stringify({
+  race:{green:0,red:0},
+  coluna:{green:0,red:0},
+  duzia:{green:0,red:0}
+}));
+
+let snapshotEntrada=JSON.parse(localStorage.getItem("megamenteSnapshotEntrada")||"null");
+
+let ciclos=JSON.parse(localStorage.getItem("megamenteCiclos")||JSON.stringify({
+  coluna:{ativo:false,tentativa:0,alvos:[]},
+  duzia:{ativo:false,tentativa:0,alvos:[]}
+}));
+
+let pausaAposGreen=JSON.parse(localStorage.getItem("megamentePausaAposGreen")||JSON.stringify({
+  coluna:0,
+  duzia:0
+}));
+
+function moduloEmPausa(tipo){
+  const liberarEm=pausaAposGreen[tipo]||0;
+  if(!liberarEm) return false;
+
+  // Pausa somente enquanto ainda não chegou ao giro de liberação.
+  if(historico.length < liberarEm) return true;
+
+  // Atingiu a liberação: limpa a trava automaticamente.
+  pausaAposGreen[tipo]=0;
+  localStorage.setItem("megamentePausaAposGreen",JSON.stringify(pausaAposGreen));
+  return false;
+}
+
+let ultimoAlertaChave=localStorage.getItem("megamenteUltimoAlertaChave")||"";
+
+function criarInputs(){
+  const box=document.getElementById("inputsBase");
+  box.innerHTML="";
+  for(let i=0;i<7;i++){
+    box.innerHTML+=`<div class="input-wrap"><label>Giro ${i+1}</label><input id="g${i}" type="number" min="0" max="36" placeholder="-"></div>`;
+  }
+  preencherInputsBase();
+}
+function preencherInputsBase(){
+  for(let i=0;i<7;i++){
+    const el=document.getElementById("g"+i);
+    if(el) el.value=base7[i]??"";
+  }
+}
+criarInputs();
+
+function numeroClasse(n){if(n===0)return"zero";return vermelhos.has(n)?"red":"black";}
+function atualizarHistorico(){
+  const el=document.getElementById("historico");
+  el.innerHTML=historico.length?historico.map(n=>`<span class="ball ${numeroClasse(n)}">${n}</span>`).join(""):`<span class="small">Nenhum giro registrado.</span>`;
+}
+function salvar(){
+  localStorage.setItem("megamenteHistorico",JSON.stringify(historico.slice(-21)));
+  localStorage.setItem("megamenteBase7",JSON.stringify(base7.slice(-7)));
+  localStorage.setItem("megamentePlacar",JSON.stringify(placar));
+  localStorage.setItem("megamenteSnapshotEntrada",JSON.stringify(snapshotEntrada));
+  localStorage.setItem("megamenteCiclos",JSON.stringify(ciclos));
+  localStorage.setItem("megamentePausaAposGreen",JSON.stringify(pausaAposGreen));
+}
+function setStatus(msg,tipo="wait"){
+  const el=document.getElementById("statusTopo");
+  el.className="status "+tipo;
+  el.textContent=msg;
+}
+function carregarBase(){
+  const nums=[];
+  for(let i=0;i<7;i++){
+    const v=document.getElementById("g"+i).value;
+    if(v!==""){
+      const n=Number(v);
+      if(Number.isInteger(n)&&n>=0&&n<=36)nums.push(n);
+    }
+  }
+  if(nums.length!==7){
+    setStatus("Informe os 7 giros completos para iniciar a análise.","danger");
+    return;
+  }
+  base7=nums.slice();
+  historico=nums.slice();
+  salvar();preencherInputsBase();atualizarHistorico();analisar();
+}
+
+function taxaAcerto(obj){
+  const total=obj.green+obj.red;
+  return total?Math.round(obj.green/total*100):0;
+}
+
+function atualizarPlacar(){
+  document.getElementById("raceGreen").textContent=placar.race.green;
+  document.getElementById("raceRed").textContent=placar.race.red;
+  document.getElementById("raceTaxa").textContent=taxaAcerto(placar.race)+"%";
+
+  document.getElementById("colGreen").textContent=placar.coluna.green;
+  document.getElementById("colRed").textContent=placar.coluna.red;
+  document.getElementById("colTaxa").textContent=taxaAcerto(placar.coluna)+"%";
+
+  document.getElementById("duzGreen").textContent=placar.duzia.green;
+  document.getElementById("duzRed").textContent=placar.duzia.red;
+  document.getElementById("duzTaxa").textContent=taxaAcerto(placar.duzia)+"%";
+}
+
+function colunaDoNumero(n){
+  if(n===0) return 0;
+  return ((n-1)%3)+1;
+}
+
+function duziaDoNumero(n){
+  if(n===0) return 0;
+  return Math.floor((n-1)/12)+1;
+}
+
+function setResultadoBox(id,tipo,msg){
+  const el=document.getElementById(id);
+  el.className="status "+(tipo==="green"?"ok":tipo==="red"?"danger":"wait");
+  el.innerHTML=msg;
+}
+
+
+function multiplicadorTentativa(tentativa){
+  if(tentativa<=1) return 1;
+  if(tentativa===2) return 2;
+  return 4;
+}
+
+function atualizarPainelCiclos(){
+  const c=ciclos.coluna;
+  const d=ciclos.duzia;
+
+  document.getElementById("colTentativa").textContent=(c.ativo?c.tentativa:0)+"/3";
+  document.getElementById("colMultiplicador").textContent=multiplicadorTentativa(c.ativo?c.tentativa:1)+"x";
+  document.getElementById("colCicloStatus").textContent=c.ativo?"EM PROGRESSÃO":"AGUARDANDO GATILHO";
+  document.getElementById("colAlvosCiclo").textContent=c.alvos.length?c.alvos.join(" / "):"—";
+
+  document.getElementById("duzTentativa").textContent=(d.ativo?d.tentativa:0)+"/3";
+  document.getElementById("duzMultiplicador").textContent=multiplicadorTentativa(d.ativo?d.tentativa:1)+"x";
+  document.getElementById("duzCicloStatus").textContent=d.ativo?"EM PROGRESSÃO":"AGUARDANDO GATILHO";
+  document.getElementById("duzAlvosCiclo").textContent=d.alvos.length?d.alvos.join(" / "):"—";
+}
+
+function iniciarCicloSeNecessario(tipo,alvos){
+  if(!alvos || !alvos.length) return;
+  if(!ciclos[tipo].ativo){
+    ciclos[tipo]={ativo:true,tentativa:1,alvos:[...alvos]};
+  }
+}
+
+function encerrarCiclo(tipo){
+  ciclos[tipo]={ativo:false,tentativa:0,alvos:[]};
+}
+
+function avancarOuEncerrarCiclo(tipo){
+  if(!ciclos[tipo].ativo) return false;
+
+  if(ciclos[tipo].tentativa>=3){
+    encerrarCiclo(tipo);
+    return true;
+  }
+
+  ciclos[tipo].tentativa++;
+  return false;
+}
+
+function avaliarSnapshot(numero){
+  if(!snapshotEntrada) return;
+
+  // RACE: só conta quando estava em ENTRADA (>=55)
+  if(snapshotEntrada.raceAtivo){
+    if(snapshotEntrada.cobertura.includes(numero)){
+      placar.race.green++;
+      setResultadoBox("raceUltimoResultado","green",`🟢 GREEN RACE — número ${numero} estava na cobertura.`);
+    }else{
+      placar.race.red++;
+      setResultadoBox("raceUltimoResultado","red",`🔴 RED RACE — número ${numero} ficou fora da cobertura.`);
+    }
+  }else{
+    setResultadoBox("raceUltimoResultado","neutral","RACE anterior não estava em ENTRADA. Não contabilizado.");
+  }
+
+  // COLUNAS: ciclo independente de até 3 giros
+  const colAtivas=snapshotEntrada.colunasAtivas||[];
+  iniciarCicloSeNecessario("coluna",colAtivas);
+
+  if(ciclos.coluna.ativo){
+    const colReal=colunaDoNumero(numero);
+    const tentativaAtual=ciclos.coluna.tentativa;
+    const mult=multiplicadorTentativa(tentativaAtual);
+
+    if(ciclos.coluna.alvos.includes(colReal)){
+      placar.coluna.green++;
+      pausaAposGreen.coluna=historico.length+1;
+      setResultadoBox(
+        "colUltimoResultado",
+        "green",
+        `🎉 PARABÉNS! 🟢 GREEN NA COLUNA ${colReal} — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}. Ciclo encerrado. ⏸️ O próximo giro ficará sem novo sinal de coluna.`
+      );
+      encerrarCiclo("coluna");
+    }else{
+      const terminou=avancarOuEncerrarCiclo("coluna");
+
+      if(terminou){
+        placar.coluna.red++;
+        setResultadoBox("colUltimoResultado","red",`🔴 RED FINAL COLUNA — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo.`);
+      }else{
+        setResultadoBox("colUltimoResultado","red",`🔴 RED COLUNA — tentativa ${tentativaAtual}/3 (${mult}x). Próxima tentativa: ${ciclos.coluna.tentativa}/3 (${multiplicadorTentativa(ciclos.coluna.tentativa)}x).`);
+      }
+    }
+  }else{
+    setResultadoBox("colUltimoResultado","neutral","Nenhuma coluna em ciclo. Aguardando novo gatilho de ENTRADA.");
+  }
+
+  // DÚZIAS: ciclo independente de até 3 giros
+  const duzAtivas=snapshotEntrada.duziasAtivas||[];
+  iniciarCicloSeNecessario("duzia",duzAtivas);
+
+  if(ciclos.duzia.ativo){
+    const duzReal=duziaDoNumero(numero);
+    const tentativaAtual=ciclos.duzia.tentativa;
+    const mult=multiplicadorTentativa(tentativaAtual);
+
+    if(ciclos.duzia.alvos.includes(duzReal)){
+      placar.duzia.green++;
+      pausaAposGreen.duzia=historico.length+1;
+      setResultadoBox(
+        "duzUltimoResultado",
+        "green",
+        `🎉 PARABÉNS! 🟢 GREEN NA DÚZIA ${duzReal} — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}. Ciclo encerrado. ⏸️ O próximo giro ficará sem novo sinal de dúzia.`
+      );
+      encerrarCiclo("duzia");
+    }else{
+      const terminou=avancarOuEncerrarCiclo("duzia");
+
+      if(terminou){
+        placar.duzia.red++;
+        setResultadoBox("duzUltimoResultado","red",`🔴 RED FINAL DÚZIA — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo.`);
+      }else{
+        setResultadoBox("duzUltimoResultado","red",`🔴 RED DÚZIA — tentativa ${tentativaAtual}/3 (${mult}x). Próxima tentativa: ${ciclos.duzia.tentativa}/3 (${multiplicadorTentativa(ciclos.duzia.tentativa)}x).`);
+      }
+    }
+  }else{
+    setResultadoBox("duzUltimoResultado","neutral","Nenhuma dúzia em ciclo. Aguardando novo gatilho de ENTRADA.");
+  }
+
+  atualizarPlacar();
+  atualizarPainelCiclos();
+  salvar();
+}
+
+function capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz){
+  snapshotEntrada={
+    raceAtivo:race>=55,
+    raceScore:race,
+    cobertura:[...cobertura.usados],
+    colunasAtivas:(ciclos.coluna.ativo || moduloEmPausa("coluna") || Math.max(...scoresCol)<45) ? [] : scoresCol
+      .map((s,i)=>({numero:i+1,score:s}))
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,2)
+      .map(x=>x.numero),
+    duziasAtivas:(ciclos.duzia.ativo || moduloEmPausa("duzia") || Math.max(...scoresDuz)<45) ? [] : scoresDuz
+      .map((s,i)=>({numero:i+1,score:s}))
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,2)
+      .map(x=>x.numero),
+    timestamp:Date.now()
+  };
+  salvar();
+}
+
+function fecharAlertaGatilho(event){
+  if(event && event.target && event.target.id!=="gatilhoOverlay") return;
+  const ov=document.getElementById("gatilhoOverlay");
+  if(ov) ov.classList.remove("show");
+}
+
+function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
+  // No popup, sempre mostra as 2 melhores colunas e as 2 melhores dúzias
+  // quando existir uma entrada geral/RACE.
+  // A progressão GREEN/RED continua sendo controlada separadamente
+  // pelos gatilhos individuais de 55% no snapshot.
+  const colunasSelecionadas=scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const duziasSelecionadas=scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const raceAtiva=race>=55;
+  const colunaPausada=moduloEmPausa("coluna");
+  const duziaPausada=moduloEmPausa("duzia");
+  const algumaColunaAtiva=!ciclos.coluna.ativo && !colunaPausada && scoresCol.some(s=>s>=45);
+  const algumaDuziaAtiva=!ciclos.duzia.ativo && !duziaPausada && scoresDuz.some(s=>s>=45);
+
+  if(!raceAtiva && !algumaColunaAtiva && !algumaDuziaAtiva) return;
+
+  const chave=[
+    ultimoNumero,
+    race,
+    ...colunasSelecionadas.map(x=>`C${x.numero}:${x.score}`),
+    ...duziasSelecionadas.map(x=>`D${x.numero}:${x.score}`)
+  ].join("|");
+
+  if(chave===ultimoAlertaChave) return;
+  ultimoAlertaChave=chave;
+  localStorage.setItem("megamenteUltimoAlertaChave",ultimoAlertaChave);
+
+  const formatarLista=lista=>{
+    if(!lista.length) return "—";
+    if(lista.length===1) return String(lista[0].numero);
+    return lista.map(x=>x.numero).join(" e ");
+  };
+
+  const componentes=[];
+  if(raceAtiva) componentes.push(race);
+  if(!colunaPausada) componentes.push(...colunasSelecionadas.map(x=>x.score));
+  if(!duziaPausada) componentes.push(...duziasSelecionadas.map(x=>x.score));
+
+  const forcaConjunto=componentes.length
+    ? Math.round(componentes.reduce((a,b)=>a+b,0)/componentes.length)
+    : 0;
+
+  const nomesColunas=(colunaPausada || ciclos.coluna.ativo || Math.max(...scoresCol)<45)
+    ? []
+    : scoresCol.map((score,i)=>({numero:i+1,score}))
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,2)
+        .map(x=>x.numero);
+
+  const nomesDuzias=(duziaPausada || ciclos.duzia.ativo || Math.max(...scoresDuz)<45)
+    ? []
+    : scoresDuz.map((score,i)=>({numero:i+1,score}))
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,2)
+        .map(x=>x.numero);
+
+  const formatarAlvos=(lista,singular,plural)=>{
+    if(!lista.length) return "";
+    if(lista.length===1) return `${singular} ${lista[0]}`;
+    return `${plural} ${lista.join(" e ")}`;
+  };
+
+  let msgGatilho="⏸️ AGUARDAR GATILHO";
+
+  const colTexto=nomesColunas.length
+    ? nomesColunas.join(" e ")
+    : "";
+
+  const duzTexto=nomesDuzias.length
+    ? nomesDuzias.join(" e ")
+    : "";
+
+  if(nomesColunas.length && nomesDuzias.length){
+    msgGatilho=`🚨 ENTRAR NAS COLUNAS ${colTexto} E DÚZIAS ${duzTexto}`;
+  }else if(nomesColunas.length){
+    msgGatilho=`🚨 ENTRAR NAS COLUNAS ${colTexto}`;
+  }else if(nomesDuzias.length){
+    msgGatilho=`🚨 ENTRAR NAS DÚZIAS ${duzTexto}`;
+  }else if(raceAtiva){
+    msgGatilho="🏁 ENTRADA RACE";
+  }
+
+  document.getElementById("gatilhoApos").textContent=`POSSÍVEL ENTRADA APÓS O NÚMERO ${ultimoNumero}`;
+
+  const colAtivasPopup=Math.max(...scoresCol)>=45 ? scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2) : [];
+
+  const duzAtivasPopup=Math.max(...scoresDuz)>=45 ? scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2) : [];
+
+  const melhoresColPopup=scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const melhoresDuzPopup=scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const colDetalhe=ciclos.coluna.ativo
+    ? `🎯 CICLO ATIVO: ${ciclos.coluna.alvos.join(" e ")} — ${ciclos.coluna.tentativa}/3`
+    : (colunaPausada
+        ? `⏸️ AGUARDAR — LEITURA: ${melhoresColPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")}`
+        : (colAtivasPopup.length
+            ? colAtivasPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
+            : `LEITURA: ${melhoresColPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")} — AGUARDAR GATILHO`));
+
+  const duzDetalhe=ciclos.duzia.ativo
+    ? `🎯 CICLO ATIVO: ${ciclos.duzia.alvos.join(" e ")} — ${ciclos.duzia.tentativa}/3`
+    : (duziaPausada
+        ? `⏸️ AGUARDAR — LEITURA: ${melhoresDuzPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")}`
+        : (duzAtivasPopup.length
+            ? duzAtivasPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
+            : `LEITURA: ${melhoresDuzPopup.map(x=>`${x.numero} (${x.score}%)`).join(" e ")} — AGUARDAR GATILHO`));
+
+  document.getElementById("gatilhoLista").innerHTML=`
+    <div class="gatilho-item"><strong>${msgGatilho}</strong></div>
+    <div class="gatilho-item"><strong>📌 COLUNAS:</strong> ${colDetalhe}</div>
+    <div class="gatilho-item"><strong>🎯 DÚZIAS:</strong> ${duzDetalhe}</div>
+    <div class="gatilho-item"><strong>🏁 RACE:</strong> <span class="forca">${race}%</span></div>
+    <div class="gatilho-item"><strong>⚡ Força do conjunto:</strong> <span class="forca">${forcaConjunto}%</span></div>
+  `;
+
+  document.getElementById("gatilhoOverlay").classList.add("show");
+}
+
+function registrarGiro(){
+  const inp=document.getElementById("novoGiro");
+  const n=Number(inp.value);
+  if(inp.value===""||n<0||n>36||!Number.isInteger(n)){
+    setStatus("Informe um número inteiro entre 0 e 36.","danger");
+    return;
+  }
+  if(base7.length<7){
+    setStatus("Primeiro carregue os 7 giros iniciais.","danger");
+    return;
+  }
+
+  // Primeiro avalia o número usando os gatilhos que estavam ativos ANTES deste giro
+  avaliarSnapshot(n);
+
+  // Depois avança a janela visível
+  base7.shift();
+  base7.push(n);
+  historico.push(n);
+  historico=historico.slice(-21);
+  salvar();preencherInputsBase();atualizarHistorico();
+  inp.value="";
+  analisar();
+  setStatus(`✅ Giro ${n} registrado. A sequência avançou automaticamente e a análise foi recalculada.`,"ok");
+}
+function limparTudo(){
+  historico=[];
+  base7=[];
+  placar={race:{green:0,red:0},coluna:{green:0,red:0},duzia:{green:0,red:0}};
+  snapshotEntrada=null;
+  ultimoAlertaChave="";
+  localStorage.removeItem("megamenteUltimoAlertaChave");
+  ciclos={
+    coluna:{ativo:false,tentativa:0,alvos:[]},
+    duzia:{ativo:false,tentativa:0,alvos:[]}
+  };
+  pausaAposGreen={coluna:0,duzia:0};
+  salvar();
+  preencherInputsBase();
+  atualizarHistorico();
+  atualizarPlacar();
+  atualizarPainelCiclos();
+  setResultadoBox("raceUltimoResultado","neutral","Sem entrada RACE avaliada.");
+  setResultadoBox("colUltimoResultado","neutral","Sem entrada de coluna avaliada.");
+  setResultadoBox("duzUltimoResultado","neutral","Sem entrada de dúzia avaliada.");
+  document.getElementById("candidatos").innerHTML="";
+  document.getElementById("cobertura").innerHTML="";
+  setStatus("Histórico limpo. Informe novamente os 7 giros iniciais.","wait");
+  ["triggerScore","raceScore","voisinsPct","tiersPct","orphelinsPct","quebraScore","repeticao","col1Score","col2Score","col3Score","duz1Score","duz2Score","duz3Score"].forEach(id=>document.getElementById(id).textContent="0%");
+  ["col1State","col2State","col3State","duz1State","duz2State","duz3State"].forEach(id=>{
+    const el=document.getElementById(id);el.textContent="AGUARDAR";el.className="state wait";
+  });
+  document.getElementById("colunaEntradaMsg").className="status wait";
+  document.getElementById("colunaEntradaMsg").textContent="⏸️ AGUARDAR";
+  document.getElementById("duziaEntradaMsg").className="status wait";
+  document.getElementById("duziaEntradaMsg").textContent="⏸️ AGUARDAR";
+  document.getElementById("candidateCount").textContent="0";
+  document.getElementById("melhorDuzia").textContent="—";
+  document.getElementById("melhorColuna").textContent="—";
+  document.getElementById("gatilhoEstado").textContent="—";
+  document.getElementById("raceFill").style.width="0%";
+}
+function circularDist(a,b){
+  const ia=roda.indexOf(a),ib=roda.indexOf(b),d=Math.abs(ia-ib);
+  return Math.min(d,roda.length-d);
+}
+function neighbors(center,radius=3){
+  const idx=roda.indexOf(center),arr=[];
+  for(let d=-radius;d<=radius;d++)arr.push(roda[(idx+d+roda.length)%roda.length]);
+  return arr;
+}
+function nearestFreeNeighbor(center,usados,maxDist=10){
+  const idx=roda.indexOf(center);
+  for(let d=1;d<=maxDist;d++){
+    const e=roda[(idx-d+roda.length)%roda.length];
+    const r=roda[(idx+d)%roda.length];
+    if(!usados.has(e))return e;
+    if(!usados.has(r))return r;
+  }
+  return null;
+}
+function construirCobertura(candidatos){
+  const usados=new Set(),grupos=[];
+  for(const c of candidatos){
+    const grupo=[],desejados=neighbors(c.numero,3);
+    for(const n of desejados){
+      if(!usados.has(n)){usados.add(n);grupo.push(n);}
+      else{
+        const alt=nearestFreeNeighbor(c.numero,usados,10);
+        if(alt!==null){usados.add(alt);grupo.push(alt);}
+      }
+    }
+    grupos.push({centro:c.numero,numeros:grupo});
+  }
+  if(!usados.has(0))usados.add(0);
+  return{usados,grupos};
+}
+function freqMap(arr){const m=new Map();arr.forEach(n=>m.set(n,(m.get(n)||0)+1));return m;}
+function pesoHistoricoPorPosicao(indice,total){
+  // Mais recente = peso maior
+  const distanciaDoFim = total - 1 - indice;
+
+  // últimos 7 giros: peso principal
+  if(distanciaDoFim <= 6) return 1.35;
+
+  // giros 8 a 14: confirmação
+  if(distanciaDoFim <= 13) return 0.55;
+
+  // giros 15 a 21: memória leve
+  return 0.18;
+}
+
+function calcularScores(){
+  const ultimos=historico.slice(-21);
+  const scores=[];
+
+  for(const n of roda){
+    let s=0;
+
+    // Frequência ponderada em até 21 giros
+    ultimos.forEach((x,i)=>{
+      const peso=pesoHistoricoPorPosicao(i,ultimos.length);
+
+      if(n===x) s += 5*peso;
+
+      const d=circularDist(n,x);
+
+      // Proximidade física na roda europeia
+      if(d===1) s += 7*peso;
+      else if(d===2) s += 5*peso;
+      else if(d===3) s += 3.5*peso;
+      else if(d===4) s += 2*peso;
+    });
+
+    // Reforço especial nos últimos 7 giros
+    const rec=ultimos.slice(-7);
+    rec.forEach((x,i)=>{
+      const d=circularDist(n,x);
+      const pesoRecente=(i+1)/rec.length;
+
+      if(d===1) s += 8*pesoRecente;
+      else if(d===2) s += 6*pesoRecente;
+      else if(d===3) s += 4*pesoRecente;
+    });
+
+    // Leitura de transição histórica do último número
+    if(ultimos.length>=3){
+      const ultimo=ultimos[ultimos.length-1];
+
+      for(let i=0;i<ultimos.length-1;i++){
+        if(ultimos[i]===ultimo){
+          const prox=ultimos[i+1];
+          const d=circularDist(n,prox);
+          const peso=pesoHistoricoPorPosicao(i,ultimos.length);
+
+          if(d===0) s+=10*peso;
+          else if(d===1) s+=7*peso;
+          else if(d===2) s+=4*peso;
+        }
+      }
+    }
+
+    scores.push({numero:n,score:s});
+  }
+
+  scores.sort((a,b)=>b.score-a.score||a.numero-b.numero);
+
+  const escolhidos=[];
+
+  for(const c of scores){
+    if(escolhidos.every(e=>circularDist(e.numero,c.numero)>=4)){
+      escolhidos.push(c);
+      if(escolhidos.length===3)break;
+    }
+  }
+
+  while(escolhidos.length<3){
+    const cand=scores.find(c=>!escolhidos.some(e=>e.numero===c.numero));
+    if(!cand)break;
+    escolhidos.push(cand);
+  }
+
+  const max=Math.max(...scores.map(x=>x.score),1);
+  escolhidos.forEach(x=>x.pct=Math.round((x.score/max)*100));
+
+  return escolhidos;
+}
+function calcularEstrutura(arr){
+  const duzias=[0,0,0],colunas=[0,0,0];
+  arr.forEach(n=>{
+    if(n===0)return;
+    duzias[Math.floor((n-1)/12)]++;
+    colunas[(n-1)%3]++;
+  });
+  return{duzias,colunas};
+}
+function scoreEstrutural(contagem,total,indice,arr,tipo){
+  if(total<=0)return 0;
+  const frequencia=contagem/total*100;
+  const ultimos=arr.slice(-5);
+  let recentes=0;
+  ultimos.forEach((n,pos)=>{
+    if(n===0)return;
+    const alvo=tipo==="coluna"?(n-1)%3:Math.floor((n-1)/12);
+    if(alvo===indice)recentes+=(pos+1);
+  });
+  const pesoRecente=recentes/15*100;
+  return Math.max(0,Math.min(100,Math.round(frequencia*.6+pesoRecente*.4)));
+}
+function aplicarEstado(score,scoreId,stateId){
+  document.getElementById(scoreId).textContent=score+"%";
+  const st=document.getElementById(stateId);
+  if(score>=45){st.textContent="ENTRADA";st.className="state ok";}
+  else if(score>=40){st.textContent="ATENÇÃO";st.className="state wait";}
+  else{st.textContent="AGUARDAR";st.className="state danger";}
+}
+
+function textoAlvosEntrada(lista,tipo){
+  if(lista.length===1) return `🚨 GATILHO — ENTRAR NA ${tipo} ${lista[0].numero} (${lista[0].score}%)`;
+  return `🚨 GATILHO — ENTRAR NAS ${tipo}S ${lista.map(x=>`${x.numero} (${x.score}%)`).join(" E ")}`;
+}
+
+function atualizarMensagensEntrada(scoresCol,scoresDuz){
+  const colBox=document.getElementById("colunaEntradaMsg");
+  const duzBox=document.getElementById("duziaEntradaMsg");
+  const combinado=document.getElementById("entradaCombinadaMsg");
+
+  const colAtivas=scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const duzAtivas=scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,2);
+
+  const colTemGatilho=colAtivas.length && colAtivas[0].score>=45 && !moduloEmPausa("coluna") && !ciclos.coluna.ativo;
+  const duzTemGatilho=duzAtivas.length && duzAtivas[0].score>=45 && !moduloEmPausa("duzia") && !ciclos.duzia.ativo;
+
+  // Aviso principal combinado: sempre mostra a leitura; ao atingir 45%, vira ENTRADA.
+  if(combinado){
+    const colLeitura=colAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ");
+    const duzLeitura=duzAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ");
+
+    if(ciclos.coluna.ativo || ciclos.duzia.ativo){
+      const partes=[];
+      if(ciclos.coluna.ativo) partes.push(`COLUNAS ${ciclos.coluna.alvos.join(" E ")} — TENTATIVA ${ciclos.coluna.tentativa}/3`);
+      if(ciclos.duzia.ativo) partes.push(`DÚZIAS ${ciclos.duzia.alvos.join(" E ")} — TENTATIVA ${ciclos.duzia.tentativa}/3`);
+      combinado.className="status ok";
+      combinado.textContent=`🎯 CICLO ATIVO — ${partes.join(" | ")}`;
+    }else if(colTemGatilho && duzTemGatilho){
+      combinado.className="status ok";
+      combinado.textContent=`🚨 ENTRAR NAS COLUNAS ${colLeitura} | DÚZIAS ${duzLeitura}`;
+    }else if(colTemGatilho){
+      combinado.className="status ok";
+      combinado.textContent=`🚨 ENTRAR NAS COLUNAS ${colLeitura} | DÚZIAS EM LEITURA: ${duzLeitura}`;
+    }else if(duzTemGatilho){
+      combinado.className="status ok";
+      combinado.textContent=`🚨 ENTRAR NAS DÚZIAS ${duzLeitura} | COLUNAS EM LEITURA: ${colLeitura}`;
+    }else{
+      combinado.className="status wait";
+      combinado.textContent=`⏸️ AGUARDAR — COLUNAS: ${colLeitura} | DÚZIAS: ${duzLeitura} — GATILHO 45%`;
+    }
+  }
+
+  // COLUNA: mantém o ciclo travado até GREEN ou RED final.
+  if(ciclos.coluna.ativo){
+    const nomes=ciclos.coluna.alvos.join(" E ");
+    colBox.className="status ok";
+    colBox.textContent=`🎯 CICLO ATIVO — COLUNA${ciclos.coluna.alvos.length>1?"S":""} ${nomes} — TENTATIVA ${ciclos.coluna.tentativa}/3`;
+  }else if(moduloEmPausa("coluna")){
+    colBox.className="status wait";
+    colBox.textContent=`⏸️ AGUARDAR — MELHORES COLUNAS: ${colAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ")}`;
+  }else if(colAtivas.length && colAtivas[0].score>=45){
+    colBox.className="status ok";
+    colBox.textContent=textoAlvosEntrada(colAtivas,"COLUNA");
+  }else{
+    colBox.className="status wait";
+    colBox.textContent=`⏸️ AGUARDAR — MELHORES COLUNAS: ${colAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ")}`;
+  }
+
+  // DÚZIA: mantém o ciclo travado até GREEN ou RED final.
+  if(ciclos.duzia.ativo){
+    const nomes=ciclos.duzia.alvos.join(" E ");
+    duzBox.className="status ok";
+    duzBox.textContent=`🎯 CICLO ATIVO — DÚZIA${ciclos.duzia.alvos.length>1?"S":""} ${nomes} — TENTATIVA ${ciclos.duzia.tentativa}/3`;
+  }else if(moduloEmPausa("duzia")){
+    duzBox.className="status wait";
+    duzBox.textContent=`⏸️ AGUARDAR — MELHORES DÚZIAS: ${duzAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ")}`;
+  }else if(duzAtivas.length && duzAtivas[0].score>=45){
+    duzBox.className="status ok";
+    duzBox.textContent=textoAlvosEntrada(duzAtivas,"DÚZIA");
+  }else{
+    duzBox.className="status wait";
+    duzBox.textContent=`⏸️ AGUARDAR — MELHORES DÚZIAS: ${duzAtivas.map(x=>`${x.numero} (${x.score}%)`).join(" E ")}`;
+  }
+}
+function setorStats(arr){
+  let v=0,t=0,o=0;
+  arr.forEach(n=>{if(voisins.has(n))v++;else if(tiers.has(n))t++;else if(orphelins.has(n))o++;});
+  const total=Math.max(arr.length,1);
+  return{v:Math.round(v/total*100),t:Math.round(t/total*100),o:Math.round(o/total*100)};
+}
+function repeticaoPct(arr){
+  if(arr.length<2)return 0;
+  let rep=0;
+  for(let i=1;i<arr.length;i++)if(arr[i]===arr[i-1]||circularDist(arr[i],arr[i-1])<=1)rep++;
+  return Math.round(rep/(arr.length-1)*100);
+}
+function analisar(){
+  if(base7.length<7){setStatus("Aguardando os 7 giros iniciais para liberar a análise.","wait");atualizarHistorico();return;}
+  const candidatos=calcularScores(),cobertura=construirCobertura(candidatos),estrutura=calcularEstrutura(base7),st=setorStats(base7),rep=repeticaoPct(base7);
+  const totalNaoZero=Math.max(base7.filter(n=>n!==0).length,1);
+  const scoresCol=estrutura.colunas.map((q,i)=>scoreEstrutural(q,totalNaoZero,i,base7,"coluna"));
+  const scoresDuz=estrutura.duzias.map((q,i)=>scoreEstrutural(q,totalNaoZero,i,base7,"duzia"));
+  aplicarEstado(scoresCol[0],"col1Score","col1State");
+  aplicarEstado(scoresCol[1],"col2Score","col2State");
+  aplicarEstado(scoresCol[2],"col3Score","col3State");
+  aplicarEstado(scoresDuz[0],"duz1Score","duz1State");
+  aplicarEstado(scoresDuz[1],"duz2Score","duz2State");
+  aplicarEstado(scoresDuz[2],"duz3Score","duz3State");
+  atualizarMensagensEntrada(scoresCol,scoresDuz);
+  const bestColScore=Math.max(...scoresCol),bestDuzScore=Math.max(...scoresDuz);
+  document.getElementById("melhorColuna").textContent=(scoresCol.indexOf(bestColScore)+1)+"ª";
+  document.getElementById("melhorDuzia").textContent=(scoresDuz.indexOf(bestDuzScore)+1)+"ª";
+  const diversidade=new Set(base7).size/7,setorMax=Math.max(st.v,st.t,st.o);
+
+  const historico21=historico.slice(-21);
+  const blocos=[
+    historico21.slice(-7),
+    historico21.slice(-14,-7),
+    historico21.slice(-21,-14)
+  ].filter(b=>b.length>0);
+
+  const estabilidade = blocos.length
+    ? Math.round(
+        blocos.reduce((acc,b)=>{
+          const est=calcularEstrutura(b);
+          const maxCol=Math.max(...est.colunas);
+          const maxDuz=Math.max(...est.duzias);
+          const total=Math.max(b.filter(n=>n!==0).length,1);
+          return acc + ((maxCol/total*100)+(maxDuz/total*100))/2;
+        },0)/blocos.length
+      )
+    : 0;
+
+  const trigger=Math.max(0,Math.min(100,Math.round(
+    bestColScore*.30 +
+    bestDuzScore*.30 +
+    setorMax*.18 +
+    estabilidade*.12 +
+    (1-diversidade)*10
+  )));
+
+  const recentes7=historico.slice(-7);
+  const estrutura7=calcularEstrutura(recentes7);
+  const total7=Math.max(recentes7.filter(n=>n!==0).length,1);
+
+  const forcaCol7=Math.max(...estrutura7.colunas)/total7*100;
+  const forcaDuz7=Math.max(...estrutura7.duzias)/total7*100;
+  const forcaSetor7=Math.max(...Object.values(setorStats(recentes7)));
+
+  const forcaRecente=Math.max(0,Math.min(100,Math.round(
+    forcaCol7*.35 +
+    forcaDuz7*.35 +
+    forcaSetor7*.30
+  )));
+
+  const race=Math.max(0,Math.min(100,Math.round(
+    trigger*.40 +
+    (candidatos[0]?.pct||0)*.40 +
+    forcaRecente*.20
+  )));
+  const quebra=Math.max(0,Math.min(100,Math.round(rep*.55+(100-trigger)*.45)));
+  document.getElementById("candidatos").innerHTML=candidatos.map((c,i)=>`<div class="candidate"><div class="small">ALVO ${i+1}</div><div class="num">${c.numero}</div><div class="score">Índice relativo: <span class="highlight">${c.pct}%</span></div><div class="tags">${neighbors(c.numero,3).map(n=>`<span class="tag">${n}</span>`).join("")}</div></div>`).join("");
+  document.getElementById("cobertura").innerHTML=[...cobertura.usados].map(n=>`<span class="tag">${n}</span>`).join("");
+  document.getElementById("triggerScore").textContent=trigger+"%";
+  document.getElementById("raceScore").textContent=race+"%";
+  document.getElementById("raceFill").style.width=race+"%";
+  document.getElementById("candidateCount").textContent=candidatos.length;
+  document.getElementById("voisinsPct").textContent=st.v+"%";
+  document.getElementById("tiersPct").textContent=st.t+"%";
+  document.getElementById("orphelinsPct").textContent=st.o+"%";
+  const setorNome=setorMax===st.v?"VOISINS":setorMax===st.t?"TIERS":"ORPHELINS";
+  const setorMsg=document.getElementById("setorMsg");setorMsg.className="status ok";setorMsg.textContent=`Setor dominante: ${setorNome} (${setorMax}%).`;
+  document.getElementById("repeticao").textContent=rep+"%";
+  document.getElementById("quebraScore").textContent=quebra+"%";
+  const gatilho=document.getElementById("gatilhoMsg"),gatEstado=document.getElementById("gatilhoEstado");
+  if(trigger>=55){gatEstado.textContent="ENTRADA";gatilho.className="status ok";gatilho.textContent="GATILHO ATIVO — score de 55% ou mais, com convergência entre estrutura, setor e leitura recente.";}
+  else if(trigger>=40){gatEstado.textContent="ATENÇÃO";gatilho.className="status wait";gatilho.textContent="ATENÇÃO — score entre 40% e 54%. Existe sinal, mas ainda com dispersão.";}
+  else{gatEstado.textContent="AGUARDAR";gatilho.className="status danger";gatilho.textContent="SEM GATILHO — baixa convergência estatística.";}
+  const raceMsg=document.getElementById("raceMsg");
+  if(race>=55){raceMsg.className="status ok";raceMsg.textContent="RACE FORTE / ENTRADA — score de 55% ou mais. Os 7 giros recentes têm peso principal; o histórico até 21 giros atua como confirmação.";}
+  else if(race>=40){raceMsg.className="status wait";raceMsg.textContent="RACE EM ATENÇÃO — score entre 40% e 54%. Há sinal recente, mas ainda sem convergência suficiente.";}
+  else{raceMsg.className="status danger";raceMsg.textContent="RACE FRACA — não há concentração suficiente.";}
+  const quebraMsg=document.getElementById("quebraMsg");
+  if(quebra>=65){quebraMsg.className="status danger";quebraMsg.textContent="QUEBRA ALTA — padrão recente pode estar saturado.";}
+  else if(quebra>=45){quebraMsg.className="status wait";quebraMsg.textContent="QUEBRA MODERADA — atenção à mudança de região da roda.";}
+  else{quebraMsg.className="status ok";quebraMsg.textContent="Estrutura recente ainda consistente dentro da leitura estatística.";}
+  // Exibe alerta automático quando houver gatilho independente
+  const ultimoNumero=base7[base7.length-1];
+  mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos);
+
+  // Guarda os sinais atuais para avaliar o próximo resultado real
+  capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz);
+
+  atualizarHistorico();
+}
+document.getElementById("novoGiro").addEventListener("keydown",e=>{if(e.key==="Enter")registrarGiro();});
+atualizarHistorico();
+preencherInputsBase();
+atualizarPlacar();
+atualizarPainelCiclos();
+if(base7.length===7)analisar();
+
+// ===== FUNDO MATRIX =====
+(function iniciarMatrix(){
+  const canvas=document.getElementById("matrixBg");
+  if(!canvas) return;
+
+  const ctx=canvas.getContext("2d");
+  const chars="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+-<>[]{}アイウエオカキクケコサシスセソ";
+  let fontSize=16;
+  let columns=0;
+  let drops=[];
+
+  function resize(){
+    const dpr=Math.max(1,window.devicePixelRatio||1);
+    canvas.width=Math.floor(window.innerWidth*dpr);
+    canvas.height=Math.floor(window.innerHeight*dpr);
+    canvas.style.width=window.innerWidth+"px";
+    canvas.style.height=window.innerHeight+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    columns=Math.ceil(window.innerWidth/fontSize);
+    drops=Array.from({length:columns},()=>Math.random()*-60);
+  }
+
+  function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.10)";
+    ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+      const text=chars[Math.floor(Math.random()*chars.length)];
+      const x=i*fontSize;
+      const y=drops[i]*fontSize;
+
+      // brilho principal verde Matrix
+      ctx.fillStyle="rgba(0,255,105,0.82)";
+      ctx.shadowColor="rgba(0,255,105,0.45)";
+      ctx.shadowBlur=7;
+      ctx.fillText(text,x,y);
+
+      // reinício aleatório para não ficar uniforme
+      if(y>window.innerHeight && Math.random()>0.972){
+        drops[i]=Math.random()*-20;
+      }else{
+        drops[i]+=0.72+Math.random()*0.35;
+      }
+    }
+
+    ctx.shadowBlur=0;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize",resize);
+  resize();
+  draw();
+})();
+
+</script>
+</body>
+</html>
