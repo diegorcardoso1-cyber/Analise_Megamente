@@ -650,6 +650,13 @@ function iniciarPausa(tipo){
 function moduloEmPausa(tipo){
   return (pausaAposCiclo[tipo]||0)>0;
 }
+
+// Enquanto existir ciclo de Coluna/Dúzia ou pausa pós-ciclo,
+// nenhum NOVO sinal estrutural pode nascer.
+function bloqueioSinaisEstruturais(){
+  return ciclos.coluna.ativo || ciclos.duzia.ativo ||
+         moduloEmPausa("coluna") || moduloEmPausa("duzia");
+}
 function avancarOuEncerrarCiclo(tipo){
   if(!ciclos[tipo].ativo) return false;
 
@@ -748,13 +755,13 @@ function capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz){
     cobertura:[...cobertura.usados],
     colunasAtivas:scoresCol
       .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=55 && !ciclos.coluna.ativo && !moduloEmPausa("coluna"))
+      .filter(x=>x.score>=55 && !bloqueioSinaisEstruturais())
       .sort((a,b)=>b.score-a.score)
       .slice(0,2)
       .map(x=>x.numero),
     duziasAtivas:scoresDuz
       .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=55 && !ciclos.duzia.ativo && !moduloEmPausa("duzia"))
+      .filter(x=>x.score>=55 && !bloqueioSinaisEstruturais())
       .sort((a,b)=>b.score-a.score)
       .slice(0,2)
       .map(x=>x.numero),
@@ -770,6 +777,10 @@ function fecharAlertaGatilho(event){
 }
 
 function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
+  // Durante ciclo 1/3, 2/3, 3/3 ou pausa pós-ciclo, não dispara novo popup.
+  // A RACE continua sendo recalculada e exibida no painel, mas sem gerar novo alerta nesse período.
+  if(bloqueioSinaisEstruturais()) return;
+
   // No popup, sempre mostra as 2 melhores colunas e as 2 melhores dúzias
   // quando existir uma entrada geral/RACE.
   // A progressão GREEN/RED continua sendo controlada separadamente
@@ -1049,6 +1060,18 @@ function scoreEstrutural(contagem,total,indice,arr,tipo){
 function aplicarEstado(score,scoreId,stateId){
   document.getElementById(scoreId).textContent=score+"%";
   const st=document.getElementById(stateId);
+
+  if(bloqueioSinaisEstruturais()){
+    if(ciclos.coluna.ativo || ciclos.duzia.ativo){
+      st.textContent="CICLO ATIVO — SEM NOVO SINAL";
+      st.className="state wait";
+    }else{
+      st.textContent="PAUSA — 1 GIRO";
+      st.className="state wait";
+    }
+    return;
+  }
+
   if(score>=55){st.textContent="ENTRADA";st.className="state ok";}
   else if(score>=40){st.textContent="ATENÇÃO";st.className="state wait";}
   else{st.textContent="AGUARDAR";st.className="state danger";}
@@ -1162,7 +1185,13 @@ function analisar(){
   document.getElementById("repeticao").textContent=rep+"%";
   document.getElementById("quebraScore").textContent=quebra+"%";
   const gatilho=document.getElementById("gatilhoMsg"),gatEstado=document.getElementById("gatilhoEstado");
-  if(trigger>=55){gatEstado.textContent="ENTRADA";gatilho.className="status ok";gatilho.textContent="GATILHO ATIVO — score de 55% ou mais, com convergência entre estrutura, setor e leitura recente.";}
+  if(bloqueioSinaisEstruturais()){
+    gatEstado.textContent=(ciclos.coluna.ativo||ciclos.duzia.ativo)?"CICLO ATIVO":"PAUSA";
+    gatilho.className="status wait";
+    gatilho.textContent=(ciclos.coluna.ativo||ciclos.duzia.ativo)
+      ? "CICLO EM ANDAMENTO — mantendo os mesmos alvos até GREEN ou RED FINAL na 3ª tentativa. Nenhum novo sinal será liberado."
+      : "PAUSA OBRIGATÓRIA — este giro serve apenas para observar e recalcular a mesa. Nenhuma nova entrada será liberada.";
+  }else if(trigger>=55){gatEstado.textContent="ENTRADA";gatilho.className="status ok";gatilho.textContent="GATILHO ATIVO — score de 55% ou mais, com convergência entre estrutura, setor e leitura recente.";}
   else if(trigger>=40){gatEstado.textContent="ATENÇÃO";gatilho.className="status wait";gatilho.textContent="ATENÇÃO — score entre 40% e 54%. Existe sinal, mas ainda com dispersão.";}
   else{gatEstado.textContent="AGUARDAR";gatilho.className="status danger";gatilho.textContent="SEM GATILHO — baixa convergência estatística.";}
   const raceMsg=document.getElementById("raceMsg");
