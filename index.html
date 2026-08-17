@@ -453,6 +453,22 @@ button{
   </div>
 </div>
 
+<div id="adminPasswordModal" class="password-modal-overlay" onclick="fecharAdminPasswordModal(event)">
+  <div class="password-modal">
+    <h2>🔑 Definir senha temporária</h2>
+    <p id="adminPasswordUserLabel">Defina uma nova senha para o usuário selecionado.</p>
+    <form class="auth-form" onsubmit="salvarSenhaTemporariaAdmin(event)">
+      <div><label for="adminTempSenha1">Nova senha temporária</label><input id="adminTempSenha1" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo 8 caracteres"></div>
+      <div><label for="adminTempSenha2">Confirmar senha</label><input id="adminTempSenha2" type="password" autocomplete="new-password" minlength="8" required placeholder="Repita a senha"></div>
+      <div id="adminPasswordMessage" class="auth-message wait">O usuário poderá alterar essa senha depois de entrar.</div>
+      <div class="password-modal-actions">
+        <button class="btn-blue btn-small" type="button" onclick="fecharAdminPasswordModal()">CANCELAR</button>
+        <button class="btn-primary btn-small" type="submit">SALVAR SENHA</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="appRoot" class="container auth-hidden">
   <div class="account-bar">
     <div class="account-info" id="accountInfo">Usuário autenticado.</div>
@@ -1754,6 +1770,8 @@ async function carregarUsuariosAdmin(){
           <button class="btn-primary" onclick="alterarAcessoAdmin('${u.id}','activate',60)">60 DIAS</button>
           <button class="btn-primary" onclick="alterarAcessoAdmin('${u.id}','activate',90)">90 DIAS</button>
           <button class="btn-purple" onclick="alterarAcessoAdmin('${u.id}','activate',365)">1 ANO</button>
+          <button class="btn-blue" onclick="enviarResetSenhaAdmin(${JSON.stringify(u.email||'')})">📧 RESET POR E-MAIL</button>
+          <button class="btn-purple" onclick="abrirSenhaTemporariaAdmin('${u.id}',${JSON.stringify(u.email||'')})">🔑 NOVA SENHA</button>
           <button class="btn-danger" onclick="alterarAcessoAdmin('${u.id}','block',null)">BLOQUEAR</button>
         </div>`;
     return `<tr>
@@ -1781,6 +1799,60 @@ async function alterarAcessoAdmin(userId,acao,dias){
   if(error){adminMsg('Não foi possível alterar o acesso: '+error.message,'danger');return;}
   adminMsg('✅ Acesso atualizado com sucesso.','ok');
   await carregarUsuariosAdmin();
+}
+
+async function enviarResetSenhaAdmin(email){
+  if(!email){adminMsg('E-mail do usuário não encontrado.','danger');return;}
+  if(!window.confirm(`Enviar link de redefinição de senha para ${email}?`))return;
+  adminMsg('Enviando link de redefinição...','wait');
+  const {error}=await megamenteSB.auth.resetPasswordForEmail(email,{redirectTo:MEGAMENTE_REDIRECT_URL});
+  if(error){adminMsg('Não foi possível enviar o reset: '+error.message,'danger');return;}
+  adminMsg(`✅ Link de redefinição enviado para ${email}.`,'ok');
+}
+
+let adminPasswordTargetId=null;
+let adminPasswordTargetEmail='';
+
+function adminPasswordMsg(texto,tipo='wait'){
+  const el=document.getElementById('adminPasswordMessage');
+  if(!el)return;
+  el.className='auth-message '+tipo;
+  el.textContent=texto;
+}
+
+function abrirSenhaTemporariaAdmin(userId,email){
+  adminPasswordTargetId=userId;
+  adminPasswordTargetEmail=email||'';
+  document.getElementById('adminPasswordUserLabel').textContent=`Usuário: ${adminPasswordTargetEmail || userId}. Defina uma senha temporária.`;
+  document.getElementById('adminTempSenha1').value='';
+  document.getElementById('adminTempSenha2').value='';
+  adminPasswordMsg('A senha será alterada no backend seguro do Supabase.','wait');
+  document.getElementById('adminPasswordModal').classList.add('show');
+}
+
+function fecharAdminPasswordModal(event){
+  if(event && event.target && event.target.id!=='adminPasswordModal')return;
+  document.getElementById('adminPasswordModal').classList.remove('show');
+  adminPasswordTargetId=null;
+  adminPasswordTargetEmail='';
+}
+
+async function salvarSenhaTemporariaAdmin(event){
+  event.preventDefault();
+  if(!adminPasswordTargetId){adminPasswordMsg('Usuário não selecionado.','danger');return;}
+  const p1=document.getElementById('adminTempSenha1').value;
+  const p2=document.getElementById('adminTempSenha2').value;
+  if(p1.length<8){adminPasswordMsg('Use pelo menos 8 caracteres.','danger');return;}
+  if(p1!==p2){adminPasswordMsg('As duas senhas não são iguais.','danger');return;}
+  adminPasswordMsg('Atualizando senha...','wait');
+  const {data,error}=await megamenteSB.functions.invoke('admin-set-password',{
+    body:{target_user_id:adminPasswordTargetId,new_password:p1}
+  });
+  if(error){adminPasswordMsg('Não foi possível alterar: '+error.message,'danger');return;}
+  if(data && data.error){adminPasswordMsg('Não foi possível alterar: '+data.error,'danger');return;}
+  adminPasswordMsg('✅ Senha temporária definida com sucesso.','ok');
+  document.getElementById('adminTempSenha1').value='';
+  document.getElementById('adminTempSenha2').value='';
 }
 
 async function sairMegamente(){
