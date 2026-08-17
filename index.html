@@ -288,95 +288,33 @@ button{
 .gatilho-resumo{display:none}
 @media(max-width:600px){
   .gatilho-overlay{top:10px;right:10px;width:calc(100vw - 20px)}
+  .gatilho-overlay.duzia-overlay{top:230px;left:10px;right:auto}
 }
+.gatilho-overlay.duzia-overlay{left:18px;right:auto}
+.gatilho-overlay.duzia-overlay .gatilho-modal{border-color:rgba(139,92,246,.55);box-shadow:0 10px 32px rgba(0,0,0,.48),0 0 24px rgba(139,92,246,.13)}
+.gatilho-overlay.duzia-overlay .gatilho-modal h2{color:#c4b5fd}
 
-
-
-/* ===== CONTROLE DE ACESSO / SUPABASE ===== */
-.auth-hidden{display:none!important}
-.auth-gate{
-  position:relative;z-index:5;min-height:100vh;display:flex;align-items:center;justify-content:center;
-  padding:28px 16px;
+/* ===== POPUP INDEPENDENTE DE DÚZIAS ===== */
+#duziaOverlay{
+  left:18px;
+  right:auto;
 }
-.auth-shell{
-  width:min(470px,100%);padding:26px;border-radius:22px;
-  background:linear-gradient(180deg,rgba(2,10,18,.94),rgba(2,8,15,.92));
-  border:1px solid rgba(0,255,157,.28);
-  box-shadow:0 18px 60px rgba(0,0,0,.55),0 0 35px rgba(0,255,157,.08);
-  backdrop-filter:blur(12px);
+#duziaOverlay .gatilho-modal{
+  border-color:rgba(139,92,246,.48);
+  box-shadow:0 10px 32px rgba(0,0,0,.48),0 0 24px rgba(139,92,246,.14);
 }
-.auth-brand{text-align:center;margin-bottom:22px}
-.auth-brand h1{font-size:clamp(28px,7vw,42px);margin:0}
-.auth-brand p{color:var(--muted);margin:8px 0 0;line-height:1.5}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
-.auth-tab{background:#05101f;color:var(--muted);border:1px solid rgba(148,163,184,.16)}
-.auth-tab.active{background:rgba(0,255,157,.10);color:var(--verde);border-color:rgba(0,255,157,.35)}
-.auth-form{display:grid;gap:12px}
-.auth-form label{font-size:12px;color:var(--muted);font-weight:800}
-.auth-form input{text-align:left;font-weight:700}
-.auth-form button{margin-top:4px}
-.auth-message{margin-top:14px;padding:12px;border-radius:12px;border:1px solid rgba(148,163,184,.15);font-size:13px;font-weight:800;line-height:1.45}
-.auth-message.ok{color:var(--verde);border-color:rgba(0,255,157,.35);background:rgba(0,255,157,.06)}
-.auth-message.wait{color:var(--amarelo);border-color:rgba(255,209,102,.30);background:rgba(255,209,102,.05)}
-.auth-message.danger{color:#ff8da1;border-color:rgba(255,77,109,.35);background:rgba(255,77,109,.06)}
-.auth-note{font-size:11px;color:#64748b;text-align:center;margin-top:14px;line-height:1.5}
-.account-bar{
-  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-  padding:10px 14px;margin-bottom:12px;border-radius:14px;
-  border:1px solid rgba(0,183,255,.18);background:rgba(3,11,24,.80);
+#duziaOverlay .gatilho-modal h2{color:#c4b5fd}
+#duziaOverlay .gatilho-item strong{color:#c4b5fd}
+@media(max-width:600px){
+  #duziaOverlay{left:10px;right:auto;top:210px;width:calc(100vw - 20px)}
 }
-.account-info{font-size:12px;color:var(--muted);line-height:1.45}
-.account-info strong{color:var(--verde)}
-.account-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.account-badge{display:inline-flex;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:900;border:1px solid rgba(0,255,157,.25);color:var(--verde);background:rgba(0,255,157,.07)}
-.btn-small{padding:8px 11px;font-size:11px}
 
 </style>
 </head>
 
 <body>
 <canvas id="matrixBg" aria-hidden="true"></canvas>
-
-<section id="authGate" class="auth-gate">
-  <div class="auth-shell">
-    <div class="auth-brand">
-      <h1>🧠 ANÁLISE <span>MEGAMENTE</span></h1>
-      <p id="authSubtitle">Acesso ao sistema</p>
-    </div>
-
-    <div id="authFormsArea">
-      <div class="auth-tabs">
-        <button id="tabLogin" class="auth-tab active" type="button" onclick="trocarAuthTab('login')">ENTRAR</button>
-        <button id="tabCadastro" class="auth-tab" type="button" onclick="trocarAuthTab('cadastro')">CRIAR CONTA</button>
-      </div>
-
-      <form id="loginForm" class="auth-form" onsubmit="fazerLogin(event)">
-        <div><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="seu@email.com"></div>
-        <div><label for="loginSenha">Senha</label><input id="loginSenha" type="password" autocomplete="current-password" required placeholder="Sua senha"></div>
-        <button class="btn-primary" type="submit">🔐 ENTRAR NO MEGAMENTE</button>
-      </form>
-
-      <form id="cadastroForm" class="auth-form auth-hidden" onsubmit="fazerCadastro(event)">
-        <div><label for="cadNome">Nome</label><input id="cadNome" type="text" autocomplete="name" required placeholder="Seu nome"></div>
-        <div><label for="cadEmail">E-mail</label><input id="cadEmail" type="email" autocomplete="email" required placeholder="seu@email.com"></div>
-        <div><label for="cadSenha">Senha</label><input id="cadSenha" type="password" autocomplete="new-password" minlength="6" required placeholder="Mínimo 6 caracteres"></div>
-        <button class="btn-purple" type="submit">📝 CRIAR CADASTRO</button>
-      </form>
-    </div>
-
-    <div id="authMessage" class="auth-message wait">Informe seus dados para acessar. Novos cadastros ficam aguardando aprovação do administrador.</div>
-    <div class="auth-note">Acesso sujeito à aprovação e validade definida pelo administrador.</div>
-  </div>
-</section>
-
-<div id="appRoot" class="container auth-hidden">
-  <div class="account-bar">
-    <div class="account-info" id="accountInfo">Usuário autenticado.</div>
-    <div class="account-actions">
-      <span id="accountBadge" class="account-badge">ATIVO</span>
-      <button class="btn-danger btn-small" type="button" onclick="sairMegamente()">SAIR</button>
-    </div>
-  </div>
+<div class="container">
   <section class="hero">
     <h1>🧠 ANÁLISE <span>MEGAMENTE</span></h1>
     <div class="subtitle">
@@ -563,24 +501,30 @@ button{
 
 <div id="gatilhoOverlay" class="gatilho-overlay" onclick="fecharAlertaGatilho(event)">
   <div class="gatilho-modal" role="dialog" aria-modal="true" aria-labelledby="gatilhoTitulo">
-    <h2 id="gatilhoTitulo">🚨 MEGAMENTE — SINAIS</h2>
-    <div id="gatilhoApos" class="apos">Acompanhamento de Colunas e Dúzias</div>
-    <div class="gatilho-lista">
-      <div id="blocoColunaPopup" style="display:none">
-        <div class="gatilho-item"><strong>📌 COLUNAS</strong></div>
-        <div id="gatilhoLista"></div>
-      </div>
-      <div id="blocoDuziaPopup" style="display:none;margin-top:8px">
-        <div class="gatilho-item"><strong style="color:#c4b5fd">🎯 DÚZIAS</strong></div>
-        <div id="duziaLista"></div>
-      </div>
+    <h2 id="gatilhoTitulo">🚨 POSSÍVEL ENTRADA</h2>
+    <div id="gatilhoApos" class="apos">Após o número —</div>
+    <div id="gatilhoLista" class="gatilho-lista"></div>
+    <div class="gatilho-resumo">
+      O popup acompanha somente COLUNAS: o mesmo sinal fica travado por até 3 tentativas.
+      Após GREEN ou RED FINAL, o sistema aguarda 1 giro completo antes de liberar novo sinal.
     </div>
-    <div class="gatilho-resumo">Colunas e Dúzias mantêm ciclos independentes de até 3 tentativas.</div>
     <div class="acoes"><button onclick="fecharAlertaGatilho()">Entendi</button></div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div id="duziaOverlay" class="gatilho-overlay duzia-overlay" onclick="fecharAlertaDuzia(event)">
+  <div class="gatilho-modal" role="dialog" aria-modal="true" aria-labelledby="duziaTitulo">
+    <h2 id="duziaTitulo">🎯 POSSÍVEL ENTRADA — DÚZIAS</h2>
+    <div id="duziaApos" class="apos">Após o número —</div>
+    <div id="duziaLista" class="gatilho-lista"></div>
+    <div class="gatilho-resumo">
+      O popup acompanha somente DÚZIAS: o mesmo sinal fica travado por até 3 tentativas.
+      Após GREEN ou RED FINAL, o sistema aguarda 1 giro completo antes de liberar novo sinal.
+    </div>
+    <div class="acoes"><button onclick="fecharAlertaDuzia()">Entendi</button></div>
+  </div>
+</div>
+
 <script>
 const roda=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
 const vermelhos=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
@@ -918,23 +862,23 @@ function fecharAlertaGatilho(event){
 }
 
 function mostrarPopupColuna(titulo,subtitulo,html){
-  document.getElementById("gatilhoTitulo").textContent="🚨 MEGAMENTE — SINAIS";
+  document.getElementById("gatilhoTitulo").textContent=titulo;
   document.getElementById("gatilhoApos").textContent=subtitulo;
-  document.getElementById("blocoColunaPopup").style.display="block";
-  document.getElementById("gatilhoLista").innerHTML=`<div class="gatilho-item"><strong>${titulo}</strong></div>${html}`;
+  document.getElementById("gatilhoLista").innerHTML=html;
   document.getElementById("gatilhoOverlay").classList.add("show");
 }
 
 function fecharAlertaDuzia(event){
-  fecharAlertaGatilho(event);
+  if(event && event.target && event.target.id!=="duziaOverlay") return;
+  const ov=document.getElementById("duziaOverlay");
+  if(ov) ov.classList.remove("show");
 }
 
 function mostrarPopupDuzia(titulo,subtitulo,html){
-  document.getElementById("gatilhoTitulo").textContent="🚨 MEGAMENTE — SINAIS";
-  document.getElementById("gatilhoApos").textContent=subtitulo;
-  document.getElementById("blocoDuziaPopup").style.display="block";
-  document.getElementById("duziaLista").innerHTML=`<div class="gatilho-item"><strong style="color:#c4b5fd">${titulo}</strong></div>${html}`;
-  document.getElementById("gatilhoOverlay").classList.add("show");
+  document.getElementById("duziaTitulo").textContent=titulo;
+  document.getElementById("duziaApos").textContent=subtitulo;
+  document.getElementById("duziaLista").innerHTML=html;
+  document.getElementById("duziaOverlay").classList.add("show");
 }
 
 function textoAlvosDuzia(alvos){
@@ -1402,161 +1346,5 @@ if(base7.length===7)analisar();
 })();
 
 </script>
-
-
-<script>
-// ===== AUTENTICAÇÃO SUPABASE — MEGAMENTE =====
-const MEGAMENTE_SUPABASE_URL = 'https://jqgkndzlbajtbzwvdaog.supabase.co';
-const MEGAMENTE_SUPABASE_KEY = 'sb_publishable_f9-6kz8ywlLtNV27Sslb0A_At0Dib7P';
-const megamenteSB = window.supabase.createClient(MEGAMENTE_SUPABASE_URL, MEGAMENTE_SUPABASE_KEY);
-
-function authMsg(texto,tipo='wait'){
-  const el=document.getElementById('authMessage');
-  if(!el)return;
-  el.className='auth-message '+tipo;
-  el.textContent=texto;
-}
-
-function trocarAuthTab(tab){
-  const login=tab==='login';
-  document.getElementById('loginForm').classList.toggle('auth-hidden',!login);
-  document.getElementById('cadastroForm').classList.toggle('auth-hidden',login);
-  document.getElementById('tabLogin').classList.toggle('active',login);
-  document.getElementById('tabCadastro').classList.toggle('active',!login);
-  authMsg(login?'Informe seu e-mail e senha para entrar.':'Crie sua conta. Após o cadastro, o acesso ficará aguardando aprovação do administrador.','wait');
-}
-
-async function fazerLogin(ev){
-  ev.preventDefault();
-  const email=document.getElementById('loginEmail').value.trim();
-  const password=document.getElementById('loginSenha').value;
-  authMsg('Validando acesso...','wait');
-  const {error}=await megamenteSB.auth.signInWithPassword({email,password});
-  if(error){
-    authMsg('Não foi possível entrar. Confira e-mail e senha.','danger');
-    return;
-  }
-  await validarAcessoAtual();
-}
-
-async function fazerCadastro(ev){
-  ev.preventDefault();
-  const nome=document.getElementById('cadNome').value.trim();
-  const email=document.getElementById('cadEmail').value.trim();
-  const password=document.getElementById('cadSenha').value;
-  authMsg('Criando seu cadastro...','wait');
-  const {data,error}=await megamenteSB.auth.signUp({
-    email,
-    password,
-    options:{data:{nome}}
-  });
-  if(error){
-    authMsg('Não foi possível criar o cadastro: '+error.message,'danger');
-    return;
-  }
-  if(data.session){
-    await validarAcessoAtual();
-  }else{
-    authMsg('✅ Cadastro criado. Se a confirmação de e-mail estiver habilitada, confirme seu e-mail. Depois, aguarde a aprovação do administrador.','ok');
-  }
-}
-
-function formatarValidade(dataISO){
-  if(!dataISO)return 'Sem vencimento';
-  const d=new Date(dataISO);
-  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
-}
-
-function bloquearComMensagem(texto,tipo='wait'){
-  document.getElementById('appRoot').classList.add('auth-hidden');
-  document.getElementById('authGate').classList.remove('auth-hidden');
-  document.getElementById('authFormsArea').classList.add('auth-hidden');
-  document.getElementById('authSubtitle').textContent='Status do acesso';
-  authMsg(texto,tipo);
-}
-
-function mostrarLogin(){
-  document.getElementById('appRoot').classList.add('auth-hidden');
-  document.getElementById('authGate').classList.remove('auth-hidden');
-  document.getElementById('authFormsArea').classList.remove('auth-hidden');
-  document.getElementById('authSubtitle').textContent='Acesso ao sistema';
-  trocarAuthTab('login');
-}
-
-function liberarPainel(user,profile){
-  document.getElementById('authGate').classList.add('auth-hidden');
-  document.getElementById('appRoot').classList.remove('auth-hidden');
-  const admin=profile.role==='admin';
-  const validade=admin?'Sem vencimento':formatarValidade(profile.expires_at);
-  document.getElementById('accountInfo').innerHTML=`<strong>${profile.nome||user.email}</strong> • ${admin?'ADMIN':'USUÁRIO'} • validade: ${validade}`;
-  document.getElementById('accountBadge').textContent=admin?'👑 ADMIN':'✅ ATIVO';
-}
-
-async function validarAcessoAtual(){
-  const {data:{session}}=await megamenteSB.auth.getSession();
-  if(!session){
-    mostrarLogin();
-    return;
-  }
-
-  const user=session.user;
-  const {data:profile,error}=await megamenteSB
-    .from('profiles')
-    .select('id,nome,role,status,expires_at,created_at')
-    .eq('id',user.id)
-    .single();
-
-  if(error || !profile){
-    bloquearComMensagem('Não foi possível validar seu perfil. Tente sair e entrar novamente.','danger');
-    return;
-  }
-
-  if(profile.status==='pending'){
-    bloquearComMensagem('⏳ Cadastro realizado. Seu acesso está AGUARDANDO APROVAÇÃO do administrador.','wait');
-    return;
-  }
-  if(profile.status==='blocked'){
-    bloquearComMensagem('🔒 Seu acesso está BLOQUEADO. Entre em contato com o administrador.','danger');
-    return;
-  }
-  if(profile.status==='expired'){
-    bloquearComMensagem('⌛ Seu acesso está EXPIRADO. Entre em contato com o administrador para renovar.','danger');
-    return;
-  }
-
-  const admin=profile.role==='admin';
-  if(profile.status!=='active'){
-    bloquearComMensagem('Acesso não liberado. Entre em contato com o administrador.','danger');
-    return;
-  }
-
-  if(!admin){
-    if(!profile.expires_at){
-      bloquearComMensagem('⏳ Seu cadastro foi aprovado, mas ainda não possui uma validade definida.','wait');
-      return;
-    }
-    if(new Date(profile.expires_at).getTime()<=Date.now()){
-      bloquearComMensagem('⌛ Seu período de acesso venceu em '+formatarValidade(profile.expires_at)+'. Entre em contato com o administrador para renovar.','danger');
-      return;
-    }
-  }
-
-  liberarPainel(user,profile);
-}
-
-async function sairMegamente(){
-  await megamenteSB.auth.signOut();
-  mostrarLogin();
-}
-
-megamenteSB.auth.onAuthStateChange((event)=>{
-  if(event==='SIGNED_OUT') mostrarLogin();
-});
-
-window.addEventListener('DOMContentLoaded',()=>{
-  validarAcessoAtual();
-});
-</script>
-
 </body>
 </html>
