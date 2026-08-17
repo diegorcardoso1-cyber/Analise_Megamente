@@ -377,6 +377,7 @@ button{
         <div class="metric"><div class="label">Candidatos</div><div class="value" id="candidateCount">0</div></div>
       </div>
       <div id="raceMsg" class="status wait">Sem corrida estatística definida.</div>
+      <div id="raceFinaisMsg" class="status wait">🔢 ESTRATÉGIA FINAIS IGUAIS — aguardando 4 giros recentes.</div>
     </section>
 
     <section class="card span6">
@@ -909,6 +910,7 @@ function limparTudo(){
   document.getElementById("melhorColuna").textContent="—";
   document.getElementById("gatilhoEstado").textContent="—";
   document.getElementById("raceFill").style.width="0%";
+  const rf=document.getElementById("raceFinaisMsg"); if(rf){rf.className="status wait";rf.textContent="🔢 ESTRATÉGIA FINAIS IGUAIS — aguardando 4 giros recentes."}
 }
 function circularDist(a,b){
   const ia=roda.indexOf(a),ib=roda.indexOf(b),d=Math.abs(ia-ib);
@@ -1088,6 +1090,35 @@ function repeticaoPct(arr){
   for(let i=1;i<arr.length;i++)if(arr[i]===arr[i-1]||circularDist(arr[i],arr[i-1])<=1)rep++;
   return Math.round(rep/(arr.length-1)*100);
 }
+
+function analisarFinaisRace(){
+  const el=document.getElementById("raceFinaisMsg");
+  if(!el) return;
+
+  const ultimos4=historico.slice(-4);
+  if(ultimos4.length<4){
+    el.className="status wait";
+    el.textContent=`🔢 ESTRATÉGIA FINAIS IGUAIS — aguardando 4 giros recentes (${ultimos4.length}/4).`;
+    return;
+  }
+
+  const finais=ultimos4.map(n=>Math.abs(n)%10);
+  const grupo=new Set([0,1,2,3]);
+  const acertos=finais.filter(f=>grupo.has(f)).length;
+  const forca=Math.round(acertos/4*100);
+
+  if(acertos>=3){
+    el.className="status ok";
+    el.innerHTML=`🔥 ESTRATÉGIA FINAIS IGUAIS — POSSÍVEL ENTRADA: <b>FINAIS 0 • 1 • 2 • 3</b> — força recente ${forca}% <span class="small">(últimos finais: ${finais.join(" • ")})</span>`;
+  }else if(acertos===2){
+    el.className="status wait";
+    el.innerHTML=`⚠️ ESTRATÉGIA FINAIS IGUAIS — ATENÇÃO: <b>FINAIS 0 • 1 • 2 • 3</b> — força recente ${forca}% <span class="small">(últimos finais: ${finais.join(" • ")})</span>`;
+  }else{
+    el.className="status danger";
+    el.innerHTML=`⏸️ ESTRATÉGIA FINAIS IGUAIS — AGUARDAR — finais 0 • 1 • 2 • 3 com força recente ${forca}% <span class="small">(últimos finais: ${finais.join(" • ")})</span>`;
+  }
+}
+
 function analisar(){
   if(base7.length<7){setStatus("Aguardando os 7 giros iniciais para liberar a análise.","wait");atualizarHistorico();return;}
   const candidatos=calcularScores(),cobertura=construirCobertura(candidatos),estrutura=calcularEstrutura(base7),st=setorStats(base7),rep=repeticaoPct(base7);
@@ -1198,6 +1229,7 @@ function analisar(){
   if(race>=55){raceMsg.className="status ok";raceMsg.textContent="RACE FORTE / ENTRADA — score de 55% ou mais. Os 7 giros recentes comandam a leitura; o histórico até 21 giros atua apenas como confirmação.";}
   else if(race>=40){raceMsg.className="status wait";raceMsg.textContent="RACE EM ATENÇÃO — score entre 40% e 54%. Há sinal recente, mas ainda sem convergência suficiente.";}
   else{raceMsg.className="status danger";raceMsg.textContent="RACE FRACA — não há concentração suficiente.";}
+  analisarFinaisRace();
   const quebraMsg=document.getElementById("quebraMsg");
   if(quebra>=65){quebraMsg.className="status danger";quebraMsg.textContent="QUEBRA ALTA — padrão recente pode estar saturado.";}
   else if(quebra>=45){quebraMsg.className="status wait";quebraMsg.textContent="QUEBRA MODERADA — atenção à mudança de região da roda.";}
