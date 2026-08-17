@@ -670,6 +670,69 @@ function avancarOuEncerrarCiclo(tipo){
   return false;
 }
 
+
+
+
+let resultadosPopupPendentes=[];
+
+function atualizarPopupCiclo(titulo, linhas=[], mostrarPausa=false){
+  resultadosPopupPendentes.push({titulo,linhas,mostrarPausa});
+  exibirResultadosPopupPendentes();
+}
+
+function exibirResultadosPopupPendentes(){
+  if(!resultadosPopupPendentes.length) return;
+
+  const overlay=document.getElementById("gatilhoOverlay");
+  const apos=document.getElementById("gatilhoApos");
+  const lista=document.getElementById("gatilhoLista");
+  if(!overlay || !apos || !lista) return;
+
+  if(resultadosPopupPendentes.length===1){
+    const r=resultadosPopupPendentes[0];
+    apos.textContent=r.titulo;
+
+    let htmlLinhas=r.linhas.map(txt=>
+      `<div class="gatilho-item">${txt}</div>`
+    ).join("");
+
+    if(r.mostrarPausa){
+      htmlLinhas += `<div class="gatilho-item"><strong>⏸️ PRÓXIMO GIRO:</strong> AGUARDAR — SEM NOVA ENTRADA</div>`;
+    }
+
+    lista.innerHTML=htmlLinhas;
+  }else{
+    const temGreen=resultadosPopupPendentes.some(r=>r.titulo.includes("GREEN"));
+    const temRed=resultadosPopupPendentes.some(r=>r.titulo.includes("RED"));
+    const greenCol=resultadosPopupPendentes.some(r=>r.titulo.includes("GREEN NA COLUNA"));
+    const greenDuz=resultadosPopupPendentes.some(r=>r.titulo.includes("GREEN NA DÚZIA"));
+    apos.textContent = greenCol && greenDuz
+      ? "🟢 GREEN NA COLUNA + DÚZIA — RESULTADO DO GIRO"
+      : temGreen && temRed
+        ? "✅❌ RESULTADO DO GIRO — GREEN / RED"
+        : temGreen
+          ? "🟢 GREEN — RESULTADO DO GIRO"
+        : "🔴 RED — RESULTADO DO GIRO";
+
+    let htmlLinhas="";
+    let mostrarPausa=false;
+
+    resultadosPopupPendentes.forEach(r=>{
+      htmlLinhas += `<div class="gatilho-item"><strong>${r.titulo}</strong></div>`;
+      htmlLinhas += r.linhas.map(txt=>`<div class="gatilho-item">${txt}</div>`).join("");
+      if(r.mostrarPausa) mostrarPausa=true;
+    });
+
+    if(mostrarPausa){
+      htmlLinhas += `<div class="gatilho-item"><strong>⏸️ PRÓXIMO GIRO:</strong> AGUARDAR — SEM NOVA ENTRADA</div>`;
+    }
+
+    lista.innerHTML=htmlLinhas;
+  }
+
+  overlay.classList.add("show");
+}
+
 function avaliarSnapshot(numero){
   if(!snapshotEntrada) return;
 
@@ -697,8 +760,12 @@ function avaliarSnapshot(numero){
 
     if(ciclos.coluna.alvos.includes(colReal)){
       placar.coluna.green++;
-      setResultadoBox("colUltimoResultado","green",`🟢 GREEN COLUNA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, coluna ${colReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
-      encerrarCiclo("coluna");
+      setResultadoBox("colUltimoResultado","green",`🟢 GREEN NA COLUNA — CICLO ENCERRADO — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, coluna ${colReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
+      atualizarPopupCiclo(`🟢 GREEN NA COLUNA ${colReal} — TENTATIVA ${tentativaAtual}/3 — CICLO ENCERRADO`,[
+        `<strong>🟢 GREEN NA COLUNA:</strong> ${colReal}`,
+        `<strong>✅ RESULTADO:</strong> Número ${numero} bateu na COLUNA ${colReal}.`
+      ],true);
+encerrarCiclo("coluna");
       iniciarPausa("coluna");
     }else{
       const terminou=avancarOuEncerrarCiclo("coluna");
@@ -706,9 +773,17 @@ function avaliarSnapshot(numero){
       if(terminou){
         placar.coluna.red++;
         iniciarPausa("coluna");
-        setResultadoBox("colUltimoResultado","red",`🔴 RED FINAL COLUNA — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo. ⏸️ Próximo giro apenas observa a mesa.`);
-      }else{
+        setResultadoBox("colUltimoResultado","red",`🔴 RED FINAL NA COLUNA — CICLO ENCERRADO — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo. ⏸️ Próximo giro apenas observa a mesa.`);
+        atualizarPopupCiclo("🔴 RED FINAL 3/3 — COLUNA — CICLO ENCERRADO",[
+          `<strong>❌ RESULTADO:</strong> Número ${numero} não bateu nas colunas do ciclo.`,
+          `<strong>📌 STATUS:</strong> 3 tentativas concluídas.`
+        ],true);
+}else{
         setResultadoBox("colUltimoResultado","red",`🔴 RED COLUNA — tentativa ${tentativaAtual}/3 (${mult}x). Próxima tentativa: ${ciclos.coluna.tentativa}/3 (${multiplicadorTentativa(ciclos.coluna.tentativa)}x).`);
+        atualizarPopupCiclo(`🔴 RED ${tentativaAtual}/3 — CONTINUAR MESMO SINAL`,[
+          `<strong>📌 COLUNAS:</strong> ${ciclos.coluna.alvos.join(" e ")}`,
+          `<strong>➡️ PRÓXIMA:</strong> tentativa ${ciclos.coluna.tentativa}/3 (${multiplicadorTentativa(ciclos.coluna.tentativa)}x)`
+        ]);
       }
     }
   }else{
@@ -726,8 +801,12 @@ function avaliarSnapshot(numero){
 
     if(ciclos.duzia.alvos.includes(duzReal)){
       placar.duzia.green++;
-      setResultadoBox("duzUltimoResultado","green",`🟢 GREEN DÚZIA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, dúzia ${duzReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
-      encerrarCiclo("duzia");
+      setResultadoBox("duzUltimoResultado","green",`🟢 GREEN NA DÚZIA — CICLO ENCERRADO — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, dúzia ${duzReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
+      atualizarPopupCiclo(`🟢 GREEN NA DÚZIA — TENTATIVA ${tentativaAtual}/3 — CICLO ENCERRADO`,[
+        `<strong>✅ RESULTADO:</strong> Número ${numero} bateu na dúzia ${duzReal}.`,
+        `<strong>🎯 ALVOS DO CICLO:</strong> ${ciclos.duzia.alvos.length ? ciclos.duzia.alvos.join(" e ") : "encerrados"}`
+      ],true);
+encerrarCiclo("duzia");
       iniciarPausa("duzia");
     }else{
       const terminou=avancarOuEncerrarCiclo("duzia");
@@ -735,9 +814,17 @@ function avaliarSnapshot(numero){
       if(terminou){
         placar.duzia.red++;
         iniciarPausa("duzia");
-        setResultadoBox("duzUltimoResultado","red",`🔴 RED FINAL DÚZIA — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo. ⏸️ Próximo giro apenas observa a mesa.`);
-      }else{
+        setResultadoBox("duzUltimoResultado","red",`🔴 RED FINAL NA DÚZIA — CICLO ENCERRADO — 3/3 concluído. Número ${numero} não bateu o alvo do ciclo. ⏸️ Próximo giro apenas observa a mesa.`);
+        atualizarPopupCiclo("🔴 RED FINAL 3/3 — DÚZIA — CICLO ENCERRADO",[
+          `<strong>❌ RESULTADO:</strong> Número ${numero} não bateu nas dúzias do ciclo.`,
+          `<strong>🎯 STATUS:</strong> 3 tentativas concluídas.`
+        ],true);
+}else{
         setResultadoBox("duzUltimoResultado","red",`🔴 RED DÚZIA — tentativa ${tentativaAtual}/3 (${mult}x). Próxima tentativa: ${ciclos.duzia.tentativa}/3 (${multiplicadorTentativa(ciclos.duzia.tentativa)}x).`);
+        atualizarPopupCiclo(`🔴 RED ${tentativaAtual}/3 — CONTINUAR MESMO SINAL`,[
+          `<strong>🎯 DÚZIAS:</strong> ${ciclos.duzia.alvos.join(" e ")}`,
+          `<strong>➡️ PRÓXIMA:</strong> tentativa ${ciclos.duzia.tentativa}/3 (${multiplicadorTentativa(ciclos.duzia.tentativa)}x)`
+        ]);
       }
     }
   }else{
@@ -750,22 +837,22 @@ function avaliarSnapshot(numero){
 }
 
 function capturarSnapshotEntrada(cobertura,race,scoresCol,scoresDuz){
+  const colRank=scoresCol
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score);
+  const duzRank=scoresDuz
+    .map((score,i)=>({numero:i+1,score}))
+    .sort((a,b)=>b.score-a.score);
+
+  const gatilhoCol=colRank.some(x=>x.score>=55) && !ciclos.coluna.ativo && !moduloEmPausa("coluna");
+  const gatilhoDuz=duzRank.some(x=>x.score>=55) && !ciclos.duzia.ativo && !moduloEmPausa("duzia");
+
   snapshotEntrada={
     raceAtivo:race>=55,
     raceScore:race,
     cobertura:[...cobertura.usados],
-    colunasAtivas:scoresCol
-      .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=55 && !bloqueioSinaisEstruturais())
-      .sort((a,b)=>b.score-a.score)
-      .slice(0,2)
-      .map(x=>x.numero),
-    duziasAtivas:scoresDuz
-      .map((s,i)=>({numero:i+1,score:s}))
-      .filter(x=>x.score>=55 && !bloqueioSinaisEstruturais())
-      .sort((a,b)=>b.score-a.score)
-      .slice(0,2)
-      .map(x=>x.numero),
+    colunasAtivas:gatilhoCol ? colRank.slice(0,2).map(x=>x.numero) : [],
+    duziasAtivas:gatilhoDuz ? duzRank.slice(0,2).map(x=>x.numero) : [],
     timestamp:Date.now()
   };
   salvar();
@@ -778,27 +865,19 @@ function fecharAlertaGatilho(event){
 }
 
 function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
-  // Durante ciclo 1/3, 2/3, 3/3 ou pausa pós-ciclo, não dispara novo popup.
-  // A RACE continua sendo recalculada e exibida no painel, mas sem gerar novo alerta nesse período.
-  if(bloqueioSinaisEstruturais()) return;
-
-  // No popup, sempre mostra as 2 melhores colunas e as 2 melhores dúzias
-  // quando existir uma entrada geral/RACE.
-  // A progressão GREEN/RED continua sendo controlada separadamente
-  // pelos gatilhos individuais de 55% no snapshot.
-  const colunasSelecionadas=(moduloEmPausa("coluna") || ciclos.coluna.ativo) ? [] : scoresCol
+  const colRank=scoresCol
     .map((score,i)=>({numero:i+1,score}))
-    .sort((a,b)=>b.score-a.score)
-    .slice(0,2);
-
-  const duziasSelecionadas=(moduloEmPausa("duzia") || ciclos.duzia.ativo) ? [] : scoresDuz
+    .sort((a,b)=>b.score-a.score);
+  const duzRank=scoresDuz
     .map((score,i)=>({numero:i+1,score}))
-    .sort((a,b)=>b.score-a.score)
-    .slice(0,2);
+    .sort((a,b)=>b.score-a.score);
 
+  const algumaColunaAtiva=!ciclos.coluna.ativo && !moduloEmPausa("coluna") && colRank.some(x=>x.score>=55);
+  const algumaDuziaAtiva=!ciclos.duzia.ativo && !moduloEmPausa("duzia") && duzRank.some(x=>x.score>=55);
   const raceAtiva=race>=55;
-  const algumaColunaAtiva=!ciclos.coluna.ativo && !moduloEmPausa("coluna") && scoresCol.some(s=>s>=55);
-  const algumaDuziaAtiva=!ciclos.duzia.ativo && !moduloEmPausa("duzia") && scoresDuz.some(s=>s>=55);
+
+  const colunasSelecionadas=algumaColunaAtiva ? colRank.slice(0,2) : [];
+  const duziasSelecionadas=algumaDuziaAtiva ? duzRank.slice(0,2) : [];
 
   if(!raceAtiva && !algumaColunaAtiva && !algumaDuziaAtiva) return;
 
@@ -828,12 +907,27 @@ function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
     ? Math.round(componentes.reduce((a,b)=>a+b,0)/componentes.length)
     : 0;
 
-  document.getElementById("gatilhoApos").textContent=`POSSÍVEL ENTRADA APÓS O NÚMERO ${ultimoNumero}`;
+  const comandosEntrada=[];
+  if(algumaColunaAtiva){
+    comandosEntrada.push(`COLUNAS ${formatarLista(colunasSelecionadas)}`);
+  }
+  if(algumaDuziaAtiva){
+    comandosEntrada.push(`DÚZIAS ${formatarLista(duziasSelecionadas)}`);
+  }
 
-  const colDetalhe=colunasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
-  const duzDetalhe=duziasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ");
+  document.getElementById("gatilhoApos").textContent = comandosEntrada.length
+    ? `🚨 POSSÍVEL ENTRADA — ${comandosEntrada.join(" + ")} — APÓS O NÚMERO ${ultimoNumero}`
+    : `🏁 RACE EM ENTRADA — APÓS O NÚMERO ${ultimoNumero}`;
+
+  const colDetalhe=algumaColunaAtiva
+    ? colunasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
+    : "SEM ENTRADA";
+  const duzDetalhe=algumaDuziaAtiva
+    ? duziasSelecionadas.map(x=>`${x.numero} (${x.score}%)`).join(" e ")
+    : "SEM ENTRADA";
 
   document.getElementById("gatilhoLista").innerHTML=`
+    ${comandosEntrada.length ? `<div class="gatilho-item"><strong>🎯 ENTRADA:</strong> ${comandosEntrada.join(" + ")}</div>` : ""}
     <div class="gatilho-item"><strong>📌 COLUNAS:</strong> ${colDetalhe}</div>
     <div class="gatilho-item"><strong>🎯 DÚZIAS:</strong> ${duzDetalhe}</div>
     <div class="gatilho-item"><strong>🏁 RACE:</strong> <span class="forca">${race}%</span></div>
@@ -859,7 +953,8 @@ function registrarGiro(){
   const pausaColAntes=moduloEmPausa("coluna");
   const pausaDuzAntes=moduloEmPausa("duzia");
 
-  // Primeiro avalia o número usando os gatilhos que estavam ativos ANTES deste giro
+  // Limpa o resultado visual do giro anterior e avalia os sinais ativos.
+  resultadosPopupPendentes=[];
   avaliarSnapshot(n);
 
   // Depois avança a janela visível
@@ -875,6 +970,13 @@ function registrarGiro(){
   salvar();preencherInputsBase();atualizarHistorico();
   inp.value="";
   analisar();
+
+  // analisar() pode montar um novo popup de leitura.
+  // Se este giro acabou de produzir GREEN/RED, o RESULTADO tem prioridade visual.
+  if(resultadosPopupPendentes.length){
+    exibirResultadosPopupPendentes();
+  }
+
   setStatus(`✅ Giro ${n} registrado. A sequência avançou automaticamente e a análise foi recalculada.`,"ok");
 }
 function limparTudo(){
