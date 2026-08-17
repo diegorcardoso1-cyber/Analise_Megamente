@@ -158,10 +158,8 @@ hr{border:0;border-top:1px solid #163047;margin:14px 0}
 const LIMIAR = 45;
 let giros = JSON.parse(localStorage.getItem('megamente_giros') || '[]');
 let historico = JSON.parse(localStorage.getItem('megamente_hist') || '[]');
-let estadoCiclo = JSON.parse(localStorage.getItem('megamente_ciclo') || '{"ativo":false,"tentativa":0,"aguardandoPausa":false,"girosPausaRestantes":0,"sinal":null}');
-if(typeof estadoCiclo.aguardandoPausa==='undefined') estadoCiclo.aguardandoPausa=false;
-if(typeof estadoCiclo.girosPausaRestantes==='undefined') estadoCiclo.girosPausaRestantes=0;
-if(typeof estadoCiclo.sinal==='undefined') estadoCiclo.sinal=null;
+let estadoCiclo = JSON.parse(localStorage.getItem('megamente_ciclo') || '{"ativo":false,"tentativa":0}');
+let pausaPosCiclo = Number(localStorage.getItem('megamente_pausa') || 0);
 let greens = Number(localStorage.getItem('megamente_greens') || 0);
 let reds = Number(localStorage.getItem('megamente_reds') || 0);
 
@@ -249,18 +247,17 @@ function render(){
   if(sd.validas.length) partes.push(`DÚZIA${sd.validas.length>1?'S':''} ${sd.validas.map(x=>x.id).join(' E ')}`);
 
   const lc=document.getElementById('linhaCombinada');
-  const ctop=cols.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
-  const dtop=duzs.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
-
   if(estadoCiclo.ativo){
-    const sinalAtual = estadoCiclo.sinal || 'SINAL EM ACOMPANHAMENTO';
-    lc.innerHTML=`<span class="blue">⏳ CICLO ATIVO:</span> ${sinalAtual} — tentativa ${estadoCiclo.tentativa}/3`;
-  } else if(estadoCiclo.aguardandoPausa){
-    lc.innerHTML=`<span class="yellow">⏸ AGUARDAR</span> — giro de pausa obrigatório após GREEN/RED. COLUNAS ${ctop} | DÚZIAS ${dtop}`;
+    lc.innerHTML=`<span class="blue">⏳ CICLO EM ANDAMENTO</span> — Tentativa ${estadoCiclo.tentativa}/3`;
+  } else if(pausaPosCiclo>0){
+    const ctop=cols.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
+    const dtop=duzs.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
+    lc.innerHTML=`<span class="yellow">AGUARDAR</span> — 1 GIRO DE PAUSA | COLUNAS ${ctop} | DÚZIAS ${dtop}`;
   } else if(partes.length){
-    const textoSinal = partes.join(' + ');
-    lc.innerHTML=`<span class="green">🔥 GATILHO:</span> ENTRA NAS ${textoSinal}`;
+    lc.innerHTML=`<span class="green">🔥 GATILHO:</span> ENTRA NAS ${partes.join(' + ')}`;
   } else {
+    const ctop=cols.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
+    const dtop=duzs.slice(0,2).map(x=>`${x.id} (${x.pct.toFixed(0)}%)`).join(' E ');
     lc.innerHTML=`<span class="yellow">AGUARDAR</span> — COLUNAS ${ctop} | DÚZIAS ${dtop}`;
   }
 
@@ -281,11 +278,9 @@ function render(){
       : `<span class="yellow">AGUARDAR</span> — força RACE ${forca}%`;
   }
 
-  document.getElementById('ciclo').innerHTML = estadoCiclo.ativo
-    ? `Sinal ativo — <span class="blue">Tentativa ${estadoCiclo.tentativa}/3</span><br><span class="small">${estadoCiclo.sinal||''}</span>`
-    : estadoCiclo.aguardandoPausa
-      ? '<span class="yellow">Pausa obrigatória:</span> registre 1 giro para atualizar a leitura antes de um novo sinal.'
-      : 'Nenhum sinal ativo.';
+  document.getElementById('ciclo').innerHTML = !estadoCiclo.ativo
+    ? 'Nenhum sinal ativo.'
+    : `Sinal ativo — <span class="blue">Tentativa ${estadoCiclo.tentativa}/3</span>`;
 
   document.getElementById('historico').innerHTML = historico.slice().reverse().slice(0,50)
     .map(h=>`<tr><td>${h.hora}</td><td>${h.numero}</td><td>${h.coluna||'-'}</td><td>${h.duzia||'-'}</td><td>${h.sinal}</td></tr>`).join('');
@@ -306,24 +301,16 @@ function registrar(){
   if(sc.length) s.push('COL '+sc.map(x=>x.id).join('/'));
   if(sd.length) s.push('DUZ '+sd.map(x=>x.id).join('/'));
 
-  let sinalHistorico='AGUARDAR';
+  let sinalHistorico = s.length?s.join(' + '):'AGUARDAR';
 
-  if(estadoCiclo.ativo){
-    sinalHistorico=`CICLO T${estadoCiclo.tentativa}/3 — ${estadoCiclo.sinal||''}`;
-  } else if(estadoCiclo.aguardandoPausa){
-    sinalHistorico='PAUSA OBRIGATÓRIA — REANÁLISE';
-    estadoCiclo.aguardandoPausa=false;
-    estadoCiclo.girosPausaRestantes=0;
-  } else if(s.length){
-    const textoSinal=s.join(' + ');
-    estadoCiclo={
-      ativo:true,
-      tentativa:1,
-      aguardandoPausa:false,
-      girosPausaRestantes:0,
-      sinal:textoSinal
-    };
-    sinalHistorico=`NOVO SINAL — ${textoSinal}`;
+  // Depois de GREEN/RED, o próximo giro é obrigatoriamente só de pausa/reanálise.
+  if(!estadoCiclo.ativo && pausaPosCiclo>0){
+    pausaPosCiclo--;
+    sinalHistorico='AGUARDAR — PAUSA PÓS-CICLO';
+  }
+  // Novo sinal só nasce quando um NOVO giro é registrado e não existe ciclo/pausa.
+  else if(!estadoCiclo.ativo && pausaPosCiclo===0 && s.length){
+    estadoCiclo={ativo:true,tentativa:1};
   }
 
   historico.push({
@@ -340,16 +327,18 @@ function marcarResultado(green){
   if(!estadoCiclo.ativo){ alert('Não há sinal ativo.'); return; }
   if(green){
     greens++;
-    estadoCiclo={ativo:false,tentativa:0,aguardandoPausa:true,girosPausaRestantes:1,sinal:null};
-    alert('✅ GREEN! Ciclo encerrado. O próximo giro será apenas de pausa e reanálise.');
+    estadoCiclo={ativo:false,tentativa:0};
+    pausaPosCiclo=1;
+    alert('✅ GREEN! Parabéns — ciclo encerrado. Próximo giro será apenas de pausa/reanálise.');
   }else{
     if(estadoCiclo.tentativa<3){
       estadoCiclo.tentativa++;
       alert(`❌ Não bateu. Seguindo para a tentativa ${estadoCiclo.tentativa}/3.`);
     }else{
       reds++;
-      estadoCiclo={ativo:false,tentativa:0,aguardandoPausa:true,girosPausaRestantes:1,sinal:null};
-      alert('🔴 RED após 3 tentativas. O próximo giro será apenas de pausa e reanálise.');
+      estadoCiclo={ativo:false,tentativa:0};
+      pausaPosCiclo=1;
+      alert('🔴 RED após 3 tentativas. Ciclo encerrado. Próximo giro será apenas de pausa/reanálise.');
     }
   }
   salvar(); render();
@@ -361,12 +350,13 @@ function desfazer(){
 }
 function limparTudo(){
   if(!confirm('Deseja apagar todos os giros e o histórico?')) return;
-  giros=[]; historico=[]; estadoCiclo={ativo:false,tentativa:0,aguardandoPausa:false,girosPausaRestantes:0,sinal:null}; greens=0; reds=0; salvar(); render();
+  giros=[]; historico=[]; estadoCiclo={ativo:false,tentativa:0}; pausaPosCiclo=0; greens=0; reds=0; salvar(); render();
 }
 function salvar(){
   localStorage.setItem('megamente_giros',JSON.stringify(giros));
   localStorage.setItem('megamente_hist',JSON.stringify(historico));
   localStorage.setItem('megamente_ciclo',JSON.stringify(estadoCiclo));
+  localStorage.setItem('megamente_pausa',pausaPosCiclo);
   localStorage.setItem('megamente_greens',greens);
   localStorage.setItem('megamente_reds',reds);
 }
