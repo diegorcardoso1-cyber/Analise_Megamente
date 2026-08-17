@@ -624,12 +624,12 @@ function atualizarPainelCiclos(){
 
   document.getElementById("colTentativa").textContent=(c.ativo?c.tentativa:0)+"/3";
   document.getElementById("colMultiplicador").textContent=multiplicadorTentativa(c.ativo?c.tentativa:1)+"x";
-  document.getElementById("colCicloStatus").textContent=c.ativo?"EM PROGRESSÃO":"AGUARDANDO GATILHO";
+  document.getElementById("colCicloStatus").textContent=c.ativo?"EM PROGRESSÃO":(moduloEmPausa("coluna")?"PAUSA — 1 GIRO":"AGUARDANDO GATILHO");
   document.getElementById("colAlvosCiclo").textContent=c.alvos.length?c.alvos.join(" / "):"—";
 
   document.getElementById("duzTentativa").textContent=(d.ativo?d.tentativa:0)+"/3";
   document.getElementById("duzMultiplicador").textContent=multiplicadorTentativa(d.ativo?d.tentativa:1)+"x";
-  document.getElementById("duzCicloStatus").textContent=d.ativo?"EM PROGRESSÃO":"AGUARDANDO GATILHO";
+  document.getElementById("duzCicloStatus").textContent=d.ativo?"EM PROGRESSÃO":(moduloEmPausa("duzia")?"PAUSA — 1 GIRO":"AGUARDANDO GATILHO");
   document.getElementById("duzAlvosCiclo").textContent=d.alvos.length?d.alvos.join(" / "):"—";
 }
 
@@ -689,7 +689,7 @@ function avaliarSnapshot(numero){
 
     if(ciclos.coluna.alvos.includes(colReal)){
       placar.coluna.green++;
-      setResultadoBox("colUltimoResultado","green",`🟢 GREEN COLUNA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, coluna ${colReal}. Ciclo encerrado.`);
+      setResultadoBox("colUltimoResultado","green",`🟢 GREEN COLUNA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, coluna ${colReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
       encerrarCiclo("coluna");
       iniciarPausa("coluna");
     }else{
@@ -718,7 +718,7 @@ function avaliarSnapshot(numero){
 
     if(ciclos.duzia.alvos.includes(duzReal)){
       placar.duzia.green++;
-      setResultadoBox("duzUltimoResultado","green",`🟢 GREEN DÚZIA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, dúzia ${duzReal}. Ciclo encerrado.`);
+      setResultadoBox("duzUltimoResultado","green",`🟢 GREEN DÚZIA — tentativa ${tentativaAtual}/3 (${mult}x), número ${numero}, dúzia ${duzReal}. Ciclo encerrado. ⏸️ Próximo giro apenas observa a mesa.`);
       encerrarCiclo("duzia");
       iniciarPausa("duzia");
     }else{
@@ -774,12 +774,12 @@ function mostrarAlertaGatilho(ultimoNumero,race,scoresCol,scoresDuz,candidatos){
   // quando existir uma entrada geral/RACE.
   // A progressão GREEN/RED continua sendo controlada separadamente
   // pelos gatilhos individuais de 55% no snapshot.
-  const colunasSelecionadas=scoresCol
+  const colunasSelecionadas=(moduloEmPausa("coluna") || ciclos.coluna.ativo) ? [] : scoresCol
     .map((score,i)=>({numero:i+1,score}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,2);
 
-  const duziasSelecionadas=scoresDuz
+  const duziasSelecionadas=(moduloEmPausa("duzia") || ciclos.duzia.ativo) ? [] : scoresDuz
     .map((score,i)=>({numero:i+1,score}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,2);
@@ -1077,6 +1077,23 @@ function analisar(){
   aplicarEstado(scoresDuz[0],"duz1Score","duz1State");
   aplicarEstado(scoresDuz[1],"duz2Score","duz2State");
   aplicarEstado(scoresDuz[2],"duz3Score","duz3State");
+
+  // GREEN/RED FINAL encerra o ciclo e obriga 1 giro completo de observação.
+  // Durante esse giro, o módulo não pode exibir nova ENTRADA.
+  if(moduloEmPausa("coluna")){
+    ["col1State","col2State","col3State"].forEach(id=>{
+      const st=document.getElementById(id);
+      st.textContent="PAUSA 1 GIRO";
+      st.className="state wait";
+    });
+  }
+  if(moduloEmPausa("duzia")){
+    ["duz1State","duz2State","duz3State"].forEach(id=>{
+      const st=document.getElementById(id);
+      st.textContent="PAUSA 1 GIRO";
+      st.className="state wait";
+    });
+  }
   const bestColScore=Math.max(...scoresCol),bestDuzScore=Math.max(...scoresDuz);
   document.getElementById("melhorColuna").textContent=(scoresCol.indexOf(bestColScore)+1)+"ª";
   document.getElementById("melhorDuzia").textContent=(scoresDuz.indexOf(bestDuzScore)+1)+"ª";
