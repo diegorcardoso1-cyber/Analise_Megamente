@@ -330,6 +330,23 @@ button{
 .btn-small{padding:8px 11px;font-size:11px}
 
 
+/* ===== SENHA / RECUPERAÇÃO ===== */
+.auth-link-btn{
+  border:0;background:transparent;color:var(--azul);padding:4px 0;font-size:12px;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px
+}
+.auth-link-row{display:flex;justify-content:center;margin-top:10px}
+.password-modal-overlay{
+  position:fixed;inset:0;z-index:12000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(6px)
+}
+.password-modal-overlay.show{display:flex}
+.password-modal{
+  width:min(430px,100%);padding:20px;border-radius:18px;background:linear-gradient(180deg,rgba(3,16,27,.99),rgba(1,8,16,.98));border:1px solid rgba(0,255,157,.35);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 28px rgba(0,255,157,.08)
+}
+.password-modal h2{margin:0 0 8px;color:var(--verde);font-size:20px}
+.password-modal p{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.5}
+.password-modal .auth-form{gap:10px}
+.password-modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+
 </style>
 </head>
 
@@ -352,6 +369,7 @@ button{
         <div><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="seu@email.com"></div>
         <div><label for="loginSenha">Senha</label><input id="loginSenha" type="password" autocomplete="current-password" required placeholder="Sua senha"></div>
         <button class="btn-primary" type="submit">🔐 ENTRAR NO MEGAMENTE</button>
+        <div class="auth-link-row"><button class="auth-link-btn" type="button" onclick="abrirEsqueciSenha()">Esqueci minha senha</button></div>
       </form>
 
       <form id="cadastroForm" class="auth-form auth-hidden" onsubmit="fazerCadastro(event)">
@@ -367,11 +385,28 @@ button{
   </div>
 </section>
 
+<div id="passwordModal" class="password-modal-overlay" onclick="fecharPasswordModal(event)">
+  <div class="password-modal">
+    <h2 id="passwordModalTitle">🔑 Alterar senha</h2>
+    <p id="passwordModalText">Informe sua nova senha.</p>
+    <form id="passwordChangeForm" class="auth-form" onsubmit="salvarNovaSenha(event)">
+      <div><label for="novaSenha1">Nova senha</label><input id="novaSenha1" type="password" autocomplete="new-password" minlength="6" required placeholder="Mínimo 6 caracteres"></div>
+      <div><label for="novaSenha2">Confirmar nova senha</label><input id="novaSenha2" type="password" autocomplete="new-password" minlength="6" required placeholder="Repita a nova senha"></div>
+      <div id="passwordModalMessage" class="auth-message wait">Informe e confirme a nova senha.</div>
+      <div class="password-modal-actions">
+        <button class="btn-blue btn-small" type="button" onclick="fecharPasswordModal()">CANCELAR</button>
+        <button class="btn-primary btn-small" type="submit">SALVAR NOVA SENHA</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="appRoot" class="container auth-hidden">
   <div class="account-bar">
     <div class="account-info" id="accountInfo">Usuário autenticado.</div>
     <div class="account-actions">
       <span id="accountBadge" class="account-badge">ATIVO</span>
+      <button class="btn-blue btn-small" type="button" onclick="abrirAlterarSenha()">🔑 ALTERAR SENHA</button>
       <button class="btn-danger btn-small" type="button" onclick="sairMegamente()">SAIR</button>
     </div>
   </div>
@@ -1424,6 +1459,72 @@ function trocarAuthTab(tab){
   authMsg(login?'Informe seu e-mail e senha para entrar.':'Crie sua conta. Após o cadastro, o acesso ficará aguardando aprovação do administrador.','wait');
 }
 
+const MEGAMENTE_REDIRECT_URL = 'https://diegorcardoso1-cyber.github.io/Analise_Megamente/';
+let modoRecuperacaoSenha=false;
+
+async function abrirEsqueciSenha(){
+  const email=document.getElementById('loginEmail').value.trim();
+  if(!email){
+    authMsg('Informe seu e-mail no campo acima para receber o link de recuperação.','wait');
+    document.getElementById('loginEmail').focus();
+    return;
+  }
+  authMsg('Enviando link de recuperação...','wait');
+  const {error}=await megamenteSB.auth.resetPasswordForEmail(email,{redirectTo:MEGAMENTE_REDIRECT_URL});
+  if(error){
+    authMsg('Não foi possível enviar o link de recuperação: '+error.message,'danger');
+    return;
+  }
+  authMsg('✅ Link de recuperação enviado. Confira seu e-mail e clique no link para definir uma nova senha.','ok');
+}
+
+function passwordModalMsg(texto,tipo='wait'){
+  const el=document.getElementById('passwordModalMessage');
+  if(!el)return;
+  el.className='auth-message '+tipo;
+  el.textContent=texto;
+}
+
+function abrirPasswordModal(recuperacao=false){
+  modoRecuperacaoSenha=recuperacao;
+  document.getElementById('passwordModalTitle').textContent=recuperacao?'🔐 Criar nova senha':'🔑 Alterar senha';
+  document.getElementById('passwordModalText').textContent=recuperacao?'Você acessou o MEGAMENTE pelo link de recuperação. Defina uma nova senha.':'Defina uma nova senha para sua conta.';
+  document.getElementById('novaSenha1').value='';
+  document.getElementById('novaSenha2').value='';
+  passwordModalMsg('Informe e confirme a nova senha.','wait');
+  document.getElementById('passwordModal').classList.add('show');
+  setTimeout(()=>document.getElementById('novaSenha1').focus(),50);
+}
+
+function abrirAlterarSenha(){
+  abrirPasswordModal(false);
+}
+
+function fecharPasswordModal(event){
+  if(event && event.target && event.target.id!=='passwordModal')return;
+  document.getElementById('passwordModal').classList.remove('show');
+  modoRecuperacaoSenha=false;
+}
+
+async function salvarNovaSenha(ev){
+  ev.preventDefault();
+  const p1=document.getElementById('novaSenha1').value;
+  const p2=document.getElementById('novaSenha2').value;
+  if(p1.length<6){passwordModalMsg('A senha precisa ter pelo menos 6 caracteres.','danger');return;}
+  if(p1!==p2){passwordModalMsg('As duas senhas não são iguais.','danger');return;}
+  passwordModalMsg('Atualizando sua senha...','wait');
+  const {error}=await megamenteSB.auth.updateUser({password:p1});
+  if(error){passwordModalMsg('Não foi possível alterar a senha: '+error.message,'danger');return;}
+  passwordModalMsg('✅ Senha alterada com sucesso.','ok');
+  setTimeout(async()=>{
+    document.getElementById('passwordModal').classList.remove('show');
+    if(modoRecuperacaoSenha){
+      modoRecuperacaoSenha=false;
+      await validarAcessoAtual();
+    }
+  },900);
+}
+
 async function fazerLogin(ev){
   ev.preventDefault();
   const email=document.getElementById('loginEmail').value.trim();
@@ -1549,6 +1650,11 @@ async function sairMegamente(){
 
 megamenteSB.auth.onAuthStateChange((event)=>{
   if(event==='SIGNED_OUT') mostrarLogin();
+  if(event==='PASSWORD_RECOVERY'){
+    document.getElementById('appRoot').classList.add('auth-hidden');
+    document.getElementById('authGate').classList.add('auth-hidden');
+    abrirPasswordModal(true);
+  }
 });
 
 window.addEventListener('DOMContentLoaded',()=>{
